@@ -1,0 +1,1 @@
+"C:\Program Files (x86)\Cisco Systems\VPN Client\vpnclient.exe" connect RUNISO_PARIS user RHarari pwd "V53m2&LCO4KDG"

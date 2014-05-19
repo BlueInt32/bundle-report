@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tradeDoublerPending>
+  <organizationId>1772736</organizationId>
+  <sequenceNumber>1</sequenceNumber>
+  <numberOfTransactions>2</numberOfTransactions>
+  <transactions>
+    <transaction>
+      <EventId>287866</EventId>
+      <OrderNumber>9fdcc132-26c3-4dac-8c71-f660474e5ab4</OrderNumber>
+      <Status>A</Status>
+    </transaction>
+    <transaction>
+      <EventId>287866</EventId>
+      <OrderNumber>5b758f13-0745-4487-a68b-5b1b595f1610</OrderNumber>
+      <Status>A</Status>
+    </transaction>
+  </transactions>
+</tradeDoublerPending>

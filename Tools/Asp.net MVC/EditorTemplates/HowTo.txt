@@ -1,0 +1,3 @@
+﻿Copier les fichiers dans le projet Web dans : 
+/Views/Shared/EditorTemplates/Bool_RadioButtonList.cshtml
+Puis appeler avec @Html.EditorFor(model => model.Params.SendsEmails, "Bool_RadioButtonList")

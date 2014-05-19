@@ -1,0 +1,25 @@
+﻿@model Enum
+@{
+    //Nullable<bool> emptyFromParams = this.ViewData.Values.ToList()[1] as Nullable<bool>;
+    
+    var listItems = Enum.GetValues(Model.GetType()).OfType<Enum>().Select(e =>
+        new SelectListItem()
+        {
+            Text = e.ToString(),
+            Value = e.ToString(),
+            Selected = e.Equals(Model)
+        }
+    );
+    string prefix = ViewData.TemplateInfo.HtmlFieldPrefix;
+    int index = 0;
+    ViewData.TemplateInfo.HtmlFieldPrefix = string.Empty;
+    foreach (var li in listItems)
+    {
+        string fieldName = string.Format(System.Globalization.CultureInfo.InvariantCulture, "{0}_{1}", prefix, index++);
+		<label class="radio inline span1">
+		  @Html.RadioButton(prefix, li.Value, li.Selected, new { @id = fieldName }) 
+		  @li.Text
+		</label>
+	}
+    ViewData.TemplateInfo.HtmlFieldPrefix = prefix;
+}

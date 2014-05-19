@@ -1,0 +1,293 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{D281EB8E-8BAD-4FF1-92DF-D123E42742A8}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CollecteBundles</RootNamespace>
+    <AssemblyName>CollecteBundles</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.1.2\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.1.2\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.1.2\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.1.2\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.1.2\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.1.2\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Net.Http.Formatting">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.1.2\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.1.2\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.1.2\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Data\local.mdf" />
+    <Content Include="App_Data\local_log.ldf">
+      <DependentUpon>local.mdf</DependentUpon>
+    </Content>
+    <Content Include="bundle.partial.html" />
+    <Content Include="css\style.css" />
+    <Content Include="external\bootstrap-2.3.2\.gitignore" />
+    <Content Include="external\bootstrap-2.3.2\bower.json" />
+    <Content Include="external\bootstrap-2.3.2\composer.json" />
+    <Content Include="external\bootstrap-2.3.2\img\glyphicons-halflings-white.png" />
+    <Content Include="external\bootstrap-2.3.2\img\glyphicons-halflings.png" />
+    <Content Include="external\bootstrap-2.3.2\js\bootstrap-affix.js" />
+    <Content Include="external\bootstrap-2.3.2\js\bootstrap-alert.js" />
+    <Content Include="external\bootstrap-2.3.2\js\bootstrap-button.js" />
+    <Content Include="external\bootstrap-2.3.2\js\bootstrap-carousel.js" />
+    <Content Include="external\bootstrap-2.3.2\js\bootstrap-collapse.js" />
+    <Content Include="external\bootstrap-2.3.2\js\bootstrap-dropdown.js" />
+    <Content Include="external\bootstrap-2.3.2\js\bootstrap-modal.js" />
+    <Content Include="external\bootstrap-2.3.2\js\bootstrap-popover.js" />
+    <Content Include="external\bootstrap-2.3.2\js\bootstrap-scrollspy.js" />
+    <Content Include="external\bootstrap-2.3.2\js\bootstrap-tab.js" />
+    <Content Include="external\bootstrap-2.3.2\js\bootstrap-tooltip.js" />
+    <Content Include="external\bootstrap-2.3.2\js\bootstrap-transition.js" />
+    <Content Include="external\bootstrap-2.3.2\js\bootstrap-typeahead.js" />
+    <Content Include="external\bootstrap-2.3.2\js\tests\index.html" />
+    <Content Include="external\bootstrap-2.3.2\js\tests\phantom.js" />
+    <Content Include="external\bootstrap-2.3.2\js\tests\server.js" />
+    <Content Include="external\bootstrap-2.3.2\js\tests\unit\bootstrap-affix.js" />
+    <Content Include="external\bootstrap-2.3.2\js\tests\unit\bootstrap-alert.js" />
+    <Content Include="external\bootstrap-2.3.2\js\tests\unit\bootstrap-button.js" />
+    <Content Include="external\bootstrap-2.3.2\js\tests\unit\bootstrap-carousel.js" />
+    <Content Include="external\bootstrap-2.3.2\js\tests\unit\bootstrap-collapse.js" />
+    <Content Include="external\bootstrap-2.3.2\js\tests\unit\bootstrap-dropdown.js" />
+    <Content Include="external\bootstrap-2.3.2\js\tests\unit\bootstrap-modal.js" />
+    <Content Include="external\bootstrap-2.3.2\js\tests\unit\bootstrap-phantom.js" />
+    <Content Include="external\bootstrap-2.3.2\js\tests\unit\bootstrap-popover.js" />
+    <Content Include="external\bootstrap-2.3.2\js\tests\unit\bootstrap-scrollspy.js" />
+    <Content Include="external\bootstrap-2.3.2\js\tests\unit\bootstrap-tab.js" />
+    <Content Include="external\bootstrap-2.3.2\js\tests\unit\bootstrap-tooltip.js" />
+    <Content Include="external\bootstrap-2.3.2\js\tests\unit\bootstrap-transition.js" />
+    <Content Include="external\bootstrap-2.3.2\js\tests\unit\bootstrap-typeahead.js" />
+    <Content Include="external\bootstrap-2.3.2\js\tests\vendor\jquery.js" />
+    <Content Include="external\bootstrap-2.3.2\js\tests\vendor\qunit.css" />
+    <Content Include="external\bootstrap-2.3.2\js\tests\vendor\qunit.js" />
+    <Content Include="external\bootstrap-2.3.2\less\tests\buttons.html" />
+    <Content Include="external\bootstrap-2.3.2\less\tests\css-tests.css" />
+    <Content Include="external\bootstrap-2.3.2\less\tests\css-tests.html" />
+    <Content Include="external\bootstrap-2.3.2\less\tests\forms-responsive.html" />
+    <Content Include="external\bootstrap-2.3.2\less\tests\forms.html" />
+    <Content Include="external\bootstrap-2.3.2\less\tests\navbar-fixed-top.html" />
+    <Content Include="external\bootstrap-2.3.2\less\tests\navbar-static-top.html" />
+    <Content Include="external\bootstrap-2.3.2\less\tests\navbar.html" />
+    <Content Include="external\bootstrap-2.3.2\package.json" />
+    <Content Include="Files\xml\pending_1772736_1.xml" />
+    <Content Include="Files\xml\pending_1772736_2.xml" />
+    <Content Include="img\external.png" />
+    <Content Include="img\home.png" />
+    <Content Include="img\loader.gif" />
+    <Content Include="img\xml.png" />
+    <Content Include="index.html" />
+    <Content Include="Global.asax" />
+    <Content Include="js\lib\angular.js" />
+    <Content Include="js\lib\angular.min.js" />
+    <Content Include="js\app.js" />
+    <Content Include="js\controllers\controllers.js" />
+    <Content Include="js\lib\moment.min.js" />
+    <Content Include="js\services\services.js" />
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\BundlesController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+    <Content Include="css\bootstrap-tree.less" />
+    <Content Include="css\style.less" />
+    <Content Include="external\bootstrap-2.3.2\.travis.yml" />
+    <Content Include="external\bootstrap-2.3.2\CHANGELOG.md" />
+    <Content Include="external\bootstrap-2.3.2\CONTRIBUTING.md" />
+    <Content Include="external\bootstrap-2.3.2\js\.jshintrc" />
+    <Content Include="external\bootstrap-2.3.2\less\accordion.less" />
+    <Content Include="external\bootstrap-2.3.2\less\alerts.less" />
+    <Content Include="external\bootstrap-2.3.2\less\bootstrap.less" />
+    <Content Include="external\bootstrap-2.3.2\less\breadcrumbs.less" />
+    <Content Include="external\bootstrap-2.3.2\less\button-groups.less" />
+    <Content Include="external\bootstrap-2.3.2\less\buttons.less" />
+    <Content Include="external\bootstrap-2.3.2\less\carousel.less" />
+    <Content Include="external\bootstrap-2.3.2\less\close.less" />
+    <Content Include="external\bootstrap-2.3.2\less\code.less" />
+    <Content Include="external\bootstrap-2.3.2\less\component-animations.less" />
+    <Content Include="external\bootstrap-2.3.2\less\dropdowns.less" />
+    <Content Include="external\bootstrap-2.3.2\less\forms.less" />
+    <Content Include="external\bootstrap-2.3.2\less\grid.less" />
+    <Content Include="external\bootstrap-2.3.2\less\hero-unit.less" />
+    <Content Include="external\bootstrap-2.3.2\less\labels-badges.less" />
+    <Content Include="external\bootstrap-2.3.2\less\layouts.less" />
+    <Content Include="external\bootstrap-2.3.2\less\media.less" />
+    <Content Include="external\bootstrap-2.3.2\less\mixins.less" />
+    <Content Include="external\bootstrap-2.3.2\less\modals.less" />
+    <Content Include="external\bootstrap-2.3.2\less\navbar.less" />
+    <Content Include="external\bootstrap-2.3.2\less\navs.less" />
+    <Content Include="external\bootstrap-2.3.2\less\pager.less" />
+    <Content Include="external\bootstrap-2.3.2\less\pagination.less" />
+    <Content Include="external\bootstrap-2.3.2\less\popovers.less" />
+    <Content Include="external\bootstrap-2.3.2\less\progress-bars.less" />
+    <Content Include="external\bootstrap-2.3.2\less\reset.less" />
+    <Content Include="external\bootstrap-2.3.2\less\responsive-1200px-min.less" />
+    <Content Include="external\bootstrap-2.3.2\less\responsive-767px-max.less" />
+    <Content Include="external\bootstrap-2.3.2\less\responsive-768px-979px.less" />
+    <Content Include="external\bootstrap-2.3.2\less\responsive-navbar.less" />
+    <Content Include="external\bootstrap-2.3.2\less\responsive-utilities.less" />
+    <Content Include="external\bootstrap-2.3.2\less\responsive.less" />
+    <Content Include="external\bootstrap-2.3.2\less\scaffolding.less" />
+    <Content Include="external\bootstrap-2.3.2\less\sprites.less" />
+    <Content Include="external\bootstrap-2.3.2\less\tables.less" />
+    <Content Include="external\bootstrap-2.3.2\less\thumbnails.less" />
+    <Content Include="external\bootstrap-2.3.2\less\tooltip.less" />
+    <Content Include="external\bootstrap-2.3.2\less\type.less" />
+    <Content Include="external\bootstrap-2.3.2\less\utilities.less" />
+    <Content Include="external\bootstrap-2.3.2\less\variables.less" />
+    <Content Include="external\bootstrap-2.3.2\less\wells.less" />
+    <Content Include="external\bootstrap-2.3.2\LICENSE" />
+    <Content Include="external\bootstrap-2.3.2\Makefile" />
+    <Content Include="external\bootstrap-2.3.2\README.md" />
+    <Content Include="js\directives\bundleDirective.js" />
+    <Content Include="Files\csvin\FC_RAP_IN_CIBLE_20140511_1.csv" />
+    <Content Include="Files\csvin\FC_RAP_IN_CIBLE_20140512_1.csv" />
+    <Content Include="Files\csvout\FC_RAP_OUT_CIBLE_20140511_0.csv" />
+    <Content Include="Files\FC_RAP_IN_CIBLE_20140511_1.csv" />
+    <Content Include="Files\FC_RAP_OUT_CIBLE_20140511_0.csv" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Code\" />
+    <Folder Include="js\templates\" />
+    <Folder Include="Models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Collecte.DTO\Collecte.DTO.csproj">
+      <Project>{b4849283-9529-4399-82e8-63f2d4b42b9d}</Project>
+      <Name>Collecte.DTO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Collecte.Logic\Collecte.Logic.csproj">
+      <Project>{78751eb8-7ced-4a40-9f13-161722f0c65a}</Project>
+      <Name>Collecte.Logic</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>17839</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:17839/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

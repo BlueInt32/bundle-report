@@ -1,0 +1,14 @@
+﻿@model bool
+@{
+    string prefix = ViewData.TemplateInfo.HtmlFieldPrefix;
+    string idtrue = ViewData.TemplateInfo.HtmlFieldPrefix + "_1";
+    string idfalse = ViewData.TemplateInfo.HtmlFieldPrefix + "_0";
+}
+<label class="radio inline span1">
+	@Html.RadioButton(string.Empty, "true", Model == true, new { @id = idtrue })
+	Oui
+</label>
+<label class="radio inline span1">
+	@Html.RadioButton(string.Empty, "false", Model == false, new { @id = idfalse })
+	Non
+</label>

@@ -1,0 +1,162 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{7430F9D1-A88E-4AE2-9EEC-1C03F3A87020}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Tools</RootNamespace>
+    <AssemblyName>Tools</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG</DefineConstants>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <OutputPath>bin\Release\</OutputPath>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Prerelease|AnyCPU'">
+    <OutputPath>bin\Prerelease\</OutputPath>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net40\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net40\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>dll\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.ShockwaveFlashObjects">
+      <HintPath>dll\Interop.ShockwaveFlashObjects.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Recaptcha">
+      <HintPath>dll\Recaptcha.dll</HintPath>
+    </Reference>
+    <Reference Include="RouteDebug">
+      <HintPath>dll\RouteDebug.dll</HintPath>
+    </Reference>
+    <Reference Include="SpecExpress">
+      <HintPath>..\packages\SpecExpress.1.6.1.56\lib\SpecExpress.dll</HintPath>
+    </Reference>
+    <Reference Include="SpecExpress.MVC">
+      <HintPath>..\packages\SpecExpress.MVC3.1.6.1.56\lib\SpecExpress.MVC.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AesEncryption.cs" />
+    <Compile Include="Api\Bitly.cs" />
+    <Compile Include="Asp.net MVC\ActionResults\XmlActionResult.cs" />
+    <Compile Include="Asp.net MVC\ActionResults\SiteMapActionResult.cs" />
+    <Compile Include="Asp.net MVC\ActionResults\CsvActionResult.cs" />
+    <Compile Include="Asp.net MVC\Attributes\DateValidation.cs" />
+    <Compile Include="Asp.net MVC\Attributes\EmailValidation.cs" />
+    <Compile Include="Asp.net MVC\Attributes\NameValidationAttribute.cs" />
+    <Compile Include="Asp.net MVC\Attributes\RequiredToBeTrue.cs" />
+    <Compile Include="Asp.net MVC\Attributes\ZipCodeValidationAttribute.cs" />
+    <Compile Include="Asp.net MVC\Extensions\Pager.cs" />
+    <Compile Include="Asp.net MVC\Filters\PageInfoFilter.cs" />
+    <Compile Include="Asp.net MVC\Models\IMessageViewModel.cs" />
+    <Compile Include="ConfigWrapper.cs" />
+    <Compile Include="CustomConfigSections\LogConfiguration.cs" />
+    <Compile Include="CustomConfigSections\TagConfiguration.cs" />
+    <Compile Include="EntityFramework\DbEntityValidationConcat.cs" />
+    <Compile Include="Helpers\XPathHelper.cs" />
+    <Compile Include="Log\EventViewerLog.cs" />
+    <Compile Include="Helpers\FtpHelper.cs" />
+    <Compile Include="Helpers\DateHelper.cs" />
+    <Compile Include="Asp.net MVC\Extensions\MvcExtensions.cs" />
+    <Compile Include="Log\LogLevel.Enum.cs" />
+    <Compile Include="Log\LogMethod.Enum.cs" />
+    <Compile Include="Log\WatchMe.cs" />
+    <Compile Include="Helpers\FileHelper.cs" />
+    <Compile Include="ImageTools\GDIHelpers.cs" />
+    <Compile Include="Helpers\GuidHelper.cs" />
+    <Compile Include="GuidUtils.cs" />
+    <Compile Include="Helpers\HttpWebRequestHelper.cs" />
+    <Compile Include="ImageTools\ImageHelper.cs" />
+    <Compile Include="Helpers\IntHelper.cs" />
+    <Compile Include="LinqExtensions.cs" />
+    <Compile Include="Log\Log.cs" />
+    <Compile Include="Log\LogConcat.cs" />
+    <Compile Include="Mail\MailActionResult.cs" />
+    <Compile Include="OperationResult\IOperationResult.cs" />
+    <Compile Include="OperationResult\ListResults.cs" />
+    <Compile Include="Mail\MailHelper.cs" />
+    <Compile Include="SEO\SitemapItem.cs" />
+    <Compile Include="SEO\SitemapManager.cs" />
+    <Compile Include="Taggage\OmnitureHelper.cs" />
+    <Compile Include="OperationResult\NoType.cs" />
+    <Compile Include="OperationResult\OperationResult.cs" />
+    <Compile Include="Orm\IRepository.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Helpers\ReflexionHelper.cs" />
+    <Compile Include="RouteHelper.cs" />
+    <Compile Include="RSSReader.cs" />
+    <Compile Include="StringTools.cs" />
+    <Compile Include="Validation\RegexValidators.cs" />
+    <Compile Include="Helpers\SwfHelper.cs" />
+    <Compile Include="Helpers\UrlHelperSb.cs" />
+    <Compile Include="Asp.net MVC\ViewTool.cs" />
+    <Compile Include="Helpers\ZipHelper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Asp.net MVC\EditorTemplates\HowTo.txt" />
+    <Content Include="Asp.net MVC\Filters\FiltersNotIncludedInProject_checkHiddens.txt" />
+    <Content Include="Asp.net MVC\Models\ModelsNotIncludedInProject_checkHiddens.txt" />
+    <Content Include="base64Image.txt" />
+    <Content Include="JS\_Common.js" />
+    <Content Include="Scripts\date.js" />
+    <Content Include="Scripts\specexpress.unobtrusive.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="ConnecVpn\rac\Logins_RAPPWis02.txt - Raccourci.lnk" />
+    <None Include="ConnecVpn\rac\vpnDisconnect.bat - Raccourci.lnk" />
+    <None Include="ConnecVpn\rac\vpnRuniso.bat - Raccourci.lnk" />
+    <None Include="ConnecVpn\vpnDisconnect.bat" />
+    <None Include="ConnecVpn\vpnRuniso.bat" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
