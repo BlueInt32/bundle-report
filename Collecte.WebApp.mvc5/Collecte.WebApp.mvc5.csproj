@@ -1,0 +1,456 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'PreRelease|AnyCPU'">
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{7357E5E9-EAE8-489C-834A-A432D5D5217C}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Collecte.WebApp</RootNamespace>
+    <AssemblyName>Collecte.WebApp</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>false</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dll\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Web.Helpers">
+      <HintPath>..\packages\Microsoft.AspNet.WebHelpers.3.1.2\lib\net45\Microsoft.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="RouteDebug, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dll\RouteDebug.dll</HintPath>
+    </Reference>
+    <Reference Include="RouteDebugger">
+      <HintPath>..\packages\routedebugger.2.1.4.0\lib\net40\RouteDebugger.dll</HintPath>
+    </Reference>
+    <Reference Include="System">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Data">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Drawing">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=5.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.1.2\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.DynamicData">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Entity">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.ApplicationServices">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Extensions">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.1.2\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.1.2\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.1.2\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Abstractions">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.1.2\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.1.2\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Routing">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.1.2\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.1.2\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.1.2\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Configuration">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Services">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.EnterpriseServices">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Web.Optimization, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Web.Optimization.0.0.8\lib\net40\Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease, Version=1.6.5135.21930, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="WebMatrix.Data, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.Data.3.1.2\lib\net45\WebMatrix.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="WebMatrix.WebData, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.WebData.3.1.2\lib\net45\WebMatrix.WebData.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Code\PhoneModelBinder.cs" />
+    <Compile Include="App_Code\AddressModelBinder.cs" />
+    <Compile Include="App_Code\InitQualifData.cs" />
+    <Compile Include="App_Code\RouteConstraints.cs" />
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\SiteController.cs" />
+    <Compile Include="Filters\ActionLogAttribute.cs" />
+    <Compile Include="Filters\AffiliationFilter.cs" />
+    <Compile Include="Filters\CheckSession.cs" />
+    <Compile Include="Filters\CheckUserSealed.cs" />
+    <Compile Include="Filters\LogExceptionFilter.cs" />
+    <Compile Include="Filters\MaintenanceFilter.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\BaseModel.cs" />
+    <Compile Include="Models\BasicUserInfoViewModel.cs" />
+    <Compile Include="Models\Episode4ViewModel.cs" />
+    <Compile Include="Models\ThanksViewModel.cs" />
+    <Compile Include="Models\Episode1ViewModel.cs" />
+    <Compile Include="Models\Episode5ViewModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <None Include="app_offline.htm.nope" />
+    <Content Include="channel.html" />
+    <Content Include="Content\css\styles.css" />
+    <Content Include="Content\fonts\canalbolditalique-webfont.svg" />
+    <Content Include="Content\fonts\canaldemitalique-webfont.svg" />
+    <Content Include="Content\fonts\canallii-webfont.svg" />
+    <Content Include="Content\fonts\canallir-webfont.svg" />
+    <Content Include="Content\images\1024x1024.jpg" />
+    <Content Include="Content\images\128x128_v2.jpg" />
+    <Content Include="Content\images\1chance.gif" />
+    <Content Include="Content\images\200x200.png" />
+    <Content Include="Content\images\201x201.jpg" />
+    <Content Include="Content\images\antiheros.jpg" />
+    <Content Include="Content\images\bg-colform.png" />
+    <Content Include="Content\images\bt-decouvre.gif" />
+    <Content Include="Content\images\bt-envoi.gif" />
+    <Content Include="Content\images\bt-fbconnect.jpg" />
+    <Content Include="Content\images\bt-passetest.jpg" />
+    <Content Include="Content\images\bt-recommander.gif" />
+    <Content Include="Content\images\bt-valide.gif" />
+    <Content Include="Content\images\carnetcanal.jpg" />
+    <Content Include="Content\images\carnetcine.jpg" />
+    <Content Include="Content\images\carnetiphone.jpg" />
+    <Content Include="Content\images\carnetlpj.jpg" />
+    <Content Include="Content\images\carnetlpj4s.jpg" />
+    <Content Include="Content\images\carnetlpj5.jpg" />
+    <Content Include="Content\images\carnetsport.jpg" />
+    <Content Include="Content\images\creaoriginale.jpg" />
+    <Content Include="Content\images\dotations.jpg" />
+    <Content Include="Content\images\dotations.png" />
+    <Content Include="Content\images\gdjournal.jpg" />
+    <Content Include="Content\images\GJ.jpg" />
+    <Content Include="Content\images\groland.jpg" />
+    <Content Include="Content\images\herosjour.jpg" />
+    <Content Include="Content\images\heroslegend.jpg" />
+    <Content Include="Content\images\logocanal.gif" />
+    <Content Include="Content\images\logojeu.png" />
+    <Content Include="Content\images\logojeuhome.jpg" />
+    <Content Include="Content\images\parapluienoir.jpg" />
+    <Content Include="Content\images\parapluieorange.jpg" />
+    <Content Include="Content\images\parapluieviolet.jpg" />
+    <Content Include="Content\images\perdu.jpg" />
+    <Content Include="Content\images\quest1-blason1.jpg" />
+    <Content Include="Content\images\quest1-blason2.jpg" />
+    <Content Include="Content\images\quest1-blason3.jpg" />
+    <Content Include="Content\images\quest2-blason1.jpg" />
+    <Content Include="Content\images\quest2-blason2.jpg" />
+    <Content Include="Content\images\quest2-blason3.jpg" />
+    <Content Include="Content\images\quest3-blason1.jpg" />
+    <Content Include="Content\images\quest3-blason2.jpg" />
+    <Content Include="Content\images\quest3-blason3.jpg" />
+    <Content Include="Content\images\quest4-blason1.jpg" />
+    <Content Include="Content\images\quest4-blason2.jpg" />
+    <Content Include="Content\images\quest4-blason3.jpg" />
+    <Content Include="Content\images\quest5-blason1.jpg" />
+    <Content Include="Content\images\quest5-blason2.jpg" />
+    <Content Include="Content\images\quest5-blason3.jpg" />
+    <Content Include="Content\images\question1.gif" />
+    <Content Include="Content\images\question2.gif" />
+    <Content Include="Content\images\question3.gif" />
+    <Content Include="Content\images\question4.gif" />
+    <Content Include="Content\images\question5.gif" />
+    <Content Include="Content\mail\images\img_collecte_email_annonce_v2_02.jpg" />
+    <Content Include="Content\mail\images\img_collecte_email_annonce_v2_03.jpg" />
+    <Content Include="Content\mail\images\img_collecte_email_annonce_v2_04.jpg" />
+    <Content Include="Content\mail\images\img_collecte_email_annonce_v2_05.jpg" />
+    <Content Include="Content\mail\images\img_collecte_email_annonce_v2_06.jpg" />
+    <Content Include="Content\mail\images\img_collecte_email_annonce_v2_07.jpg" />
+    <Content Include="Content\mail\images\img_collecte_email_annonce_v2_08.jpg" />
+    <Content Include="Content\mail\images\img_collecte_email_annonce_v2_10.jpg" />
+    <Content Include="Content\mail\images\img_email_collecte_annonce_mob_02.jpg" />
+    <Content Include="Content\mail\images\img_email_collecte_annonce_mob_03.jpg" />
+    <Content Include="Content\mail\images\img_email_collecte_annonce_mob_05.jpg" />
+    <Content Include="Content\mail\images\img_email_collecte_annonce_mob_07.jpg" />
+    <Content Include="Content\mail\images\img_email_collecte_annonce_mob_08.jpg" />
+    <Content Include="Content\mail\images\img_email_collecte_annonce_mob_09.jpg" />
+    <Content Include="Content\mail\images\img_email_collecte_annonce_mob_10.jpg" />
+    <Content Include="Content\mail\images\img_email_collecte_annonce_mob_12.jpg" />
+    <Content Include="Content\mail\images\spacer.gif" />
+    <Content Include="Content\mail\email.html" />
+    <Content Include="favicon.ico" />
+    <Content Include="Global.asax" />
+    <Content Include="robots.txt" />
+    <Content Include="Scripts\autoEmpty.js" />
+    <Content Include="Scripts\html5ForIE.js" />
+    <Content Include="Scripts\jquery-1.7.1.js" />
+    <Content Include="Scripts\jquery-1.7.1.min.js" />
+    <Content Include="Scripts\jquery.numeric.js" />
+    <Content Include="Scripts\omniture.js" />
+    <Content Include="Scripts\Tagging.js" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\Site\Perdu.cshtml" />
+    <Content Include="Views\Site\Question1.cshtml" />
+    <Content Include="Views\Site\Question2.cshtml" />
+    <Content Include="Views\Site\Question3.cshtml" />
+    <Content Include="Views\Site\Question4.cshtml" />
+    <Content Include="Views\Site\Question5.cshtml" />
+    <Content Include="Views\Site\DejaParticipe.cshtml" />
+    <Content Include="Views\Site\Resultat.cshtml" />
+    <Content Include="Content\fonts\canalbolditalique-webfont.eot" />
+    <Content Include="Content\fonts\canalbolditalique-webfont.ttf" />
+    <Content Include="Content\fonts\canalbolditalique-webfont.woff" />
+    <Content Include="Content\fonts\canaldemitalique-webfont.eot" />
+    <Content Include="Content\fonts\canaldemitalique-webfont.ttf" />
+    <Content Include="Content\fonts\canaldemitalique-webfont.woff" />
+    <Content Include="Content\fonts\canallii-webfont.eot" />
+    <Content Include="Content\fonts\canallii-webfont.ttf" />
+    <Content Include="Content\fonts\canallii-webfont.woff" />
+    <Content Include="Content\fonts\canallir-webfont.eot" />
+    <Content Include="Content\fonts\canallir-webfont.ttf" />
+    <Content Include="Content\fonts\canallir-webfont.woff" />
+    <Content Include="Content\images\bt-envoi.gif.safe" />
+    <Content Include="pdf\Mentions légales_COLLECTE_150514.pdf" />
+    <None Include="Properties\PublishProfiles\Dev.pubxml" />
+    <None Include="Properties\PublishProfiles\Preprod.pubxml" />
+    <None Include="Properties\PublishProfiles\Prod.pubxml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="CsvFiles\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Collecte.DAL\Collecte.DAL.csproj">
+      <Project>{43D3B27D-A56C-4EDC-B931-CCC1C144A182}</Project>
+      <Name>Collecte.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Collecte.DTO\Collecte.DTO.csproj">
+      <Project>{B4849283-9529-4399-82E8-63F2D4B42B9D}</Project>
+      <Name>Collecte.DTO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Collecte.Logic\Collecte.Logic.csproj">
+      <Project>{78751eb8-7ced-4a40-9f13-161722f0c65a}</Project>
+      <Name>Collecte.Logic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Tools\Tools.csproj">
+      <Project>{7430F9D1-A88E-4AE2-9EEC-1C03F3A87020}</Project>
+      <Name>Tools</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\GaScript.cshtml" />
+    <Content Include="Views\Shared\Page404.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Code\Taghelper.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Site\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\EditorTemplates\Enum_RadioButtonList.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Bool_RadioButtonList.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Web.PreRelease.config">
+      <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\Donnees_Personnelles_Collecte.pdf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\Reglement_Collecte.pdf" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Content\Mentions légales_COLLECTE_040913.pdf" />
+    <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <Content Include="Content\Mentions légales_COLLECTE_131217.pdf" />
+    <Content Include="Views\Shared\FbPartial.cshtml" />
+    <Content Include="Content\reglement_vive_le_jeu_dhiver_canalsat.pdf" />
+    <Content Include="Content\Mentions légales_COLLECTE_Pour0201.pdf" />
+    <Content Include="Views\Site\Gagne.cshtml" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>51126</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost/collecte</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

@@ -27,9 +27,9 @@ namespace Collecte.CanalServiceBase.Test
 
 			List<InstantGagnant> list = new List<InstantGagnant>
 			{
-				new InstantGagnant { FrontHtmlId = "blason-carnetcanal", Label= "second_winable", Start = new DateTime(Now.Year, Now.Month, Now.Day), Won = false},
-				new InstantGagnant { FrontHtmlId = "blason-carnetcine", Label= "non_winable", Start = new DateTime(Now.Year, Now.Month, Now.Day).AddDays(1), Won = false},
-				new InstantGagnant { FrontHtmlId = "blason-iphone", Label= "first_winable", Start = new DateTime(Now.Year, Now.Month, Now.Day).AddDays(-1), Won = false},
+				new InstantGagnant { FrontHtmlId = "blason-carnetcanal", Label= "second_winable", StartDateTime = new DateTime(Now.Year, Now.Month, Now.Day), Won = false},
+				new InstantGagnant { FrontHtmlId = "blason-carnetcine", Label= "non_winable", StartDateTime = new DateTime(Now.Year, Now.Month, Now.Day).AddDays(1), Won = false},
+				new InstantGagnant { FrontHtmlId = "blason-iphone", Label= "first_winable", StartDateTime = new DateTime(Now.Year, Now.Month, Now.Day).AddDays(-1), Won = false},
 			};
 			foreach (InstantGagnant ig in list)
 			{

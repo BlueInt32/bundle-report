@@ -1,7 +1,7 @@
 ﻿using Collecte.DTO;
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Linq;	
 using System.Text;
 using Tools;
 
@@ -15,9 +15,9 @@ namespace Collecte.DAL
 			{
 				DateTime now = DateTime.Now;
 				var query = from ig in context.InstantsGagnants
-							where now > ig.Start
+							where now > ig.StartDateTime
 							&& !ig.Won
-							orderby ig.Start
+							orderby ig.StartDateTime
 							select ig;
 				if (query.Any<InstantGagnant>())
 				{
@@ -66,9 +66,9 @@ namespace Collecte.DAL
 			{
 				DateTime now = DateTime.Now;
 				var query = from ig in context.InstantsGagnants
-							where now > ig.Start
+							where now > ig.StartDateTime
 							&& !ig.Won
-							orderby ig.Start
+							orderby ig.StartDateTime
 							select ig;
 				if (query.Any<InstantGagnant>())
 				{

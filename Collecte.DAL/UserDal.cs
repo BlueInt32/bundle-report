@@ -214,10 +214,13 @@ namespace Collecte.DAL
 			completeFilePath += ".csv";
 			StringBuilder sb = new StringBuilder();
 
-			sb.AppendFormat("\"Date de participation\";\"Civilité\";\"Nom\";\"Prénom\";\"Email\";\"Abonné\";\"Optin\";\"Type Programme\";\"Provenance\"\n");
+			sb.AppendFormat("\"Date de participation\";\"Civilité\";\"Nom\";\"Prénom\";\"Email\";\"Abonné\";\"Optin\";\"Type Heros\";\"Provenance\";\"Envoi différé\"\n");
+
+			// tous les 5 mecs, on flag à true la colonne "envoi différé"
+			int mod5count = 0;
 			foreach (User user in list)
 			{
-				sb.AppendFormat("\"{0}\";\"{1}\";\"{2}\";\"{3}\";\"{4}\";\"{5}\";\"{6}\";\"{7}\";\"{8}\"\n",
+				sb.AppendFormat("\"{0}\";\"{1}\";\"{2}\";\"{3}\";\"{4}\";\"{5}\";\"{6}\";\"{7}\";\"{8}\";\"{9}\"\n",
 					user.CreationDate,
 					user.Civilite,
 					user.LastName,
@@ -226,8 +229,10 @@ namespace Collecte.DAL
 					BoolToOuiNon(user.IsCanal),
 					BoolToOuiNon(user.IsOffreGroupCanal),
 					user.HeroicStatus,
-					user.Provenance
+					user.Provenance,
+					(mod5count++)%5 == 0 ? 1 : 0
 					);
+				
 			}
 			Encoding enc = Encoding.UTF8;
 			using (StreamWriter outfile = new StreamWriter(completeFilePath, true, enc))
@@ -241,7 +246,7 @@ namespace Collecte.DAL
 
 		public string CreateCsvContentForCanal(string outputFileDirectory, List<User> list, int timeOfDayCode)
 		{
-			string FilePathSuffix = Path.Combine(outputFileDirectory, string.Format("FC_RAP_IN_CIBLE_{0}_", DateTime.Now.AddDays(-1).ToString("yyyyMMdd")));
+			string FilePathSuffix = Path.Combine(outputFileDirectory, string.Format("FC_RAP_IN_CIBLE_{0}_", DateTime.Now.ToString("yyyyMMdd")));
 			// typiquement : 
 			// "E:\DDB\CANAL\Collecte\Collecte.MorningService\CsvFiles\FC_RAP_IN_CIBLE_20131120_"
 
@@ -250,7 +255,10 @@ namespace Collecte.DAL
 			// "E:\DDB\CANAL\Collecte\Collecte.MorningService\CsvFiles\FC_RAP_IN_CIBLE_20131120_1.csv"
 
 			StringBuilder sb = new StringBuilder();
-
+			if (File.Exists(completeFilePath))
+			{
+				File.Move(completeFilePath, completeFilePath.Replace(".csv", string.Format(".replaced_{0}.csv", DateTime.Now.ToString("yyyyMMdd_HH-mm-ss"))));
+			}
 			//sb.AppendFormat("\"Date de participation\";\"Email\";\"Nom\";\"Prénom\";\"Email\";\"Abonné\";\"Optin\";\"Type Programme\";\"Provenance\"\n");
 			const string escapeQuote = "";
 			foreach (User user in list)
@@ -266,7 +274,7 @@ namespace Collecte.DAL
 					user.City,
 					user.Phone,
 					"T01",
-					"N01"
+					System.Configuration.ConfigurationManager.AppSettings["CanalCampaignName"]
 					);
 			}
 			Encoding enc = Encoding.GetEncoding(28591);

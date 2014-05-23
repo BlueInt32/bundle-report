@@ -37,7 +37,7 @@ namespace Collecte.MorningService
         {
 			Tools.Log.Info("Collecte.MorningService", value.ToString());
         	//if (ConfigurationManager.AppSettings["debugMode"] != "true") return;
-        	const string sSource = "CollecteService";
+        	const string sSource = "CanalMorningService";
         	const string sLog = "Application";
         	string sEvent = string.Format("Log Event: {0}", value);
         	if (!EventLog.SourceExists(sSource))

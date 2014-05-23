@@ -103,11 +103,13 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Collecte.DTO\Collecte.DTO.csproj">
-      <Project>{B4849283-9529-4399-82E8-63F2D4B42B9D}</Project>
+      <Project>{b4849283-9529-4399-82e8-63f2d4b42b9d}</Project>
       <Name>Collecte.DTO</Name>
     </ProjectReference>
     <ProjectReference Include="..\Tools\Tools.csproj">

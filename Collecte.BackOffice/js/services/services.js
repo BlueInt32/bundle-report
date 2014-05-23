@@ -1,4 +1,4 @@
-﻿'use strict';
+﻿//'use strict';
 angular.module('myServices')
 	.service('bundleService', ['$http', '$q', function ($http, $q)
 	{
@@ -21,10 +21,24 @@ angular.module('myServices')
 							bundleFile.CreationDate = moment(bundleFile.CreationDate).format("hh:mm:ss");
 							switch (bundleFile.Type)
 							{
-								case 0: bundleFile.Url = '/Files/csvin/' + bundleFile.FileName; bundleFile.icoType = 'home'; break;
-								case 1: bundleFile.Url = '/Files/csvout/' + bundleFile.FileName; bundleFile.icoType = 'external'; break;
-								case 2: bundleFile.Url = '/Files/xml/' + bundleFile.FileName; bundleFile.icoType = 'xml'; break;
+								case 0:
+									bundleFile.Url = '/Files/csvin/' + bundleFile.FileName; bundleFile.icoType = 'home';
+									var csvUrlReduced = bundleFile.Url.substring(1, bundleFile.Url.length).replace('.csv', '');
+									//console.log(csvUrlReduced);
+									bundleFile.fileApiPath = '/api/bundlefiles/' + encodeURIComponent(csvUrlReduced);
+									break;
+								case 1:
+									bundleFile.Url = '/Files/csvout/' + bundleFile.FileName; bundleFile.icoType = 'external';
+									var csvUrlReduced = bundleFile.Url.substring(1, bundleFile.Url.length).replace('.csv', '');
+									//console.log(csvUrlReduced);
+									bundleFile.fileApiPath = '/api/bundlefiles/' + encodeURIComponent(csvUrlReduced);
+									break;
+								case 2:
+									bundleFile.Url = '/Files/xml/' + bundleFile.FileName; bundleFile.icoType = 'xml';
+									bundleFile.fileApiPath = bundleFile.Url;
+									break;
 							}
+							//console.log(bundleFile.Url);
 
 						}
 					}
@@ -54,6 +68,15 @@ angular.module('myServices')
 			});
 		};
 
+		var getBundleFileContent = function (path)
+		{
+			var deferred = $q.defer();
+			$http.get('api/bundlefiles/' + path).success(function (data)
+			{
+				deferred.resolve(data);
+			});
+			return deferred.promise;
+		}
 		// private functions
 		var setBundleStatus = function (bundle)
 		{
@@ -94,7 +117,8 @@ angular.module('myServices')
 		};
 
 		return {
-			getBundles: getBundles
+			getBundles: getBundles,
+			getBundleFileContent: getBundleFileContent
 			//setTreeClickable: setTreeClickable
 		};
 	}]);

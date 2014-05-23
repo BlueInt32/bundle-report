@@ -23,31 +23,40 @@ namespace Collecte.MorningService
 		{
 			using (DataContext context = new DataContext())
 			{
-				DateTime hierMemeHeure = DateTime.Now.AddDays(-1d);
+				try
+				{
+					DateTime hierMemeHeure = DateTime.Now.AddDays(-1d);
 
-				var nouveauxInscrits = from u in context.Users.Include("ShowType").Include("ConnexionType")
-									   where u.CreationDate > hierMemeHeure
-									   //&& !u.IsCanal // [12/05/2014] temps 4 : on récupère désormais tous les inscrits optins
-									   && u.IsOffreGroupCanal
-									   orderby u.CreationDate descending
-									   select u;
-				
-				return nouveauxInscrits.ToList();
+					var nouveauxInscrits = from u in context.Users
+										   where u.CreationDate > hierMemeHeure
+											   //&& !u.IsCanal // [12/05/2014] temps 4 : on récupère désormais tous les inscrits optins
+										   && u.IsOffreGroupCanal
+										   orderby u.CreationDate descending
+										   select u;
+
+					return nouveauxInscrits.ToList();
+
+				}
+				catch (Exception e)
+				{
+					Program.Log("Probleme base de données : " + e.Message + " (" + e.StackTrace + ")");
+					return new List<User>();
+				}
 			}
 		}
 
 		public void MailPerformancePushFileFTP(string localPath, string brand)
-		{ 
+		{
 			string distantDirectory = (brand == "cplus" ? ConfigurationManager.AppSettings["ftpFilePathCplus"] : ConfigurationManager.AppSettings["ftpFilePathCsat"])
 												.Replace("#Date#", DateTime.Now.ToString("yyyyMMdd"));
 
 			FTP ftp = new FTP
-			          	{
-			          		Host = ConfigurationManager.AppSettings["ftpServer"],
-			          		Login = ConfigurationManager.AppSettings["ftpLogin"],
-			          		Pwd = ConfigurationManager.AppSettings["ftpPass"],
-			          		LogDelegate = Program.Log
-			          	};
+						{
+							Host = ConfigurationManager.AppSettings["ftpServer"],
+							Login = ConfigurationManager.AppSettings["ftpLogin"],
+							Pwd = ConfigurationManager.AppSettings["ftpPass"],
+							LogDelegate = Program.Log
+						};
 
 			OperationResult<NoType> ftpResult = ftp.PushFile(localPath, distantDirectory);
 

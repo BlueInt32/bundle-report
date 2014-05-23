@@ -13,7 +13,7 @@ using Collecte.DTO;
 
 namespace Collecte.MorningService
 {
-	[System.ComponentModel.DesignerCategory("Code")] // this tell vs2010 to open the file in code mode directly
+	[System.ComponentModel.DesignerCategory("")] // this tell vs2010 to open the file in code mode directly
 	public partial class CollecteService : System.ServiceProcess.ServiceBase
     {
     	readonly bool _canTriggerSeveralTimesADay = false;
@@ -30,7 +30,7 @@ namespace Collecte.MorningService
 			Program.Log(string.Format("Démarrage date de derniere execution : {0}", _lastDayDone));
             retrieveInterval = 1000 * Convert.ToUInt32(ConfigurationManager.AppSettings["secondTimerTick"]);
             InitializeComponent();
-			ServiceName = "CollecteService";
+			ServiceName = "CanalMorningService";
             timer = new Timer();
             AutoLog = true;
         }
@@ -66,7 +66,9 @@ namespace Collecte.MorningService
 				if(ConfigurationManager.AppSettings["debugMode"] == "true")
 					Program.Log("(Service is in Debug mode)");
 				ServiceProcess mp = new ServiceProcess();
-				List<User> listNewUserDay = mp.RetrieveNewUsers();
+				
+					List<User> listNewUserDay = mp.RetrieveNewUsers();
+				
 				Program.Log("User List : " + listNewUserDay.Count);
 				UserDal uDal = new UserDal();
 
@@ -77,7 +79,7 @@ namespace Collecte.MorningService
 				//Program.log(csvCPlusfilePath);
 				//mp.PushFileFTP(csvCPlusfilePath, "cplus");
 				Program.Log(csvfilePath);
-				mp.MailPerformancePushFileFTP(csvfilePath, "csat");
+				mp.MailPerformancePushFileFTP(csvfilePath, "plus");
 				if(!_canTriggerSeveralTimesADay)
 					_lastDayDone = DateTime.Now;
             } 

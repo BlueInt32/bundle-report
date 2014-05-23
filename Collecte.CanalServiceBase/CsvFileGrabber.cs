@@ -34,7 +34,7 @@ namespace Collecte.CanalServiceBase
 		{
 			VideoFilesWatcher = new FileSystemWatcher
 			{
-				Path = ConfigurationManager.AppSettings["fromCanalCsvFilesDirectory"],
+				Path = ConfigurationManager.AppSettings["fromCanalFtpPath"],
 				NotifyFilter = NotifyFilters.FileName | NotifyFilters.LastWrite
 				//NotifyFilter = NotifyFilters.
 			};
@@ -52,7 +52,7 @@ namespace Collecte.CanalServiceBase
 			{
 				Program.log("Creation " + e.FullPath);
 				Timer timer = new Timer();
-				timer.Elapsed += new ElapsedEventHandler(timer_Elapsed);
+				timer.Elapsed += new ElapsedEventHandler(processFileUploaded);
 				timer.Interval = 1000;
 				timer.Start();
 				Timers[e.FullPath] = timer;
@@ -65,7 +65,7 @@ namespace Collecte.CanalServiceBase
 			}
 		}
 
-		void timer_Elapsed(object sender, ElapsedEventArgs e)
+		void processFileUploaded(object sender, ElapsedEventArgs e)
 		{
 			Timer currentTimer = (Timer)sender;
 
@@ -74,6 +74,13 @@ namespace Collecte.CanalServiceBase
 			Timers.Remove(fullPath);
 
 			Program.log(string.Format("File uploaded : {0}", fullPath));
+
+			// start Copy to monitoring path
+			FileInfo fi = new FileInfo(fullPath);
+			string destPath = string.Format("{0}/{1}", ConfigurationManager.AppSettings["fromCanalCsvFilesDirectory"], fi.Name);
+			Program.log(string.Format("Copying from {0} to {1}", fullPath, destPath));
+			File.Copy(fullPath, destPath,true);
+
 			if (fullPath.Substring(fullPath.LastIndexOf('.') + 1).ToLower() != "csv")
 			{
 				try
@@ -94,7 +101,7 @@ namespace Collecte.CanalServiceBase
 			// Retrieve corresponding Bundle
 			Regex dateResolve = new Regex(@"((19|20)\d\d(0[1-9]|1[012])(0[1-9]|[12][0-9]|3[01]))");
 			Match m = dateResolve.Match(fullPath);
-			if(!string.IsNullOrWhiteSpace(m.Value))
+			if (!string.IsNullOrWhiteSpace(m.Value))
 			{
 				ScannedDate = new DateTime(Convert.ToInt16(m.Value.Substring(0, 4)), Convert.ToInt16(m.Value.Substring(4, 2)), Convert.ToInt16(m.Value.Substring(6, 2)));
 				BundleLogic = new BundleLogic();
@@ -106,7 +113,7 @@ namespace Collecte.CanalServiceBase
 					OperationResult<List<FromCanalUser>> parseResult = ParseFile(fullPath);
 					if (parseResult.Result)
 					{
-						
+
 						FromCanalList = parseResult.ReturnObject;
 
 
@@ -120,7 +127,6 @@ namespace Collecte.CanalServiceBase
 
 		public OperationResult<List<FromCanalUser>> ParseFile(string filePath)
 		{
-
 			try
 			{
 				using (StreamReader reader = File.OpenText(filePath))
@@ -145,7 +151,7 @@ namespace Collecte.CanalServiceBase
 
 					UserDal uDal = new UserDal();
 
-					List<UserItem> subListBase =  uDal.GetAllUserItems();
+					List<UserItem> subListBase = uDal.GetAllUserItems();
 					Program.log(String.Format("Base has {0} entries", subListBase.Count));
 					var subListCanal = from u in resultList where u.Status == "OK" select new UserItem { Email = u.Email.ToLower(), Id = Guid.Empty };
 
@@ -190,9 +196,9 @@ namespace Collecte.CanalServiceBase
 					BundleLogic.SetBundleStatus(ScannedDate, BundleStatus.XmlCreated);
 					BundleLogic.AttachFileToBundle(ScannedDate, filePathTradedoublerXml, BundleFileType.XmlTrade);
 
-					string emailConf = ConfigurationManager.AppSettings["TradeDoublerMailTo"];
-					
-					
+					//string emailConf = ConfigurationManager.AppSettings["TradeDoublerMailTo"];
+
+					/*
 					// Send mail to tradeDoubler
 					if (ConfigurationManager.AppSettings["sendXmlToTrade"] == "true")
 					{
@@ -211,6 +217,30 @@ namespace Collecte.CanalServiceBase
 						mailer.SendMail(emailConf, "[Moulinette Canal Collecte] Xml envoyé à TradeDoubler", "Tout est ok (voir piece jointe)", new Attachment(filePathTradedoublerXml, MediaTypeNames.Text.Plain), null);
 
 						TradeDoublerProvider.SetTradeDoublerSequenceNumber(sequenceNumber);
+					}
+					*/
+
+					if (ConfigurationManager.AppSettings["sendXmlToTrade"] == "true")
+					{
+						FTP ftp = new FTP()
+						{
+							Host = ConfigurationManager.AppSettings["TradeDoublerFtpHost"],
+							Login = ConfigurationManager.AppSettings["TradeDoublerFtpLogin"],
+							Mode = Logic.Mode.Ftp,
+							Pwd = ConfigurationManager.AppSettings["TradeDoublerFtpPass"],
+							LogDelegate = Program.log
+						};
+						Program.log("Initialisation envoi ftp to Trade. Host:" + ftp.Host + ", Login:"+ftp.Login+", Mode:"+ftp.Mode+", pwd:"+ftp.Pwd);
+
+						OperationResult<NoType> ftpResult = ftp.PushFile(filePathTradedoublerXml, ConfigurationManager.AppSettings["TradeDoublerFtpDistantPath"]);
+						if (ftpResult.Result)
+						{
+							Program.log("File sent to TradeDoubler !");
+							TradeDoublerProvider.SetTradeDoublerSequenceNumber(sequenceNumber);
+							BundleLogic.SetBundleStatus(ScannedDate, BundleStatus.XmlSentToTrade);
+						}
+						else
+							Program.log("Erreur envoi fichier TradeDoubler !" + ftpResult.Message);
 					}
 					return OperationResult<List<FromCanalUser>>.OkResultInstance(resultList);
 				}

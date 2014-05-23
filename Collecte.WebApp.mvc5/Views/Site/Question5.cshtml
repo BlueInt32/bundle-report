@@ -1,0 +1,125 @@
+﻿@{
+    ViewBag.Title = "Question1";
+	ViewBag.ContainerId = "pagejeu";
+	ViewBag.Tag = "Question5";
+}
+<div id="logoCANAL"><img src="@Url.Content("~/content/images/logocanal.gif")" alt="CANAL+" /></div>
+<div id="logojeu"></div>
+<div id="compteurquizz"><img src="@Url.Content("~/content/images/question5.gif")" alt="5/5" /></div>
+
+<div id="quizz">
+	<p class="question">QUESTION T&Eacute;L&Eacute;PHONE, VOUS PR&Eacute;F&Eacute;REZ ?</p>
+	<div id="reponse1">
+		<a class="sidebarLink" href="@Url.RouteUrl("QuestionChoice", new { questionNum = 5, urltoken = "nimporte" })"><img src="@Url.Content("~/content/images/quest5-blason1.jpg")" /></a>
+		<p><span>Partout,<br />n'importe quand !</span></p>
+	</div>
+	<div id="reponse2">
+		<a class="sidebarLink" href="@Url.RouteUrl("QuestionChoice", new { questionNum = 5, urltoken = "chezvous" })"><img src="@Url.Content("~/content/images/quest5-blason2.jpg")" /></a>
+		<p>
+			<span>
+				Chez vous,<br />tout simplement
+			</span>
+		</p>
+	</div>
+	<div id="reponse3">	
+		<a class="sidebarLink" href="@Url.RouteUrl("QuestionChoice", new { questionNum = 5, urltoken = "message" })"><img src="@Url.Content("~/content/images/quest5-blason3.jpg")" /></a>
+		<p><span>Qu'on vous<br />laisse un message</span></p>
+	</div>
+	<div id="colonne-formulaire">
+		<div id="ombre"></div>
+		<div id="form-numero">
+			<form id="phoneForm">
+				<p class="rappelville">Votre numéro :</p>
+				<p class="adresse">Entrez votre numéro de téléphone<br />dans le champ ci-dessous :</p>
+				<p><label for="numtel"></label> <input id="numtel" name="numtel" type="text" value="" class="autoempty" data-defaultempty="N° de téléphone" maxlength="10"></p>
+				<p class="txterreur"></p>
+				<button type="button" id="submit"><img src="@Url.Content("~/content/images/bt-valide.gif")" alt="Je valide" /></button>
+				<p class="ignorer"><a href="#" id="ignore">Ignorer cette étape</a></p>	
+				<div class="infosnl">En remplissant votre numéro de téléphone, vous <br />acceptez de recevoir des offres du Groupe<br /> <span class="lightitalic">CANAL</span>+ par téléphone/SMS.</div>
+				<div class="infoscnil">Conformément à la Loi Informatique et Libertés du 06/01/78, vous disposez d’un droit d’accès, de rectification et d’opposition aux informations personnelles vous concernant, que vous pouvez exercer auprès de CANAL+/CANALSAT – 95905 CERGY-PONTOISE CEDEX 9 en joignant un justificatif d’identité. Vous disposez également de la possibilité de vous opposer à la prospection commerciale par voie téléphonique en vous inscrivant sur une liste d’opposition au démarchage téléphonique.</div>
+			</form>
+		</div>
+	</div>
+	<div class="spacer"></div> 
+</div>
+
+@section footer
+{
+	<div id="footerpetit">
+		<a href="@Url.Content("~/pdf/Mentions légales_COLLECTE_150514.pdf")" target="_blank" class="mentionslegales">MENTIONS L&Eacute;GALES</a>
+		<a href="#" target="_blank" class="reglement">R&Eacute;GLEMENT</a>
+	</div>
+}
+
+@section scripts
+{
+	<script>
+		var locked = false;
+		var href = '';
+		$(".sidebarLink").click(function (e)
+		{
+			href = e.currentTarget.href;
+			$("#colonne-formulaire").fadeIn('fast');
+			e.preventDefault();
+
+		});
+		$("#numtel").focus(function()
+		{
+			$(this).removeClass("input-validation-error");
+		});
+		$("#submit").click(function (e)
+		{
+			if (!locked)
+			{
+				locked = true;
+				$(".autoempty").each(function ()
+				{
+					if ($(this).val() === $(this).attr("data-defaultempty"))
+						$(this).val('');
+				});
+				var formData = $("#phoneForm").serialize();
+				$.ajax({
+					type: "POST", url: "PostPhone", data: formData, dataType: "json",
+					success: function (data)
+					{
+						if (!data.result)
+						{
+							$(".txterreur").show().html(data.message);
+							$("#numtel").addClass("input-validation-error");
+						}
+						else
+						{
+							$("#colonne-formulaire").fadeOut('fast', function ()
+							{
+								document.location.href = href;
+							});
+						}
+						locked = false;
+						setAutoEmptiesBack();
+					},
+					error: function (xhr, status, error)
+					{
+						$("#txterreur").html("Une erreur s'est produite. Veuillez rééssayer ultérieurement.");
+						locked = false;
+						setAutoEmptiesBack();
+					}
+				});
+			}
+		});
+		$("#ignore").click(function (e)
+		{
+			e.preventDefault();
+			document.location.href = href;
+		});
+		function setAutoEmptiesBack()
+		{
+			$(".autoempty").each(function ()
+			{
+				if ($(this).val().trim() === '')
+					$(this).val($(this).attr("data-defaultempty"));
+			});
+		}
+	</script>
+}
+
+

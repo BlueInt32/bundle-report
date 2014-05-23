@@ -1,0 +1,17 @@
+﻿<li>
+	<span class="{{bundle.displayClass}}">{{bundle.Date}} &ndash; {{bundle.displayStatus}} </span>
+	<ul>
+		<li ng-if='bundle.NbInscriptions > 0'>
+			<span>
+				<span ng-if='bundle.NbInscriptions > 0'>Inscrits : {{bundle.NbInscriptions}}</span>
+				<span ng-if='bundle.NbRetoursCanal > 0'>De Canal : {{bundle.NbRetoursCanal}}</span>
+				<span ng-if='bundle.NbOk > 0'>Ok :  {{bundle.NbOk}}</span>
+				<span ng-if='bundle.NbKo > 0'>Ko :  {{bundle.NbKo}}</span>
+			</span>
+		</li>
+		<li ng-repeat="bundleFile in bundle.BundleFiles">
+			<span><i class="icon-time"></i> {{bundleFile.CreationDate}}</span>
+			<previewlink file="bundleFile">{{bundleFile.FileName}}</previewlink>
+		</li>
+	</ul>
+</li>

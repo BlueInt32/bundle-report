@@ -1,0 +1,79 @@
+﻿@{
+	ViewBag.Title = "Resultat";
+	ViewBag.ContainerId = "pageresultat";
+	
+}
+@model Collecte.WebApp.Models.GodsonsMailsModel
+
+<div id="logoCANAL"><img src="@Url.Content("~/content/images/logocanal.gif")" alt="CANAL+"></div>
+<div id="logojeu"></div>
+
+<div id="@ViewBag.ResultId">
+	<div id="legende">
+		<p id="l1">
+			VOUS AVEZ L'&Eacute;TOFFE<br />
+			D'UN <span class="bolditalic">@Html.Raw(ViewBag.LabelResult)</span>
+		</p>
+		<p id="l2">@Html.Raw(ViewBag.TextResult)</p>
+	</div>
+	<div id="merci">
+		<p id="l3">MERCI DE VOTRE PARTICIPATION.</p>
+		<p id="l4">
+			@Html.Raw(ViewBag.ChancesMessage)
+			Rendez-vous à partir du <span class="demiitalic">10 juillet 2014</span> pour connaître les résultats du tirage au sort.
+		</p>
+	</div>
+
+	<div id="collecte">
+		<form method="post" id="episode1form">
+			<p class="partager">Partagez ce jeu avec vos amis en complétant leur adresse email :</p>
+			<div id="mailinputs">
+				<p class="collecte"><label for="emailami1"></label>@Html.TextBoxFor(model => model.Email1, new { @class = "mail autoempty", data_defaultempty = "prenom.nom@messagerie.com" })</p>
+				<p class="collecte"><label for="emailami2"></label>@Html.TextBoxFor(model => model.Email2, new { @class = "mail autoempty", data_defaultempty = "prenom.nom@messagerie.com" })</p>
+				<p class="collecte"><label for="emailami3"></label>@Html.TextBoxFor(model => model.Email3, new { @class = "mail autoempty", data_defaultempty = "prenom.nom@messagerie.com" })</p>
+			</div>
+			<button type="button" onclick="beforeSubmit();"><img src="@Url.Content("~/content/images/bt-envoi.gif")" alt="Envoi" /></button>
+			<p id="zoneErreur" class="@ViewBag.NotifState">
+				@if (!ViewContext.ViewData.ModelState.IsValid)
+				{
+					@Html.Raw(ViewContext.ViewData.ModelState.Values.SelectMany(v => v.Errors).First().ErrorMessage)
+				}
+				@ViewBag.OkMessage
+			</p>
+			</form>
+	</div>
+	<div id="FBpartage">
+		<p>
+			Et en le partageant<br />
+			sur Facebook
+		</p>
+		<div class="share_container">
+			<div class="fb-share-button" data-href="http://prp2.collecte.canalplus.clients.rappfrance.com/" data-type="button_count"></div>
+		</div>
+	</div>
+	<div class="spacer"></div>
+
+
+</div> <!--resultat -->
+@section footer
+{
+	<div id="footercomplet">
+		<a href="@Url.Content("~/pdf/Mentions légales_COLLECTE_150514.pdf")" target="_blank" class="mentionslegales">MENTIONS L&Eacute;GALES</a>
+		<a href="#" target="_blank" class="reglement">R&Eacute;GLEMENT</a>
+		<p class="mentionsliste">&#8805;Liste complète des dotations disponibles dans le règlement du jeu.</p>
+	</div>
+}
+@section scripts
+{
+	<script type="text/javascript">
+		function beforeSubmit()
+		{
+			$(".mail").each(function ()
+			{
+				if ($(this).val() == "prenom.nom@messagerie.com")
+					$(this).val("");
+			});
+			$('#episode1form').submit();
+		}
+	</script>
+}

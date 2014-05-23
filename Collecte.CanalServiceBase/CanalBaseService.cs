@@ -19,7 +19,7 @@ using System.IO;
 
 namespace Collecte.CanalServiceBase
 {
-	[System.ComponentModel.DesignerCategory("Code")] // this tells visual studio to open the file in code mode directly (System.ComponentModel seems to be necessary for VS)
+	[/*System.ComponentModel.*/DesignerCategory("")] // this tells visual studio to open the file in code mode directly (System.ComponentModel seems to be necessary for VS)
 	public partial class CanalBaseService : ServiceBase
 	{
 		readonly bool _canTriggerSeveralTimesADay = false;
@@ -74,28 +74,43 @@ namespace Collecte.CanalServiceBase
 			if (DateTime.Now.DayOfWeek.Equals(DayOfWeek.Saturday) || DateTime.Now.DayOfWeek.Equals(DayOfWeek.Sunday))
 				return;
 			timer.Stop();
-			bool hasTriggeredTodayYet = LastBundleModifiedDate == BundleLogic.GetYesterday();
+			bool hasTriggeredTodayYet = LastBundleModifiedDate == BundleLogic.GetToday();
 			if (hasTriggeredTodayYet)
 				return;
 
+
+
 			BundleLogic bundleLogic = new BundleLogic();
-			DateTime YesterdayMidnight = BundleLogic.GetYesterday();
-			var bundleGet = bundleLogic.GetBundleByDate(YesterdayMidnight);
+			DateTime Today0h = BundleLogic.GetToday();
+			DateTime Yesterday0h = BundleLogic.GetYesterday();
+			var bundleGet = bundleLogic.GetBundleByDate(Today0h);
+			if (!bundleGet.Result && bundleGet.Message == "Probleme de connexion à la base.")
+			{
+				Program.log(bundleGet.Message);
+				Stop();
+			}
+
+			Program.log("Bundle déjà créé ? " + bundleGet.Result +"("+ bundleGet.Message+")");
 
 			// predicates
-			bool yesterdayCsvNotYetCreated = !bundleGet.Result || (bundleGet.Result && bundleGet.ReturnObject.Status == BundleStatus.NoFileCreated);
+			bool csvNotYetCreated = !bundleGet.Result || (bundleGet.Result && bundleGet.ReturnObject.Status == BundleStatus.NoFileCreated);
 			bool rightTime = (DateTime.Now.Hour == DailyExecutionHour && DateTime.Now.Minute == DailyExecutionMinute) || WebConfig.Get.forceRightTime == "true";
 			bool featureCsvCreationActivated = WebConfig.Get.createCsv == "true";
+			Program.log("yesterdayCsvNotYetCreated : " + csvNotYetCreated);
+			Program.log("rightTime : " + rightTime);
+			Program.log("featureCsvCreationActivated : " + featureCsvCreationActivated);
 
-			if (rightTime && yesterdayCsvNotYetCreated && featureCsvCreationActivated)
+
+			if (rightTime && csvNotYetCreated && featureCsvCreationActivated)
 			{
+
 				Program.log(string.Format("It's time ! ({0}h{1}) {2}", DateTime.Now.Hour, DateTime.Now.Minute, WebConfig.Get.forceRightTime == "true" ? "(Forced)" : ""));
 
-				var bResult = bundleLogic.CreateBundle(YesterdayMidnight); Program.log("Bundle créé : " + YesterdayMidnight);
+				var bResult = bundleLogic.CreateBundle(Today0h); Program.log("Bundle créé : " + Today0h);
 
-				ServiceProcess service = new ServiceProcess(); Program.log("Retrieving users of " + BundleLogic.GetYesterday().ToString("dd/MM/yyyy"));
-				List<User> listNewUserDay = service.RetrieveNewUsersSince(YesterdayMidnight); Program.log("User List : " + listNewUserDay.Count);
-				bundleLogic.SetBundleTotalSubs(YesterdayMidnight, listNewUserDay.Count);
+				ServiceProcess service = new ServiceProcess(); Program.log("Retrieving users since " + BundleLogic.GetYesterday().ToString("dd/MM/yyyy"));
+				List<User> listNewUserDay = service.RetrieveNewUsersSince(Yesterday0h); Program.log("User List : " + listNewUserDay.Count);
+				bundleLogic.SetBundleTotalSubs(Today0h, listNewUserDay.Count);
 				UserDal uDal = new UserDal();
 				string csvInPath = ConfigurationManager.AppSettings["localCsvFilesDirectory"];
 				string localfilePath = uDal.CreateCsvContentForCanal(csvInPath, listNewUserDay, 1);
@@ -103,26 +118,26 @@ namespace Collecte.CanalServiceBase
 				{
 					Program.log("File CSVIN créé : " + localfilePath);
 
-					var bfResult = bundleLogic.AttachFileToBundle(YesterdayMidnight, localfilePath, BundleFileType.CsvIn);
+					var bfResult = bundleLogic.AttachFileToBundle(Today0h, localfilePath, BundleFileType.CsvIn);
 					if (bfResult.Result)
-						bundleLogic.SetBundleStatus(YesterdayMidnight, BundleStatus.CsvInCreated);
+						bundleLogic.SetBundleStatus(Today0h, BundleStatus.CsvInCreated);
 
 					if (ConfigurationManager.AppSettings["sendCsvToCanal"] == "true")
 					{
 						var ftpResult = service.CanalPushFileFTP(localfilePath);
 						if (ftpResult.Result)
-							bundleLogic.SetBundleStatus(YesterdayMidnight, BundleStatus.CsvInSentToCanal);
+							bundleLogic.SetBundleStatus(Today0h, BundleStatus.CsvInSentToCanal);
 					}
 				}
 
 				if (!_canTriggerSeveralTimesADay)
 				{
-					LastBundleModifiedDate = YesterdayMidnight;
+					LastBundleModifiedDate = Today0h;
 				}
 			}
 			else if (!_canTriggerSeveralTimesADay)
 			{
-				LastBundleModifiedDate = YesterdayMidnight;
+				LastBundleModifiedDate = Today0h;
 			}
 			timer.Start();
 		}

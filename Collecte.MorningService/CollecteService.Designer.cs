@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            this.ServiceName = "CollecteService";
+            this.ServiceName = "CanalMorningService";
         }
 
         #endregion

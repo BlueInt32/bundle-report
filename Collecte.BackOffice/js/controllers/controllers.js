@@ -1,13 +1,28 @@
-﻿'use strict';
+﻿//'use strict';
 
 angular.module('myControllers')
-	.controller('appctrl', ['$scope', '$http', 'bundleService', function ($scope, $http, bundleService)
+	.controller('appCtrl', ['$scope', '$http', '$log', function ($scope, $http,  $log)
 	{
 		$scope.showLoader = true;
-		bundleService.getBundles().then(function (data)
+		
+		$scope.alert = function()
 		{
-			$scope.weeks = data;
+			$log.log('salut mec !');
+		}
+		//bundleService.getBundles().then(function (data)
+		//{
+		//	$scope.weeks = data;
 
-			$scope.showLoader = false;
-		});
+		//	$scope.showLoader = false;
+		//});
+		//$scope.setContent = function(contentPath)
+		//{
+		//	console.log(contentPath);
+		//	bundleService.getBundleFileContent(contentPath).then(function(data)
+		//	{
+		//		console.log(data);
+		//		$scope.fileContent = data;
+		//	});
+
+		//}
 	}]);

@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>Collecte Service Bundles</title>
+	<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+	<!--<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">-->
+	<link href="css/style.css" rel="stylesheet" />
+
+
+	<script src="js/lib/angular.js"></script>
+	<script src="app.js"></script>
+	<script src="js/controllers/controllers.js"></script>
+	<script src="js/services/services.js"></script>
+	<script src="js/directives/bundleDirective.js"></script>
+
+	<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+	<script src="/js/lib/moment.min.js"></script>
+
+</head>
+<body ng-app="app" ng-controller="mainCtrl">
+	<h1>Reporting Service Base Canal Collecte</h1>
+	<div class="container">
+		<div class="treeContainer">
+			<div class="loader" ng-show="showLoader">
+				Bundles en cours de récupération... Veuillez patienter.
+				<img src="img/loader.gif" />
+			</div>
+			<div class="tree" ng-hide="showLoader">
+				<p><label>Filtrer</label><input type="text" ng-model="mainFilter" class="search" id="datepicker" /></p>
+				<ul>
+					<li class="weekElement" ng-repeat="week in weeks">
+						<span><i class="icon-calendar"></i>Semaine <b>{{week.Key}}</b></span>
+						<ul>
+							<bundle ng-repeat="bundle in week.Value | filter:mainFilter" which="bundle" />
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="fileContent" ng-bind-html="fileContent"></div>
+		<div class="clear"></div>
+	</div>
+</body>
+</html>

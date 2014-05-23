@@ -18,8 +18,8 @@ namespace Collecte.MorningService
 			processInstaller.Account = ServiceAccount.LocalSystem;
 
 			ServiceInstaller mainServiceInstaller = new ServiceInstaller();
-			mainServiceInstaller.ServiceName = "CollecteService";
-			mainServiceInstaller.Description = "CollecteService";
+			mainServiceInstaller.ServiceName = "CanalMorningService";
+			mainServiceInstaller.Description = "CanalMorningService";
 			mainServiceInstaller.StartType = ServiceStartMode.Automatic;
 
 			Installers.Add(processInstaller);

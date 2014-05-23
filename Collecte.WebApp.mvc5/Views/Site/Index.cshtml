@@ -1,0 +1,165 @@
+﻿@using Tools
+@model Collecte.WebApp.Models.BasicUserInfoViewModel
+@{
+	ViewBag.HtmlTitle = "Le Grand Jeu des Héros CANAL+";
+	ViewBag.ContainerId = "home";
+	ViewBag.Tag = "Home";
+    ViewBag.Page = "home";
+}
+
+<script language='JavaScript1.1' src='http://pixel.mathtag.com/event/js?mt_id=325896&mt_adid=104807&v1=&v2=&v3=&s1=&s2=&s3='></script>
+<form method="post" id="step1form">
+	<div id="colgauche">
+		<div id="logoCANAL"><img src="@Url.Content("~/content/images/logocanal.gif")" alt="CANAL+" /></div>
+
+		<h1>
+			Jusqu'au 10 juillet 2014,
+			<br />passez le test pour découvrir<br />
+			le héros qui se cache en vous.
+		</h1>
+		<h2>
+			DES CADEAUX SONY<br />
+			ET CANAL+ &Agrave; GAGNER !&#8805;&#8805;
+		</h2>
+		<div id="boxblanche1">
+			<p><span class="demiitalic">1.</span> D&Eacute;COUVREZ TOUT DE SUITE SI VOUS</p>
+			<p class="indent1">AVEZ GAGN&Eacute; UN CADEAU CANAL+&#8805;&#8805; !</p>
+		</div>
+		<div id="boxblanche2">
+			<p><span class="demiitalic">2.</span> PARTICIPEZ AU TIRAGE AU SORT POUR TENTER</p>
+			<p class="indent2">DE GAGNER DES &Eacute;QUIPEMENTS SONY&#8805;&#8805;</p>
+		</div>
+		<img src="@Url.Content("~/content/images/dotations.png")" alt='10 Smartphones Sony Xperia Z2, 16 Go, Noir&#8805;, 1 pack TV SONY KDL42W705 + une barre de son SONY HT-CT260H + lecteur BluRay SONY  BDP S1200&#8805;, 5 Tablettes Sony Xperia Tablet Z 10,1" 32 Go WiFi' class="dotations" />
+		<div id="logojeu"></div>
+	</div>
+
+	<div id="ombre"></div>
+
+	<div id="coldroite">
+		<p id="l1">D&Eacute;COUVREZ TOUT DE SUITE<br /> <span class="lightitalic jaune">SI VOUS AVEZ GAGN&Eacute;<br />VOTRE PREMIER CADEAU !</span></p>
+
+		<p id="l2">POUR UN ENREGISTREMENT &Eacute;CLAIR,<br /> INSCRIVEZ-VOUS VIA FACEBOOK !</p>
+		<a href="javascript:void(0);" onclick="fbConnect();" @Taghelper.GaqEvent(this, "FbConnect", "Accueil", "", true, "")><img src="@Url.Content("~/content/images/bt-fbconnect.jpg")" alt="SE CONNECTER AVEC FACEBOOK" class="fbconnect" /></a>
+		<p id="l3" class="jaune">
+			Ou remplissez ce formulaire<br />
+			et découvrez si vous avez gagné :
+		</p>
+
+		<div id="formcoldroite">
+			<p class="civilite">
+				<label for="Enum_RadioButtonList">Civilité&#8805;</label><!--
+				-->@Html.EditorFor(model => model.Civi, "Enum_RadioButtonList")
+			</p>
+			<p><label for="FirstName">Prénom&#8805;</label>@Html.TextBoxFor(model => model.FirstName)</p>
+			<p><label for="LastName">Nom&#8805;</label>@Html.TextBoxFor(model => model.LastName)</p>
+			<p><label for="Email">E-mail&#8805;</label>@Html.TextBoxFor(model => model.Email)</p>
+			<p><label for="Zipcode">Code postal&#8805;</label>@Html.TextBoxFor(model => model.Zipcode, new { maxlength = "5" })</p>
+			
+			<p>
+				<label for="Bool_RadioButtonList" class="abonne">Êtes-vous abonné(e) ?&#8805;</label>
+				@Html.EditorFor(model => model.IsCanal, "Bool_RadioButtonList")
+			</p>
+			<p>@Html.CheckBoxFor(model => model.IsOptinRules)<label for="IsOptinRules" class="conditions">J'accepte les conditions du règlement&#8805;</label></p>
+
+			@Html.HiddenFor(m => m.IsOffreGroupCanal)
+			<div class="zoneerreur">
+				@if (!ViewContext.ViewData.ModelState.IsValid)
+				{
+					if (ViewContext.ViewData.ModelState.Values.SelectMany(v => v.Errors).Count() > 1)
+					{
+						@Html.Raw("Merci de renseigner correctement les champs en rouge.")
+					}
+					else
+					{
+						@ViewContext.ViewData.ModelState.Values.SelectMany(v => v.Errors).First().ErrorMessage
+					}
+				}
+			</div>
+			<button type="button" id="validation_optinOffreCanal"><img src="@Url.Content("~/content/images/bt-decouvre.gif")" alt="Je découvre si j'ai gagné" /></button>
+			<p class="txtright">
+				En cliquant sur <span class="lightitalic">Je découvre si j'ai gagné</span>, j'accepte<br />
+				de recevoir les offres du groupe <span class="lightitalic">CANAL</span>+. <br />
+				Pour jouer sans recevoir les offres, <a href="@Url.Action("Question1")" id="validation_optoutOffreCanal">cliquez ici.</a>
+			</p>
+
+			<p class="oblig">&#8805; Champs obligatoires</p>
+		</div>
+	</div>
+</form>
+@section scripts
+{
+	<script type="text/javascript">
+	var accesstoken = '';
+	var userid = '';
+	function handleFacebookMe()
+	{
+		FB.api('/me', function (response)
+		{
+			$('#FirstName').val(response.first_name);
+			$('#LastName').val(response.last_name);
+			$('#Email').val(response.email);
+			$("#Civi_0").prop('checked', response.gender != "male");
+			$("#Civi_1").prop('checked', response.gender == "male");
+		});
+	}
+
+    $(function () {
+    	$("#Zipcode").numeric();
+    	$("#validation_optinOffreCanal").click(function (e) {
+    		e.preventDefault();
+    		$("#IsOffreGroupCanal").val("true");
+    		$('#step1form').submit();
+    	});
+    	$("#validation_optoutOffreCanal").click(function (e) {
+    		//console.log($('#step1form'));
+    		e.preventDefault();
+    		$("#IsOffreGroupCanal").val("false");
+    		$('#step1form').submit();
+    	});
+
+    	$(".input-validation-error[type=radio][name=IsCanal]").each(function(el)
+    	{
+    		$(".abonne").css({color:"red"});
+    	});
+    	$("#IsOptinRules.input-validation-error[type=checkbox]").each(function (el)
+    	{
+    		$(".conditions").css({ color: "red" });
+    	});
+    });
+    
+
+    function fbConnect()
+    {
+    	FB.getLoginStatus(function (response)
+    	{
+            if (response.status != 'connected') {
+                FB.login(function (response) {
+                    accesstoken = response.authResponse.accessToken;
+                    userid = response.authResponse.userID;
+                    handleFacebookMe();
+                }, { scope: 'email' });
+            }
+            else {
+                accesstoken = response.authResponse.accessToken;
+                userid = response.authResponse.userID;
+                handleFacebookMe();
+            }
+            return false;
+        });
+        return false;
+    };
+</script>
+}
+@section spacer 
+{
+	<div id="spacer"></div>
+}
+@section footer
+{
+<div id="footercomplet">
+	<a href="@Url.Content("~/pdf/Mentions légales_COLLECTE_150514.pdf")" target="_blank" class="mentionslegales">MENTIONS L&Eacute;GALES</a>
+	<a href="#" target="_blank" class="reglement">R&Eacute;GLEMENT</a>
+	<p class="mentionsliste">&#8805;&#8805;Liste complète des dotations disponibles dans le règlement du jeu.</p>
+	<p class="mentions">Jeu gratuit et sans obligation d'achat organisé par Groupe CANAL+ SA du 27 mai au 10 juillet 2014 Règlement complet du jeu déposé auprès de Maître Jean-Louis Hauguel, Huissier de Justice, 14 rue du Faubourg Saint-Honoré 75008 Paris, France. Règlement disponible sur le site XXX. Les lots sont détaillés dans le règlement complet du jeu. Le règlement et la demande de remboursement des frais de participations sont disponibles gratuitement sur simple demande adressée à groupe CANAL+ - « Le Grand Jeu des héros CANAL+» - 95905 CERGY-PONTOISE cedex 9. Conformément à la loi Informatique et Libertés du 06/01/1978, vous disposez d'un droit d'accès, de rectification et d'opposition aux données vous concernant en écrivant à CANAL+ - « Le Grand Jeu des héros CANAL+» - 95905 CERGY-PONTOISE cedex 9.</p>
+</div>
+}

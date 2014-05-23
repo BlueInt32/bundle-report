@@ -10,16 +10,17 @@ namespace Collecte.CanalServiceBase
 {
 	[RunInstaller(true)]
 	[System.ComponentModel.DesignerCategory("Code")] // this tell vs2010 to open the file in code mode directly
-	public class CanalBaseServiceInstaller : Installer
+	public partial class CanalBaseServiceInstaller : System.Configuration.Install.Installer
 	{
 		public CanalBaseServiceInstaller()
 		{
+			//InitializeComponent();
 			ServiceProcessInstaller processInstaller = new ServiceProcessInstaller();
 			processInstaller.Account = ServiceAccount.LocalSystem;
 
 			ServiceInstaller mainServiceInstaller = new ServiceInstaller();
-			mainServiceInstaller.ServiceName = "CanalServiceBaseService";
-			mainServiceInstaller.Description = "CanalServiceBaseService";
+			mainServiceInstaller.ServiceName = "CanalBaseService";
+			mainServiceInstaller.Description = "CanalBaseService";
 			mainServiceInstaller.StartType = ServiceStartMode.Automatic;
 
 			Installers.Add(processInstaller);

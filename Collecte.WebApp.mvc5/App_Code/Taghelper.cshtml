@@ -1,0 +1,11 @@
+﻿@using System.Web.Mvc.Html
+@using System.Web.Mvc
+@using Tools;
+
+@helper GaqEvent(WebViewPage page, string TrackedZone,string ActionType,string CallbackSite, bool wrappedInOnClick, string appendCode)
+{
+	@page.Html.Raw(string.Format(wrappedInOnClick
+								? "onclick=\"_gaq.push(['_trackEvent', '{0}', '{1}', '{2}']); var that=$(this); window.setTimeout(function(){{ {3} window.location=that.attr('href');  }},250);return false;\""
+		: "_gaq.push(['_trackEvent', '{0}', '{1}', '{2}']);"
+		, TrackedZone, ActionType, CallbackSite, appendCode))
+}

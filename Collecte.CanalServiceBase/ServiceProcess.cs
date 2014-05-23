@@ -22,7 +22,7 @@ namespace Collecte.CanalServiceBase
 		{
 			using (DataContext context = new DataContext())
 			{
-				var nouveauxInscrits = from u in context.Users.Include("ShowType").Include("ConnexionType")
+				var nouveauxInscrits = from u in context.Users
 									   where u.CreationDate > since
 									   //&& !u.IsCanal
 									   && u.IsOffreGroupCanal

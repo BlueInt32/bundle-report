@@ -1,0 +1,149 @@
+﻿@model Collecte.WebApp.Areas.admin.Models.HomeModel
+@if (Model.Stats != null)
+{
+    <fieldset>
+        <legend>Reporting du @Model.DateDebut au @Model.DateFin</legend>
+        <div>
+            <table border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td align="right" valign="top"><b>Total</b></td>
+                    <td colspan="2" align="left" valign="top"></td>
+                </tr>
+                <tr>
+                    <td align="right" valign="top">Nombre de participations:</td>
+                    <td align="left" valign="top"><img src="@Url.Content("~/Areas/admin/Images/spacer.gif")" width="4" height="1" alt="" /></td>
+                    <td align="left" valign="top">@Model.Stats.Total.NbParticipations</td>
+                </tr>
+                <tr>
+                    <td align="right" valign="top">Nombre de participations opt-in:</td>
+                    <td align="left" valign="top"><img src="@Url.Content("~/Areas/admin/Images/spacer.gif")" width="4" height="1" alt="" /></td>
+                    <td align="left" valign="top">@Model.Stats.Total.NbParticipationsOptin</td>
+                </tr>
+                <tr>
+                    <td align="right" valign="top">Nombre de participations opt-in abonnés:</td>
+                    <td align="left" valign="top"><img src="@Url.Content("~/Areas/admin/Images/spacer.gif")" width="4" height="1" alt="" /></td>
+                    <td align="left" valign="top">@Model.Stats.Total.NbParticipationsOptinAbonnés</td>
+                </tr>
+                <tr>
+                    <td align="right" valign="top">Nombre de participations opt-in non abonnés:</td>
+                    <td align="left" valign="top"><img src="@Url.Content("~/Areas/admin/Images/spacer.gif")" width="4" height="1" alt="" /></td>
+                    <td align="left" valign="top">@Model.Stats.Total.NbParticipationsOptinNonAbonnés</td>
+                </tr>
+
+                <tr>
+                    <td colspan="3" align="left" valign="top"></td>
+                </tr>
+
+                <tr>
+                    <td align="right" valign="top"><b>Tradedoubler</b></td>
+                    <td colspan="2" align="left" valign="top"></td>
+                </tr>
+                <tr>
+                    <td align="right" valign="top">Nombre de participants:</td>
+                    <td align="left" valign="top"><img src="@Url.Content("~/Areas/admin/Images/spacer.gif")" width="4" height="1" alt="" /></td>
+                    <td align="left" valign="top">@Model.Stats.Tradedoubler.NbParticipants</td>
+                </tr>
+                <tr>
+                    <td align="right" valign="top">Nombre de participants opt-in:</td>
+                    <td align="left" valign="top"><img src="@Url.Content("~/Areas/admin/Images/spacer.gif")" width="4" height="1" alt="" /></td>
+                    <td align="left" valign="top">@Model.Stats.Tradedoubler.NbParticipantsOptin</td>
+                </tr>
+                <tr>
+                    <td align="right" valign="top">Nombre de participants opt-in abonnés:</td>
+                    <td align="left" valign="top"><img src="@Url.Content("~/Areas/admin/Images/spacer.gif")" width="4" height="1" alt="" /></td>
+                    <td align="left" valign="top">@Model.Stats.Tradedoubler.NbParticipantsOptinAbonnés</td>
+                </tr>
+                <tr>
+                    <td align="right" valign="top">Nombre de participants opt-in non abonnés:</td>
+                    <td align="left" valign="top"><img src="@Url.Content("~/Areas/admin/Images/spacer.gif")" width="4" height="1" alt="" /></td>
+                    <td align="left" valign="top">@Model.Stats.Tradedoubler.NbParticipantsOptinNonAbonnés</td>
+                </tr>
+
+                <tr>
+                    <td colspan="3" align="left" valign="top"></td>
+                </tr>
+
+                <tr>
+                    <td align="right" valign="top"><b>Analyse</b></td>
+                    <td colspan="2" align="left" valign="top"></td>
+                </tr>
+                <tr>
+                    <td align="right" valign="top">Taux optin/participants:</td>
+                    <td align="left" valign="top"><img src="@Url.Content("~/Areas/admin/Images/spacer.gif")" width="4" height="1" alt="" /></td>
+                    <td align="left" valign="top">@Model.Stats.Analyse.TauxOptinParticipants%</td>
+                </tr>
+                <tr>
+                    <td align="right" valign="top">Taux optin/abonnés:</td>
+                    <td align="left" valign="top"><img src="@Url.Content("~/Areas/admin/Images/spacer.gif")" width="4" height="1" alt="" /></td>
+                    <td align="left" valign="top">@Model.Stats.Analyse.TauxOptinAbonnes%</td>
+                </tr>
+                <tr>
+                    <td align="right" valign="top">Taux opt-in/non abonnés:</td>
+                    <td align="left" valign="top"><img src="@Url.Content("~/Areas/admin/Images/spacer.gif")" width="4" height="1" alt="" /></td>
+                    <td align="left" valign="top">@Model.Stats.Analyse.TauxOptinNonAbonnes%</td>
+                </tr>
+                <tr>
+                    <td align="right" valign="top">Taux participations/participants Tradedoubler:</td>
+                    <td align="left" valign="top"><img src="@Url.Content("~/Areas/admin/Images/spacer.gif")" width="4" height="1" alt="" /></td>
+                    <td align="left" valign="top">@Model.Stats.Analyse.TauxParticipationsParticipantsTradedoubler%</td>
+                </tr>
+                <tr>
+                    <td align="right" valign="top">Taux opt-in abonnés/participants Tradedoubler:</td>
+                    <td align="left" valign="top"><img src="@Url.Content("~/Areas/admin/Images/spacer.gif")" width="4" height="1" alt="" /></td>
+                    <td align="left" valign="top">@Model.Stats.Analyse.TauxOptinAbonnesParticipantsTradedoubler%</td>
+                </tr>
+                <tr>
+                    <td align="right" valign="top">Taux opt-in non abonnés/participants Tradedoubler:</td>
+                    <td align="left" valign="top"><img src="@Url.Content("~/Areas/admin/Images/spacer.gif")" width="4" height="1" alt="" /></td>
+                    <td align="left" valign="top">@Model.Stats.Analyse.TauxOptinNonAbonnesParticipantsTradedoubler%</td>
+                </tr>
+
+                <tr>
+                    <td colspan="3" align="left" valign="top"></td>
+                </tr>
+
+                <tr>
+                    <td align="right" valign="top"><b>Particpations par épisode</b></td>
+                    <td colspan="2" align="left" valign="top"></td>
+                </tr>
+                <tr>
+                    <td align="right" valign="top">Nombre de joueurs sur l'épisode 1:</td>
+                    <td align="left" valign="top"><img src="@Url.Content("~/Areas/admin/Images/spacer.gif")" width="4" height="1" alt="" /></td>
+                    <td align="left" valign="top">@Model.Stats.Episodes.NbJoueursEpisode1</td>
+                </tr>
+                <tr>
+                    <td align="right" valign="top">Nombre de joueurs sur l'épisode 2:</td>
+                    <td align="left" valign="top"><img src="@Url.Content("~/Areas/admin/Images/spacer.gif")" width="4" height="1" alt="" /></td>
+                    <td align="left" valign="top">@Model.Stats.Episodes.NbJoueursEpisode2</td>
+                </tr>
+                <tr>
+                    <td align="right" valign="top">Nombre de joueurs sur l'épisode 3:</td>
+                    <td align="left" valign="top"><img src="@Url.Content("~/Areas/admin/Images/spacer.gif")" width="4" height="1" alt="" /></td>
+                    <td align="left" valign="top">@Model.Stats.Episodes.NbJoueursEpisode3</td>
+                </tr>
+                <tr>
+                    <td align="right" valign="top">Nombre de joueurs sur l'épisode 4:</td>
+                    <td align="left" valign="top"><img src="@Url.Content("~/Areas/admin/Images/spacer.gif")" width="4" height="1" alt="" /></td>
+                    <td align="left" valign="top">@Model.Stats.Episodes.NbJoueursEpisode4</td>
+                </tr>
+                <tr>
+                    <td align="right" valign="top">Nombre de joueurs sur l'épisode 5:</td>
+                    <td align="left" valign="top"><img src="@Url.Content("~/Areas/admin/Images/spacer.gif")" width="4" height="1" alt="" /></td>
+                    <td align="left" valign="top">@Model.Stats.Episodes.NbJoueursEpisode5</td>
+                </tr>
+
+                <tr>
+                    <td colspan="3" align="left" valign="top"></td>
+                </tr>
+
+                <tr>
+                    <td colspan="3" align="right" valign="top">
+                        <input type="button" value="Extract Simple" onclick="location.href='@Url.Action("Extract", "Home")'" />
+                        <input type="button" value="Extract Avec Chances" onclick="location.href='@Url.Action("ExtractChances", "Home")'" />
+                    </td>
+                </tr>
+            </table>
+        </div>
+            
+    </fieldset>
+}

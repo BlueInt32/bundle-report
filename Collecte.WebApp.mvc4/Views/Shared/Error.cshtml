@@ -1,0 +1,44 @@
+﻿@{
+	Layout = null;
+}
+@model HandleErrorInfo
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>LE GRAND JEU CANAL - ERREUR</title>
+	<link href="@Url.Content("~/Content/css/styles.css")" rel="stylesheet" type="text/css" />
+
+	@Html.Partial("GaScript", "Erreur")
+</head>
+<body>
+	<div id="conteneurgnl">
+		<div id="pagejeu" class="internalContainer">
+
+			<div id="logoCANAL"><img src="@Url.Content("~/content/images/logocanal.gif")" alt="CANAL+" /></div>
+			<div id="logojeu"></div>
+			<div id="pageinstantgagnant">
+				<div id="blason-perdu"></div>
+				<div id="contentinstantgagnant-dejajoue">
+					<p>
+						NOUS SOMMES<br />D&Eacute;SOL&Eacute;S
+					</p>
+					<h2>UNE ERREUR S'EST PRODUITE</h2>
+					@if (Request.IsLocal || HttpContext.Current.IsDebuggingEnabled)
+					{
+						if (@Model != null && @Model.Exception != null)
+						{
+							<p style="font-size:xx-small;" title="@Model.Exception.StackTrace">@Model.Exception.Message</p>
+						}
+					}
+					@*<div class="clear"></div>*@
+				</div>
+			</div>
+		</div>
+		<div id="footerpetit">
+			<a href="@Url.Content("~/pdf/Mentions légales_COLLECTE_150514.pdf")" target="_blank" class="mentionslegales">MENTIONS L&Eacute;GALES</a>
+			<a href="#" target="_blank" class="reglement">R&Eacute;GLEMENT</a>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,38 @@
+﻿@{
+    ViewBag.Title = "Question1";
+	ViewBag.ContainerId = "pagejeu";
+	ViewBag.Tag = "Question4";
+}
+<div id="logoCANAL"><img src="@Url.Content("~/content/images/logocanal.gif")" alt="CANAL+" /></div>
+<div id="logojeu"></div>
+<div id="compteurquizz"><img src="@Url.Content("~/content/images/question4.gif")" alt="4/5" /></div>
+
+<div id="quizz">
+	<p class="question">UNE PETITE PR&Eacute;F&Eacute;RENCE POUR LE TRANSPORT ?</p>
+	<div id="reponse1">
+		<a href="@Url.RouteUrl("QuestionChoice", new { questionNum = 4, urltoken = "police" })"><img src="@Url.Content("~/content/images/quest4-blason1.jpg")" /></a>
+		<p>
+			<span>
+				Toujours suivi<br />
+				par la police
+			</span>
+		</p>
+	</div>
+	<div id="reponse2">
+		<a href="@Url.RouteUrl("QuestionChoice", new { questionNum = 4, urltoken = "chauffeur" })"><img src="@Url.Content("~/content/images/quest4-blason2.jpg")" /></a>
+		<p><span>Avec chauffeur</span></p>
+	</div>
+	<div id="reponse3">
+		<a href="@Url.RouteUrl("QuestionChoice", new { questionNum = 4, urltoken = "quatrepattes" })"><img src="@Url.Content("~/content/images/quest4-blason3.jpg")" /></a>
+		<p><span>A quatre pattes</span></p>
+	</div>
+	<div class="spacer"></div>
+</div>
+
+@section footer
+{
+	<div id="footerpetit">
+		<a href="@Url.Content("~/pdf/Mentions légales_COLLECTE_150514.pdf")" target="_blank" class="mentionslegales">MENTIONS L&Eacute;GALES</a>
+		<a href="#" target="_blank" class="reglement">R&Eacute;GLEMENT</a>
+	</div>
+}

@@ -1,0 +1,34 @@
+﻿@{
+    ViewBag.Title = "Question1";
+	ViewBag.ContainerId = "pagejeu"; 
+	ViewBag.Tag = "Question2";
+}
+
+<div id="logoCANAL"><img src="@Url.Content("~/content/images/logocanal.gif")" alt="CANAL+" /></div>
+<div id="logojeu"></div>
+<div id="compteurquizz"><img src="@Url.Content("~/content/images/question2.gif")" alt="2/5" /></div>
+
+<div id="quizz">
+	<p class="question">C&Ocirc;T&Eacute; STYLE, VOUS &Ecirc;TES PLUT&Ocirc;T ?</p>
+	<div id="reponse1">
+		<a href="@Url.RouteUrl("QuestionChoice", new { questionNum = 2, urltoken = "epingles" })"><img src="@Url.Content("~/content/images/quest2-blason1.jpg")" /></a>
+		<p><span>Tiré à <br />4 épingles</span></p>
+	</div>
+	<div id="reponse2">
+		<a href="@Url.RouteUrl("QuestionChoice", new { questionNum = 2, urltoken = "discret" })"><img src="@Url.Content("~/content/images/quest2-blason2.jpg")" /></a>
+		<p><span>Discret</span></p>
+	</div>
+	<div id="reponse3">
+		<a href="@Url.RouteUrl("QuestionChoice", new { questionNum = 2, urltoken = "fourrure" })"><img src="@Url.Content("~/content/images/quest2-blason3.jpg")" /></a>
+		<p><span>Fourrure</span></p>
+	</div>
+	<div class="spacer"></div> 
+</div>
+
+@section footer
+{
+	<div id="footerpetit">
+		<a href="@Url.Content("~/pdf/Mentions légales_COLLECTE_150514.pdf")" target="_blank" class="mentionslegales">MENTIONS L&Eacute;GALES</a>
+		<a href="#" target="_blank" class="reglement">R&Eacute;GLEMENT</a>
+	</div>
+}

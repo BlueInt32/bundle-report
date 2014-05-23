@@ -17,6 +17,11 @@ namespace Collecte.Logic
 			DateTime now = DateTime.Now.AddDays(-1);
 			return new DateTime(now.Year, now.Month, now.Day);
 		}
+		public static DateTime GetToday()
+		{
+			DateTime now = DateTime.Now;
+			return new DateTime(now.Year, now.Month, now.Day);
+		}
 
 		public OperationResult<Bundle> CreateBundle(DateTime date)
 		{

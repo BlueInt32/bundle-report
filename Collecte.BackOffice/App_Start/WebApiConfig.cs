@@ -15,6 +15,12 @@ namespace CollecteBundles
             // Web API routes
             config.MapHttpAttributeRoutes();
 
+			config.Routes.MapHttpRoute(
+				name: "FileApi",
+				routeTemplate: "api/{controller}/{*path}",
+				defaults: new { encodedRelativeFilePath = RouteParameter.Optional }
+				
+			);
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",

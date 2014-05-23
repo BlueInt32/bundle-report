@@ -37,7 +37,7 @@ namespace Collecte.CanalServiceBase
 		public static void log(object value)
 		{
 			Log.Info("Collecte.ServiceBase", value.ToString());
-			const string sSource = "CollecteService";
+			const string sSource = "CanalServiceBase";
 			const string sLog = "Application";
 			string sEvent = string.Format("Log Event: {0}", value);
 			if (!EventLog.SourceExists(sSource))

@@ -74,10 +74,17 @@ namespace Collecte.DAL
 
 			using (DataContext context = new DataContext())
 			{
-				Bundle BundleFromDb = context.Bundles.Include("BundleFiles").Where(b => b.Date == date).FirstOrDefault();
-				if (BundleFromDb == null)
-					return OperationResult<Bundle>.BadResult("Bundle introuvable");
-				return OperationResult<Bundle>.OkResultInstance(BundleFromDb);
+				try
+				{
+					Bundle BundleFromDb = context.Bundles.Include("BundleFiles").Where(b => b.Date == date).FirstOrDefault();
+					if (BundleFromDb == null)
+						return OperationResult<Bundle>.BadResult("Bundle introuvable");
+					return OperationResult<Bundle>.OkResultInstance(BundleFromDb);
+				}
+				catch
+				{
+					return OperationResult<Bundle>.BadResult("Probleme de connexion à la base.");
+				}
 			}
 		}
 

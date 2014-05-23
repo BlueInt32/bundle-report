@@ -1,0 +1,7 @@
+﻿@using System.Web.Mvc.Html
+@using System.Web.Mvc
+@helper GaqEvent(WebViewPage page, string TrackedZone,string ActionType,string CallbackSite)
+{
+	@*@page.Html.Raw(string.Format("_gaq.push(['_trackEvent', '{0}', '{1}', '{2}']);", TrackedZone, ActionType, CallbackSite))*@
+	new MvcHtmlString(string.Format("gaq.push(['_trackEvent', '{0}', '{1}', '{2}']);", TrackedZone, ActionType, CallbackSite))
+}

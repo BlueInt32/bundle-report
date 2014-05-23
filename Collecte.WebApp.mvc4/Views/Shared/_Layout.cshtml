@@ -1,0 +1,33 @@
+﻿@using Tools
+@model Collecte.WebApp.Models.BaseModel
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>@ViewBag.HtmlTitle</title>
+	@Styles.Render("~/Content/cssbundle/")
+	@Html.Partial("GaScript", (string)ViewBag.Tag)
+	<!--[if lte IE 8]> <html class="ie8" lang="fr"> <![endif]-->
+
+	<meta property="og:title" content="Le Grand Jeu des Héros Canal+" />
+	<meta property="og:description" content="Testez le héros qui se cache en vous avec CANAL+ et tentez de remporter des cadeaux CANAL+ et des équipements SONY." />
+	<meta property="og:site_name" content="Canal + Le Grand Jeu"/>
+	@*<meta property="og:url" content="@UrlHelperSb.GetApplicationBaseUrl(true).Replace("dev", "preview")"/>*@
+	<meta property="og:url" content="@string.Format("{0}/?utm_campaign=facebook+canalplus&utm_source=op3&utm_medium=social", UrlHelperSb.GetApplicationBaseUrl(false))"/>
+	<meta property="og:image" content="@string.Format("{0}/Content/images/fb_jeuhiver_b.jpg", UrlHelperSb.GetApplicationBaseUrl(false))"/>
+</head>
+
+<body>
+@Html.Partial("FbPartial")
+<div id="conteneurgnl">
+    <div id="@ViewBag.ContainerId" class="internalContainer">
+		@RenderBody()
+	</div>
+	@RenderSection("spacer", required:false)
+	@RenderSection("footer", required:false)
+</div>
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/tags")
+@RenderSection("scripts", required: false)
+</body>
+</html>

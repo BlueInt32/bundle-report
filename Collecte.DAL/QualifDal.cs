@@ -1,12 +1,15 @@
-﻿using System;
+﻿using Collecte.DTO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Collecte.DTO;
 using Tools;
 
 namespace Collecte.DAL
 {
+	/// <summary>
+	/// 
+	/// </summary>
 	public class QualifDal
 	{
 		public OperationResult<AnswerChoice> SetAnswer(User u, int questionNumber, int answerChosen)
