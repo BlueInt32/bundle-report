@@ -11,7 +11,7 @@
 	<p class="question">QUESTION T&Eacute;L&Eacute;PHONE, VOUS PR&Eacute;F&Eacute;REZ ?</p>
 	<div id="reponse1">
 		<a class="sidebarLink" href="@Url.RouteUrl("QuestionChoice", new { questionNum = 5, urltoken = "nimporte" })"><img src="@Url.Content("~/content/images/quest5-blason1.jpg")" /></a>
-		<p><span>Partout,<br />n'importe quand !</span></p>
+		<p><span>Partout,<br />n'importe quand !</span></p>
 	</div>
 	<div id="reponse2">
 		<a class="sidebarLink" href="@Url.RouteUrl("QuestionChoice", new { questionNum = 5, urltoken = "chezvous" })"><img src="@Url.Content("~/content/images/quest5-blason2.jpg")" /></a>
@@ -47,7 +47,7 @@
 {
 	<div id="footerpetit">
 		<a href="@Url.Content("~/pdf/Mentions légales_COLLECTE_150514.pdf")" target="_blank" class="mentionslegales">MENTIONS L&Eacute;GALES</a>
-		<a href="#" target="_blank" class="reglement">R&Eacute;GLEMENT</a>
+		<a href="@Url.Content("~/pdf/reglement.pdf")" target="_blank" class="reglement">R&Eacute;GLEMENT</a>
 	</div>
 }
 
@@ -123,3 +123,7 @@
 }
 
 
+@section omniture
+{
+	@Html.Partial("OmnitureScript", new Collecte.WebApp.Models.OmnitureViewModel("Test Etape 5"))
+}

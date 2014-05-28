@@ -12,10 +12,14 @@ namespace Collecte.Logic
 {
 	public class BundleLogic
 	{
-		public static DateTime GetYesterday()
+		public static DateTime GetPreviousDayOrSo0h()
 		{
-			DateTime now = DateTime.Now.AddDays(-1);
-			return new DateTime(now.Year, now.Month, now.Day);
+			DateTime previousDay;
+			if(DateTime.Now.DayOfWeek == DayOfWeek.Monday)
+				previousDay = DateTime.Now.AddDays(-3); // if monday, we go three days back because service is off on saturdays and sundays
+			else
+				previousDay = DateTime.Now.AddDays(-1);
+			return new DateTime(previousDay.Year, previousDay.Month, previousDay.Day);
 		}
 		public static DateTime GetToday()
 		{

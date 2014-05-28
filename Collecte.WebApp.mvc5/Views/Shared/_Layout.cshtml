@@ -15,6 +15,7 @@
 	@*<meta property="og:url" content="@UrlHelperSb.GetApplicationBaseUrl(true).Replace("dev", "preview")"/>*@
 	<meta property="og:url" content="@string.Format("{0}/?utm_campaign=facebook+canalplus&utm_source=op3&utm_medium=social", UrlHelperSb.GetApplicationBaseUrl(false))"/>
 	<meta property="og:image" content="@string.Format("{0}/Content/images/201x201.jpg", UrlHelperSb.GetApplicationBaseUrl(false))"/>
+	<link rel="icon" href="@Url.Content("~/favicon.ico")" type="image/x-icon" />
 </head>
 
 <body>
@@ -31,4 +32,5 @@
 	@RenderSection("scripts", required: false)
 	<script src="~/Scripts/omniture.js"></script>
 </body>
+@RenderSection("omniture", required:false)
 </html>

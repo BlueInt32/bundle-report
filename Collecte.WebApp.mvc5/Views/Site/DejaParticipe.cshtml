@@ -1,6 +1,7 @@
 ﻿@{
     ViewBag.Title = "DejaParticipe";
 	ViewBag.ContainerId = "pagejeu";
+	ViewBag.Tag = "DejaParticipe";
 }
 
 
@@ -20,6 +21,6 @@
 {
 <div id="footerpetit">
 	<a href="@Url.Content("~/pdf/Mentions légales_COLLECTE_150514.pdf")" target="_blank" class="mentionslegales">MENTIONS L&Eacute;GALES</a>
-	<a href="#" target="_blank" class="reglement">R&Eacute;GLEMENT</a>
+	<a href="@Url.Content("~/pdf/reglement.pdf")" target="_blank" class="reglement">R&Eacute;GLEMENT</a>
 </div>
 }

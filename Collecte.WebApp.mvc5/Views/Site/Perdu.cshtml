@@ -4,6 +4,11 @@
 	ViewBag.Tag = "IG_Perdu";
 	ViewBag.Page = "pagejeu";
 }
+
+@if (ViewBag.IsUserOptin)
+{
+	<img src="http://tbl.tradedoubler.com/report?organization=1772736&event=287866&leadNumber=@ViewBag.UserId" width="1" height="1" border="0">
+}
 <div id="logoCANAL"><img src="@Url.Content("~/content/images/logocanal.gif")" alt="CANAL+" /></div>
 <div id="logojeu"></div>
 
@@ -14,7 +19,7 @@
 		<h2>VOUS N'AVEZ PAS ENCORE GAGN&Eacute;</h2>
 		<p>
 			Mais repoussez vos limites, commencez le test<br />
-			et <span class="demiitalic">tenter de gagner</span> l'un des nombreux lots SONY en jeu&#8805; !
+			et <span class="demiitalic">tentez de gagner</span> l'un des nombreux lots SONY en jeu&#8805; !
 		</p>
 		<a href="@Url.Action("Question1")"><img src="@Url.Content("~/content/images/bt-passetest.jpg")" alt="Je passe le test" /></a>
 	</div>
@@ -23,7 +28,11 @@
 {
 <div id="footercomplet">
 	<a href="@Url.Content("~/pdf/Mentions légales_COLLECTE_150514.pdf")" target="_blank" class="mentionslegales">MENTIONS L&Eacute;GALES</a>
-	<a href="#" target="_blank" class="reglement">R&Eacute;GLEMENT</a>
+	<a href="@Url.Content("~/pdf/reglement.pdf")" target="_blank" class="reglement">R&Eacute;GLEMENT</a>
 	<p class="mentionsliste">&#8805;Liste complète des dotations disponibles dans le règlement du jeu.</p>
 	</div>
+}
+@section omniture
+{
+	@Html.Partial("OmnitureScript", new Collecte.WebApp.Models.OmnitureViewModel("Perdant Immediat"))
 }

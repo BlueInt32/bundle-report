@@ -135,40 +135,47 @@ namespace Collecte.CanalServiceBase
 					csvReader.Configuration.RegisterClassMap<FromCanalUser>();
 					csvReader.Configuration.Delimiter = ";";
 					csvReader.Configuration.HasHeaderRecord = false;
-					var resultList = csvReader.GetRecords<FromCanalUser>().ToList();
+					var fromCanalCsvList = csvReader.GetRecords<FromCanalUser>().ToList();
 
 
-					int fromCanalProfiles = resultList.Count;
-					int statusOkScanned = resultList.Where(cu => cu.Status == "OK").Count();
-					int statusKoScanned = resultList.Where(cu => cu.Status == "KO").Count();
+					int fromCanalProfiles = fromCanalCsvList.Count;
+					int statusOkScanned = fromCanalCsvList.Where(cu => cu.Status == "OK").Count();
+					int statusKoScanned = fromCanalCsvList.Where(cu => cu.Status == "KO").Count();
 
 					BundleLogic.AttachFileToBundle(ScannedDate, filePath, BundleFileType.CsvOut);
 					BundleLogic.SetBundleNbReturnsCanal(ScannedDate, fromCanalProfiles, statusOkScanned, statusKoScanned);
 					BundleLogic.SetBundleStatus(ScannedDate, BundleStatus.CsvOutParsed);
 
 
-					Program.log(String.Format("Csv reader detected {0} entries", resultList.Count));
+					Program.log(String.Format("Csv reader detected {0} entries", fromCanalCsvList.Count));
 
 					UserDal uDal = new UserDal();
 
 					List<UserItem> subListBase = uDal.GetAllUserItems();
 					Program.log(String.Format("Base has {0} entries", subListBase.Count));
-					var subListCanal = from u in resultList where u.Status == "OK" select new UserItem { Email = u.Email.ToLower(), Id = Guid.Empty };
+					var subListCanal = from u in fromCanalCsvList select new UserItem { Email = u.Email.ToLower(), Id = Guid.Empty, Status = u.Status };
 
 					List<TradeDoublerTransaction> tradedoublerUsersList = new List<TradeDoublerTransaction>();
 					var equalityComparer = new UserItemEqualityComparer();
-					subListBase = subListBase.Intersect<UserItem>(subListCanal, equalityComparer).ToList();
+					//subListBase = subListBase.Intersect<UserItem>(subListCanal, equalityComparer).ToList();
+
+					var intersect = subListBase.Join(subListCanal,
+								personItemBase => personItemBase.Email,
+								personItemCanal => personItemCanal.Email,
+								(personItemBase, personItemCanal) =>
+							new UserItem { Email = personItemBase.Email, Id = personItemBase.Id, Status = personItemCanal.Status });
 
 
-					Program.log(String.Format("Intersect has {0} entries", subListBase.Count()));
 
-					foreach (UserItem userItem in subListBase)
+					Program.log(String.Format("Intersect has {0} entries", intersect.Count()));
+
+					foreach (UserItem userItem in intersect)
 					{
 						tradedoublerUsersList.Add(new TradeDoublerTransaction
 						{
 							orderNumber = userItem.Id,
 							eventId = ConfigurationManager.AppSettings["tradeDoublerEventId"],
-							status = "A"
+							status = userItem.Status == "OK" ? "A": "D"
 						});
 					}
 
@@ -178,7 +185,7 @@ namespace Collecte.CanalServiceBase
 					{
 						OrganizationId = ConfigurationManager.AppSettings["tradeDoublerOrgId"],
 						SequenceNumber = sequenceNumber,
-						NumberOfTransactions = resultList.Count,
+						NumberOfTransactions = fromCanalCsvList.Count,
 						Transactions = tradedoublerUsersList
 					};
 					Program.log("TradeDoublerContainer created");
@@ -206,7 +213,7 @@ namespace Collecte.CanalServiceBase
 						mailer.LogDelegate = Program.log;
 						OperationResult<NoType> mailerResult = mailer.SendMail(emailConf, "", "", new Attachment(filePathTradedoublerXml, MediaTypeNames.Text.Plain), ConfigurationManager.AppSettings["TradeDoublerCCTo"]);
 
-						emailConf = ConfigurationManager.AppSettings["NotifEmail"];
+						emailConf = ConfigurationManager.AppSettings["NotificationEmail"];
 
 						if (!mailerResult.Result)
 						{
@@ -238,11 +245,16 @@ namespace Collecte.CanalServiceBase
 							Program.log("File sent to TradeDoubler !");
 							TradeDoublerProvider.SetTradeDoublerSequenceNumber(sequenceNumber);
 							BundleLogic.SetBundleStatus(ScannedDate, BundleStatus.XmlSentToTrade);
+							
+							Mailer mailer = new Mailer();
+							mailer.LogDelegate = Program.log;
+							string emailConf = ConfigurationManager.AppSettings["NotificationEmail"];
+							mailer.SendMail(emailConf, "[Moulinette Canal Collecte] Envoi du XML chez TradeDoubler", "Tout est ok. <br/><a href='http://monitoring.collecte.canalplus.clients.rappfrance.com'>Monitoring</a>", null, ConfigurationManager.AppSettings["NotificationEmail_CC"]);
 						}
 						else
 							Program.log("Erreur envoi fichier TradeDoubler !" + ftpResult.Message);
 					}
-					return OperationResult<List<FromCanalUser>>.OkResultInstance(resultList);
+					return OperationResult<List<FromCanalUser>>.OkResultInstance(fromCanalCsvList);
 				}
 			}
 			catch (Exception e)

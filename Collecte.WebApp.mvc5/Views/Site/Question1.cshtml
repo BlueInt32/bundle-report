@@ -3,10 +3,7 @@
 	ViewBag.ContainerId = "pagejeu";
 	ViewBag.Tag = "Question1";
 }
-@if (ViewBag.IsUserOptin)
-{
-	<img src="http://tbl.tradedoubler.com/report?organization=1772736&event=287866&leadNumber=@ViewBag.UserId" width="1" height="1" border="0">
-}
+
 <div id="logoCANAL"><img src="@Url.Content("~/content/images/logocanal.gif")" alt="CANAL+"></div>
 <div id="logojeu"></div>
 <div id="compteurquizz"><img src="@Url.Content("~/content/images/question1.gif")" alt="1/5"></div>
@@ -15,7 +12,7 @@
 	<p class="question">VOTRE QG ID&Eacute;AL ?</p>
 	<div id="reponse1">
 		<a class="sidebarLink" href="@Url.RouteUrl("QuestionChoice", new { questionNum = 1, urltoken = "repere" })"><img src="@Url.Content("~/content/images/quest1-blason1.jpg")"></a>
-		<p><span>Un repère<br>bien caché</span></p>
+		<p><span>Un repaire<br>bien caché</span></p>
 	</div>
 	<div id="reponse2">
 		<a class="sidebarLink" href="@Url.RouteUrl("QuestionChoice", new { questionNum = 1, urltoken = "arbre" })"><img src="@Url.Content("~/content/images/quest1-blason2.jpg")"></a>
@@ -53,7 +50,7 @@
 {
 	<div id="footerpetit">
 		<a href="@Url.Content("~/pdf/Mentions légales_COLLECTE_150514.pdf")" target="_blank" class="mentionslegales">MENTIONS L&Eacute;GALES</a>
-		<a href="#" target="_blank" class="reglement">R&Eacute;GLEMENT</a>
+		<a href="@Url.Content("~/pdf/reglement.pdf")" target="_blank" class="reglement">R&Eacute;GLEMENT</a>
 	</div>
 }
 @section scripts
@@ -131,4 +128,8 @@
 		}
 	</script>
 
+}
+@section omniture
+{
+	@Html.Partial("OmnitureScript", new Collecte.WebApp.Models.OmnitureViewModel("Test Etape 1"))
 }

@@ -50,13 +50,14 @@ angular.module('myServices')
 		var setFileContentToDom = function (content)
 		{
 			console.log(content);
-			if (content.indexOf('<?xml') === -1)
+			if (content.indexOf('<?xml') !== -1)
 			{
-				$rootScope.fileContent = $sce.trustAsHtml(content.substr(1, content.length - 2));
+				$rootScope.fileContent = content.substr(1, content.length - 2);
+				console.log($rootScope.fileContent);
 			}
 			else
 			{
-				$rootScope.fileContent = content.substr(1, content.length - 2);
+				$rootScope.fileContent = $sce.trustAsHtml(content.substr(1, content.length - 2));
 			}
 		}
 

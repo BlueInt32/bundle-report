@@ -10,6 +10,7 @@ using System.Text;
 using System.Timers;
 using Collecte.DAL;
 using Collecte.DTO;
+using Collecte.Logic;
 
 namespace Collecte.MorningService
 {
@@ -33,6 +34,11 @@ namespace Collecte.MorningService
 			ServiceName = "CanalMorningService";
             timer = new Timer();
             AutoLog = true;
+
+			Mailer mailer = new Mailer();
+			mailer.LogDelegate = Program.Log;
+			string emailConf = ConfigurationManager.AppSettings["NotificationEmail"];
+			mailer.SendMail(emailConf, "[Morning Service Collecte] Démarrage du service", "", null, ConfigurationManager.AppSettings["NotificationEmail_CC"]);
         }
         public void DebugRun()
         {

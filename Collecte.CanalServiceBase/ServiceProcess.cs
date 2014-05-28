@@ -50,8 +50,8 @@ namespace Collecte.CanalServiceBase
 			{
 				Mailer mailer = new Mailer();
 				mailer.LogDelegate = Program.log;
-				string emailConf = ConfigurationManager.AppSettings["NotifEmail"];
-				mailer.SendMail(emailConf, "[Moulinette Canal Collecte] Envoi Ftp", "Tout est ok. ", new Attachment(localPath, MediaTypeNames.Text.Plain), null);
+				string emailConf = ConfigurationManager.AppSettings["NotificationEmail"];
+				mailer.SendMail(emailConf, "[Moulinette Canal Collecte] Envoi Ftp chez Canal", "Tout est ok. <br/><a href='http://monitoring.collecte.canalplus.clients.rappfrance.com'>Monitoring</a>", null, ConfigurationManager.AppSettings["NotificationEmail_CC"]);
 			}
 			return ftpResult;
 		}

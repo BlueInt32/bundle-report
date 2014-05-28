@@ -12,7 +12,7 @@ angular.module('bundleControllers')
 		});
 		$scope.setContent = function(content)
 		{
-			console.log(content);
+			//console.log(content);
 			$scope.fileContent = content;
 		}
 	}]);

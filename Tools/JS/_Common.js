@@ -138,26 +138,40 @@ function okPrefix()
 	return okPrefixes[idx-1];
 }
 
-/* AutoEmpty */
-
+/* CODE JS */
 $(function()
 {
-	$(".autoEmpty").each(function()
+	$(".autoempty").each(function()
 	{
-		var defaultForEmptyFieldText = $(this).data("default_empty"); 
-		$(this).val(defaultForEmptyFieldText);
+		if($(this).val() === '') // si champ vide, y mettre la valeur de data-defaultempty
+		{
+			var defaultForEmptyFieldText = $(this).data("defaultempty"); 
+			$(this).val(defaultForEmptyFieldText);
+		}
 	});
-	$(".autoEmpty").live("focus", function(){
-		var defaultForEmptyFieldText = $(this).data("default_empty"); 
-		if($(this).val() == defaultForEmptyFieldText) 
+	$(".autoempty").live("focus", function(){ // si champ = data-defaultempty, le mettre à vide
+		var defaultForEmptyFieldText = $(this).data("defaultempty"); 
+		if($(this).val() === defaultForEmptyFieldText) 
 			$(this).val("");
 				
 	});
-	$(".autoEmpty").live("blur", function(){
-		var defaultForEmptyFieldText = $(this).data("default_empty"); 
-		if($(this).val() == "") 
+	$(".autoempty").live("blur", function(){ //  si champ = vide quand on quitte le champ text, on met data-defaultempty
+		var defaultForEmptyFieldText = $(this).data("defaultempty"); 
+		if($(this).val() === "") 
 			$(this).val(defaultForEmptyFieldText);
 	});
 });
 
 
+/* Avant le submit, appeler la fonction qui vide tous les champs dont la valeur est égale à  data-defaultempty */
+function beforeSubmit()
+{
+	$(".autoempty").each(function()
+	{
+		if($(this).val() === $(this).attr("data-defaultempty"))
+			$(this).val('');
+	});
+}
+
+/* CODE HTML   */
+<input type="text" class="bidule autoempty" data-defaultempty="Votre n° de rue"/>

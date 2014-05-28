@@ -64,7 +64,8 @@ namespace Collecte.MorningService
 			{
 				Mailer mailer = new Mailer();
 				mailer.LogDelegate = Program.Log;
-				mailer.SendMail(ConfigurationManager.AppSettings["NotifEmail"], "Canal Collecte - Service d'envoi à MailPerf", "Tout est ok. ", new Attachment(localPath, MediaTypeNames.Text.Plain), null);
+				string emailConf = ConfigurationManager.AppSettings["NotificationEmail"];
+				mailer.SendMail(emailConf, "[Morning Service Collecte] Envoi à MailPerf", "Tout est ok.", new Attachment(localPath), ConfigurationManager.AppSettings["NotificationEmail_CC"]);
 			}
 		}
 	}

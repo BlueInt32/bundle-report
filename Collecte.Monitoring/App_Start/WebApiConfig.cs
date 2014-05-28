@@ -15,9 +15,9 @@ namespace Collecte.Monitoring
 			config.MapHttpAttributeRoutes();
 
 			config.Routes.MapHttpRoute(
-				name: "FileApi",
-				routeTemplate: "api/bundlefiles/{*path}",
-				defaults: new { path = RouteParameter.Optional }
+				name: "TemplateFileRoute",
+				routeTemplate: "api/{controller}/{*path}",
+				defaults: new { }
 
 			);
 			config.Routes.MapHttpRoute(

@@ -1,4 +1,6 @@
-﻿var s = s_gi(s_account)
+﻿var s_account = 'cplusglobalprod,cpluspartenariatsprod';
+
+var s = s_gi(s_account)
 function siteLienExterne(nomLienExterne) { s.linkTrackVars = "events,eVar24"; s.linkTrackEvents = "event10"; s.events = "event10"; s.eVar24 = nomLienExterne; void (s.tl(true, 'o', nomLienExterne)); }
 s.charSet = "ISO-8859-1"
 s.currencyCode = "EUR"

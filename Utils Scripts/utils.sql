@@ -11,10 +11,6 @@ delete from dbo.Users where Email = 'budsi_fr@hotmail.com' or Email = 'budsi_fr@
 -- SELECTION D'UN USER --
 select * from dbo.Users where Email = 'simon.budin@gmail.com' or Email = 'budsi_fr@hotmail.com'
 
-
-
-
-
 -- BUNDLES --
 SELECT [BundleId],[Date],[Status],[NbInscriptions],[NbOk],[NbKo],[NbRetoursCanal] FROM [canalplus_collecte].[dbo].[Bundles]
 SELECT [BundleFileId],[Type],[FileName],[CreationDate],[Bundle_BundleId]  FROM [canalplus_collecte].[dbo].[BundleFiles]

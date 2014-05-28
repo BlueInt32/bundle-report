@@ -105,8 +105,8 @@ namespace Collecte.Logic
 						LogDelegate("[FTP] Exception envoi : " + exception.Message + " " + exception.StackTrace);
 						exception = e.InnerException;
 					}
-					string emailConf = ConfigurationManager.AppSettings["NotifEmail"];
-					mailer.SendMail(emailConf, "[Moulinette Canal Collecte] Erreur !", exception.Message + "<br/>" + e.StackTrace, null, null);
+					string emailConf = ConfigurationManager.AppSettings["NotificationEmail"];
+					mailer.SendMail(emailConf, "[Canal Collecte] Erreur FTP!", exception.Message + "<br/>" + e.StackTrace, null, ConfigurationManager.AppSettings["NotificationEmail_CC"]);
 					
 				}
 				return OperationResult<NoType>.BadResultFormat("[FTP] Exception envoi: {0} /// {1}", e.Message);
@@ -123,7 +123,9 @@ namespace Collecte.Logic
 		{
 			if (!distantDirectory.StartsWith("/"))
 				distantDirectory = string.Concat("/", distantDirectory);
-			string distantPath = string.Format("ftp://{0}{1}", Host, distantDirectory);
+
+			FileInfo fi = new FileInfo(localFilePath);
+			string distantPath = string.Format("ftp://{0}{1}{2}", Host, distantDirectory, fi.Name);
 			LogDelegate(string.Format("[FTP] Distant path: {0}", distantPath));
 			try
 			{
@@ -168,8 +170,8 @@ namespace Collecte.Logic
 					Mailer mailer = new Mailer();
 					mailer.LogDelegate = LogDelegate;
 
-					string emailConf = ConfigurationManager.AppSettings["NotifEmail"];
-					mailer.SendMail(emailConf, "[Moulinette Canal Collecte] Erreur !", e.Message + " " + e.StackTrace, null, null);
+					string emailConf = ConfigurationManager.AppSettings["NotificationEmail"];
+					mailer.SendMail(emailConf, "[Canal Collecte] Erreur FTP!", e.Message + " " + e.StackTrace, null, ConfigurationManager.AppSettings["NotificationEmail_CC"]);
 				}
 				return OperationResult<NoType>.BadResultFormat("[FTP] Exception envoi: {0} /// {1}", we.Message, we.Status);
 			}

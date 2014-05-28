@@ -31,6 +31,9 @@ namespace Collecte.WebApp
 
 		protected void Application_BeginRequest()
 		{
+			if (Request.Url.AbsoluteUri.Contains("www.legrandjeudesheroscanalplus.fr"))
+				Response.RedirectPermanent("http://legrandjeudesheroscanalplus.fr");
+
 			if (!string.IsNullOrWhiteSpace(ConfigurationManager.AppSettings["redirectedUrl"]) && Request.Url.AbsoluteUri.Contains(ConfigurationManager.AppSettings["redirectedUrl"]))
 			{
 				Log.Info("Global.asax", "Redirection depuis l'url " + ConfigurationManager.AppSettings["redirectedUrl"]);

@@ -132,14 +132,21 @@
     {
     	FB.getLoginStatus(function (response)
     	{
-            if (response.status != 'connected') {
-                FB.login(function (response) {
+    		console.log("FB.getLoginStatus", response);
+    		if (response.status != 'connected')
+    		{
+    			console.log("not connected");
+    			FB.login(function (response)
+    			{
+    				console.log("FB.login response", response);
                     accesstoken = response.authResponse.accessToken;
                     userid = response.authResponse.userID;
                     handleFacebookMe();
                 }, { scope: 'email' });
             }
-            else {
+    		else
+    		{
+    			console.log("connected user ID", response.authResponse.userID);
                 accesstoken = response.authResponse.accessToken;
                 userid = response.authResponse.userID;
                 handleFacebookMe();
@@ -158,8 +165,13 @@
 {
 <div id="footercomplet">
 	<a href="@Url.Content("~/pdf/Mentions légales_COLLECTE_150514.pdf")" target="_blank" class="mentionslegales">MENTIONS L&Eacute;GALES</a>
-	<a href="#" target="_blank" class="reglement">R&Eacute;GLEMENT</a>
+	<a href="@Url.Content("~/pdf/reglement.pdf")" target="_blank" class="reglement">R&Eacute;GLEMENT</a>
 	<p class="mentionsliste">&#8805;&#8805;Liste complète des dotations disponibles dans le règlement du jeu.</p>
-	<p class="mentions">Jeu gratuit et sans obligation d'achat organisé par Groupe CANAL+ SA du 27 mai au 10 juillet 2014 Règlement complet du jeu déposé auprès de Maître Jean-Louis Hauguel, Huissier de Justice, 14 rue du Faubourg Saint-Honoré 75008 Paris, France. Règlement disponible sur le site XXX. Les lots sont détaillés dans le règlement complet du jeu. Le règlement et la demande de remboursement des frais de participations sont disponibles gratuitement sur simple demande adressée à groupe CANAL+ - « Le Grand Jeu des héros CANAL+» - 95905 CERGY-PONTOISE cedex 9. Conformément à la loi Informatique et Libertés du 06/01/1978, vous disposez d'un droit d'accès, de rectification et d'opposition aux données vous concernant en écrivant à CANAL+ - « Le Grand Jeu des héros CANAL+» - 95905 CERGY-PONTOISE cedex 9.</p>
+	<p class="mentions">Jeu gratuit et sans obligation d'achat organisé par Groupe CANAL+ SA du 27 mai au 10 juillet 2014 Règlement complet du jeu déposé auprès de Maître Jean-Louis Hauguel, Huissier de Justice, 14 rue du Faubourg Saint-Honoré 75008 Paris, France. Les lots sont détaillés dans le règlement complet du jeu. Le règlement et la demande de remboursement des frais de participations sont disponibles gratuitement sur simple demande adressée à groupe CANAL+ - « Le Grand Jeu des héros CANAL+» - 95905 CERGY-PONTOISE cedex 9. Conformément à la loi Informatique et Libertés du 06/01/1978, vous disposez d'un droit d'accès, de rectification et d'opposition aux données vous concernant en écrivant à CANAL+ - « Le Grand Jeu des héros CANAL+» - 95905 CERGY-PONTOISE cedex 9.</p>
 </div>
+}
+
+@section omniture
+{
+	@Html.Partial("OmnitureScript", new Collecte.WebApp.Models.OmnitureViewModel("Home"))
 }

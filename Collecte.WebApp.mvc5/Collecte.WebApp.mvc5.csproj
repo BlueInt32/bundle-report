@@ -202,6 +202,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Code\MailActionResult.cs" />
+    <Compile Include="App_Code\MailHelper.cs" />
     <Compile Include="App_Code\PhoneModelBinder.cs" />
     <Compile Include="App_Code\AddressModelBinder.cs" />
     <Compile Include="App_Code\InitQualifData.cs" />
@@ -221,6 +223,7 @@
     <Compile Include="Models\BaseModel.cs" />
     <Compile Include="Models\BasicUserInfoViewModel.cs" />
     <Compile Include="Models\Episode4ViewModel.cs" />
+    <Compile Include="Models\OmnitureViewModel.cs" />
     <Compile Include="Models\ThanksViewModel.cs" />
     <Compile Include="Models\Episode1ViewModel.cs" />
     <Compile Include="Models\Episode5ViewModel.cs" />
@@ -352,9 +355,11 @@
     <Content Include="Content\fonts\canallir-webfont.woff" />
     <Content Include="Content\images\bt-envoi.gif.safe" />
     <Content Include="pdf\Mentions légales_COLLECTE_150514.pdf" />
+    <Content Include="pdf\reglement.pdf" />
     <None Include="Properties\PublishProfiles\Dev.pubxml" />
     <None Include="Properties\PublishProfiles\Preprod.pubxml" />
     <None Include="Properties\PublishProfiles\Prod.pubxml" />
+    <Content Include="Views\Shared\OmnitureScript.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

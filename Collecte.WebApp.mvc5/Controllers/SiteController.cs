@@ -10,10 +10,10 @@ using Collecte.DTO;
 using Collecte.WebApp.App_Code;
 using Collecte.WebApp.Filters;
 using Collecte.WebApp.Models;
-using Tools;
-using Tools.CustomActionResults;
-using Tools.Mail;
 using Collecte.Logic;
+using App_Code.Mail;
+using Tools;
+using System.Configuration;
 
 namespace Collecte.WebApp.Controllers
 {
@@ -121,6 +121,8 @@ namespace Collecte.WebApp.Controllers
         [CheckSession]
 		public ActionResult Gagne()
 		{
+			ViewBag.IsUserOptin = bool.Parse(Session["UserOptin"].ToString());
+			ViewBag.UserId = Session["UserId"].ToString();
 			ViewBag.WhatYouWonString = Session["WhatYouWonString"];
 			ViewBag.WhatYouWonDivId = Session["WhatYouWonDivId"];
 			return View();
@@ -129,6 +131,8 @@ namespace Collecte.WebApp.Controllers
         [CheckSession]
 		public ActionResult Perdu()
 		{
+			ViewBag.IsUserOptin = bool.Parse(Session["UserOptin"].ToString());
+			ViewBag.UserId = Session["UserId"].ToString();
 			return View();
 		}
 
@@ -180,7 +184,7 @@ namespace Collecte.WebApp.Controllers
 			int chancesSup = userFromDb.ChancesAmount  - 1;
 			string chancesStr = string.Format("{0} chance{1} supplémentaire{1}", chancesSup, chancesSup == 1 ? "" : "s");
 
-			ViewBag.ChancesMessage = chancesSup == 0 ? "" : "Vous avez "+ chancesStr +" de gagner un des nombreux lots SONY en jeu&#8805;.<br/>";
+			ViewBag.ChancesMessage = chancesSup == 0 ? "" : "<p id='l4'>Vous avez "+ chancesStr +" de gagner un des nombreux lots SONY en jeu&#8805;.</p>";
 
 			var quizRetrieveResult = qDal.GetUsersAnswers(userFromDb);
 			if (quizRetrieveResult.Result)
@@ -209,6 +213,7 @@ namespace Collecte.WebApp.Controllers
 					ViewBag.TextResult = "Le mot « <span class='demiitalic'>SUPER</span> » n'a plus de secret pour vous. On vous a vu décrocher la lune, déplacer des montagnes, faire des miracles. Tous vos proches vous admirent et le confirment : <span class='demiitalic'>vous n'avez plus de preuve à faire</span>, vous avez votre place aux côtés des plus grands super héros… Respect !";
 					userFromDb.HeroicStatus = 1;
 					ViewBag.Tag = "Page_de_remerciement_Heros_legendaire";
+					ViewBag.TypeHeros = "Heros Legendaire";
 					
 				}
 				else if (totalScore >= 8.3 && totalScore < 11.6)
@@ -219,6 +224,7 @@ namespace Collecte.WebApp.Controllers
 					ViewBag.TextResult = "C'est simple, vous dégagez un <span class='demiitalic'>charme irrésistible</span>.<br /> Une peau de banane, un pot de fleur, une gaffe… Ils seront immanquablement pour vous. Et pourtant, malgré votre propension à attirer le mauvais sort, <span class='demiitalic'>on vous aime comme vous êtes</span> : vos qualités (bien sûr, vous les multipliez aussi) mais surtout, on adore vos défauts, plus que tout.";
 					userFromDb.HeroicStatus = 2;
 					ViewBag.Tag = "Page_de_remerciement_Anti_heros";
+					ViewBag.TypeHeros = "Anti Heros";
 				}
 				else
 				{
@@ -227,7 +233,8 @@ namespace Collecte.WebApp.Controllers
 					ViewBag.LabelResult = "H&Eacute;ROS DU JOUR !";
 					ViewBag.TextResult = "Une opportunité qui passe… <span class='demiitalic'>Et hop, vous voilà.</span> Vous avez l'intuition pour dénicher la bonne affaire, celle qui va tout faire basculer. Un coup d'éclat au bon moment, au bon endroit dont <span class='demiitalic'>vous êtes le maître</span> et qui ne passe pas inaperçu ! <span class='demiitalic'>Bravo.</span>";
 					userFromDb.HeroicStatus = 3;
-					ViewBag.Tag = "Page_de_remerciement_Heros_du_jour";
+					ViewBag.Tag = "Page_de_remerciement_Heros_du_jour"; 
+					ViewBag.TypeHeros = "Heros du jour";
 					
 				}
 
@@ -254,7 +261,7 @@ namespace Collecte.WebApp.Controllers
 		[HttpPost]
 		public ActionResult Resultat(GodsonsMailsModel model)
 		{
-
+			ViewBag.Tag = "Resultat";
 			ViewBag.OkMessage = "";
 			ViewBag.ResultId = Session["ResultId"];
 			ViewBag.LabelResult = Session["LabelResult"];
@@ -290,18 +297,21 @@ namespace Collecte.WebApp.Controllers
 				}
 
 				// Save to Db
-				userFromDb.FriendEmail1 = model.Email1;
-				userFromDb.FriendEmail2 = model.Email2;
-				userFromDb.FriendEmail3 = model.Email3;
-				OperationResult<User> updateResult = UserDal.Update(userFromDb);
-				if (!updateResult.Result)
-					throw new CollecteException(updateResult.Message);
 
 
 
 				// Actually send mails
 				if (!userFromDb.HasSentEmailsToFriends)
 				{
+
+					userFromDb.FriendEmail1 = model.Email1;
+					userFromDb.FriendEmail2 = model.Email2;
+					userFromDb.FriendEmail3 = model.Email3;
+					OperationResult<User> updateResult = UserDal.Update(userFromDb);
+					if (!updateResult.Result)
+						throw new CollecteException(updateResult.Message);
+
+
 					MailHelper mailManager = CreateFriendsEmailInstance(userFromDb);
 					OperationResult<MailHelper> sendResult = mailManager.Send();
 					if (!sendResult.Result)
@@ -312,10 +322,25 @@ namespace Collecte.WebApp.Controllers
 
 						return View(model);
 					}
+
 					userFromDb.HasSentEmailsToFriends = true;
+					updateResult = UserDal.Update(userFromDb);
+					if (!updateResult.Result)
+						throw new CollecteException(updateResult.Message);
+
+					ViewBag.NotifState = "ok";
+					ViewBag.OkMessage = "Merci !";
+					ModelState.Clear();
+					model = new GodsonsMailsModel();
+					return View(model);
 				}
-				ViewBag.NotifState = "ok";
-				ViewBag.OkMessage = "Merci !";
+				else
+				{
+					ViewBag.NotifState = "erreur";
+					ModelState.Clear();
+					ModelState.Clear();
+					ViewBag.OkMessage = "Oops ! Vous avez déjà parrainé des amis.";
+				}
 			}
 			else
 			{
@@ -398,6 +423,14 @@ namespace Collecte.WebApp.Controllers
 			return new MailHelperActionResult(mailManager, Encoding.UTF8);
 		}
 
+		public ActionResult SecretMailSender()
+		{
+			User u = RetrieveUserFromDb(new Guid("649E4150-EC9E-4524-9EEC-1310526CFDAE"));
+			MailHelper mh = CreateFriendsEmailInstance(u);
+
+			return View();
+		}
+
 
 		[NonAction]
 		private bool HandleQuestionAnswer(int questionNumber)
@@ -422,7 +455,7 @@ namespace Collecte.WebApp.Controllers
 		[NonAction]
 		private User RetrieveUserFromDb(Guid? id)
 		{
-			if(Session["UserId"] == null)
+			if(!id.HasValue && Session["UserId"] == null)
 				throw new CollecteException("Session expirée.");
 			Guid idUser = id.HasValue ? id.Value : Guid.Parse(Session["UserId"].ToString());
 			OperationResult<User> retrieveUserResult = UserDal.Retrieve(idUser);
@@ -442,16 +475,17 @@ namespace Collecte.WebApp.Controllers
 
 			string parrainName = string.Format("{0}", userFromDb.FirstName);
 
-			mh.MailSubject = string.Format("{0} vous invite à gagner des équipement Sony !", parrainName);
+			mh.MailSubject = string.Format("{0} vous invite à gagner des équipements Sony !", parrainName);
 			mh.ReplyTo = new MailAddress("CANALPLUS <no-reply@legrandjeudesheroscanalplus.fr>");
 			mh.Sender = new MailAddress("CANALPLUS <no-reply@legrandjeudesheroscanalplus.fr>");
 
 			mh.TemplatePath = Server.MapPath("~/Content/mail/");
 			mh.ReplacementFields = new List<ReplaceField> { 
-				new ReplaceField { Replace = "#imagesPath#", With = "~/Content/mail/images/".ContentAbsolute() },
+				new ReplaceField { Replace = "#imagesPath#", With = string.Format("{0}/Content/mail/images/", ConfigurationManager.AppSettings["shareUrl"]) },
 				new ReplaceField { Replace = "#senderFullName#", With =  parrainName},
 				new ReplaceField { Replace = "#staticMailViewLink#", With = string.Format("{0}/Site/FriendMailDisplay/{1}", UrlHelperSb.GetApplicationBaseUrl(false) , userFromDb.Id)},
 				new ReplaceField { Replace = "#opeLink#", With = string.Format("{0}", UrlHelperSb.GetApplicationBaseUrl(false))},
+				new ReplaceField { Replace = "#parrainMail#", With = string.Format("{0}", userFromDb.Email)},
 			};
 			return mh;
 		}

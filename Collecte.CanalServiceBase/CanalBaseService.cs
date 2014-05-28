@@ -50,6 +50,12 @@ namespace Collecte.CanalServiceBase
 			AutoLog = true;
 
 			CsvFileGrabber csvFileGrabber = new CsvFileGrabber();
+
+			Mailer mailer = new Mailer();
+			mailer.LogDelegate = Program.log;
+			string emailConf = ConfigurationManager.AppSettings["NotificationEmail"];
+			mailer.SendMail(emailConf, "[Moulinette Canal Collecte] Démarrage du service", "<a href='http://monitoring.collecte.canalplus.clients.rappfrance.com'>Monitoring</a>", null, ConfigurationManager.AppSettings["NotificationEmail_CC"]);
+
 		}
 		public void DebugRun()
 		{
@@ -76,13 +82,21 @@ namespace Collecte.CanalServiceBase
 			timer.Stop();
 			bool hasTriggeredTodayYet = LastBundleModifiedDate == BundleLogic.GetToday();
 			if (hasTriggeredTodayYet)
+			{
+				timer.Start();
 				return;
+			}
 
 
-
+			bool rightTime = (DateTime.Now.Hour == DailyExecutionHour && DateTime.Now.Minute == DailyExecutionMinute) || WebConfig.Get.forceRightTime == "true";
+			if (!rightTime)
+			{
+				timer.Start();
+				return;
+			}
+			Program.log("It's business time !");
 			BundleLogic bundleLogic = new BundleLogic();
 			DateTime Today0h = BundleLogic.GetToday();
-			DateTime Yesterday0h = BundleLogic.GetYesterday();
 			var bundleGet = bundleLogic.GetBundleByDate(Today0h);
 			if (!bundleGet.Result && bundleGet.Message == "Probleme de connexion à la base.")
 			{
@@ -94,22 +108,21 @@ namespace Collecte.CanalServiceBase
 
 			// predicates
 			bool csvNotYetCreated = !bundleGet.Result || (bundleGet.Result && bundleGet.ReturnObject.Status == BundleStatus.NoFileCreated);
-			bool rightTime = (DateTime.Now.Hour == DailyExecutionHour && DateTime.Now.Minute == DailyExecutionMinute) || WebConfig.Get.forceRightTime == "true";
 			bool featureCsvCreationActivated = WebConfig.Get.createCsv == "true";
 			Program.log("yesterdayCsvNotYetCreated : " + csvNotYetCreated);
 			Program.log("rightTime : " + rightTime);
 			Program.log("featureCsvCreationActivated : " + featureCsvCreationActivated);
 
 
-			if (rightTime && csvNotYetCreated && featureCsvCreationActivated)
+			if (csvNotYetCreated && featureCsvCreationActivated)
 			{
 
 				Program.log(string.Format("It's time ! ({0}h{1}) {2}", DateTime.Now.Hour, DateTime.Now.Minute, WebConfig.Get.forceRightTime == "true" ? "(Forced)" : ""));
 
 				var bResult = bundleLogic.CreateBundle(Today0h); Program.log("Bundle créé : " + Today0h);
 
-				ServiceProcess service = new ServiceProcess(); Program.log("Retrieving users since " + BundleLogic.GetYesterday().ToString("dd/MM/yyyy"));
-				List<User> listNewUserDay = service.RetrieveNewUsersSince(Yesterday0h); Program.log("User List : " + listNewUserDay.Count);
+				ServiceProcess service = new ServiceProcess(); Program.log("Retrieving users since " + BundleLogic.GetPreviousDayOrSo0h().ToString("dd/MM/yyyy"));
+				List<User> listNewUserDay = service.RetrieveNewUsersSince(BundleLogic.GetPreviousDayOrSo0h()); Program.log("User List : " + listNewUserDay.Count);
 				bundleLogic.SetBundleTotalSubs(Today0h, listNewUserDay.Count);
 				UserDal uDal = new UserDal();
 				string csvInPath = ConfigurationManager.AppSettings["localCsvFilesDirectory"];

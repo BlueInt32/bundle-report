@@ -136,7 +136,11 @@ namespace Tools.Mail
 					mailMessage.Body = Content;
 					mailMessage.SubjectEncoding = Encoding.UTF8;
 					mailMessage.Subject = MailSubject;
-					SmtpClient smtp = new SmtpClient(ConfigurationManager.AppSettings["SmtpPath"], Convert.ToInt32(ConfigurationManager.AppSettings["SmtpPort"]));
+					SmtpClient smtp = new SmtpClient(ConfigurationManager.AppSettings["SmtpPath"], Convert.ToInt32(ConfigurationManager.AppSettings["SmtpClientPort"]));
+					smtp.EnableSsl = ConfigurationManager.AppSettings["SmtpSSL"] == "true";
+					smtp.Credentials = new System.Net.NetworkCredential(ConfigurationManager.AppSettings["SmtpUser"], ConfigurationManager.AppSettings["SmtpKey"]);
+
+					Log.InfoFormat("MailHelper", "Sending mail with smtp={0}, port={1}, ssl={2}, user={3}, key={4}, sender={5}, subject={6}", smtp.Host, smtp.Port, smtp.EnableSsl, ConfigurationManager.AppSettings["SmtpUser"], ConfigurationManager.AppSettings["SmtpKey"], Sender, MailSubject);
 					mailMessage.BodyEncoding = Encoding.UTF8;
 					mailMessage.ReplyTo = ReplyTo;
 

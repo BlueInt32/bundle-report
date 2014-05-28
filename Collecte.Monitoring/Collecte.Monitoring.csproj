@@ -38,6 +38,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
@@ -104,7 +112,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="app.js" />
+    <Content Include="js\app.js" />
     <Content Include="bundle.partial.html" />
     <Content Include="css\datepicker.css" />
     <Content Include="css\style.css" />
@@ -172,12 +180,12 @@
     <Content Include="img\xml.gif" />
     <Content Include="img\xml.png" />
     <Content Include="index.html" />
-    <Content Include="js\controllers\controllers.js" />
-    <Content Include="js\directives\bundleDirective.js" />
+    <Content Include="js\bundleDirective.js" />
+    <Content Include="js\controllers.js" />
     <Content Include="js\lib\angular.js" />
     <Content Include="js\lib\angular.min.js" />
     <Content Include="js\lib\moment.min.js" />
-    <Content Include="js\services\services.js" />
+    <Content Include="js\services.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -253,16 +261,9 @@
     <Content Include="css\tree.min.css.older" />
     <Content Include="img\ExtractCanal_CuisinePlus %281%29.xls" />
     <Content Include="img\ExtractCanal_CuisinePlus.xls" />
-    <None Include="Web.Debug.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Web.Release.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Collecte.DTO\Collecte.DTO.csproj">
@@ -274,9 +275,24 @@
       <Name>Collecte.Logic</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\PublishProfiles\Prod.pubxml" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.PreRelease.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'PreRelease|AnyCPU'">
+    <OutputPath>bin\</OutputPath>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
