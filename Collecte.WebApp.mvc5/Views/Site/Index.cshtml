@@ -132,13 +132,13 @@
     {
     	FB.getLoginStatus(function (response)
     	{
-    		console.log("FB.getLoginStatus", response);
+    		//console.log("FB.getLoginStatus", response);
     		if (response.status != 'connected')
     		{
-    			console.log("not connected");
+    			//console.log("not connected");
     			FB.login(function (response)
     			{
-    				console.log("FB.login response", response);
+    				//console.log("FB.login response", response);
                     accesstoken = response.authResponse.accessToken;
                     userid = response.authResponse.userID;
                     handleFacebookMe();
@@ -146,7 +146,7 @@
             }
     		else
     		{
-    			console.log("connected user ID", response.authResponse.userID);
+    			//console.log("connected user ID", response.authResponse.userID);
                 accesstoken = response.authResponse.accessToken;
                 userid = response.authResponse.userID;
                 handleFacebookMe();

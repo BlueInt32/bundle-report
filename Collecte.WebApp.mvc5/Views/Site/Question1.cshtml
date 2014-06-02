@@ -87,7 +87,7 @@
 						{
 							$(".txterreur").show().html(data.message);
 							var ids = data.badFieldId.split(',');
-							console.log(ids);
+							//console.log(ids);
 							for(var i in ids)
 							{
 								$("#" + ids[i]).addClass("input-validation-error");

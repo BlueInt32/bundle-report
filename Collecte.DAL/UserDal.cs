@@ -132,7 +132,7 @@ namespace Collecte.DAL
             {
                 try
                 {
-                    List<User> participationsFromDb = context.Users.Include("ShowType").Include("ConnexionType").Where(u=> u.CreationDate>= debut && u.CreationDate<=fin).OrderByDescending(u => u.CreationDate).ToList();
+                    List<User> participationsFromDb = context.Users.Where(u=> u.CreationDate>= debut && u.CreationDate<=fin).OrderByDescending(u => u.CreationDate).ToList();
                     return OperationResult<List<User>>.OkResultInstance(participationsFromDb);
                 }
                 catch (Exception e)
@@ -159,10 +159,10 @@ namespace Collecte.DAL
 			completeFilePath += ".csv";
 			var sb = new StringBuilder();
 
-			sb.AppendFormat("\"Date de participation\";\"Civilité\";\"Nom\";\"Prénom\";\"Email\";\"Adresse\";\"Ville\";\"Code postal\";\"Téléphone\";\"Abonné\";\"Optin\";\"Type Programme\";\"Type Connexion\";\"FilleulEmail1\";\"FilleulEmail2\";\"FilleulEmail3\";\"Chances\";\"Détail chances\";\"Provenance\";\"Scellé\"\n");
+			sb.AppendFormat("\"Date de participation\";\"Civilité\";\"Nom\";\"Prénom\";\"Email\";\"Adresse\";\"Ville\";\"Code postal\";\"Téléphone\";\"Abonné\";\"Optin\";\"FilleulEmail1\";\"FilleulEmail2\";\"FilleulEmail3\";\"Chances\";\"Détail chances\";\"Provenance\";\"Scellé\"\n");
 			foreach (var user in list)
 			{
-				sb.AppendFormat("\"{0}\";\"{1}\";\"{2}\";\"{3}\";\"{4}\";\"{5}\";\"{6}\";\"{7}\";\"{8}\";\"{9}\";\"{10}\";\"{11}\";\"{12}\";\"{13}\";\"{14}\";\"{15}\";\"{16}\";\"{17}\";\"{18}\"\n",
+				sb.AppendFormat("\"{0}\";\"{1}\";\"{2}\";\"{3}\";\"{4}\";\"{5}\";\"{6}\";\"{7}\";\"{8}\";\"{9}\";\"{10}\";\"{11}\";\"{12}\";\"{13}\";\"{14}\";\"{15}\";\"{16}\"\n",
 					user.CreationDate,
 					user.Civilite,
 					user.LastName,
