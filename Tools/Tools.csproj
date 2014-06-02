@@ -137,6 +137,7 @@
     <Content Include="Asp.net MVC\Filters\FiltersNotIncludedInProject_checkHiddens.txt" />
     <Content Include="Asp.net MVC\Models\ModelsNotIncludedInProject_checkHiddens.txt" />
     <Content Include="base64Image.txt" />
+    <Content Include="dll\ICSharpCode.SharpZipLib.dll" />
     <Content Include="JS\_Common.js" />
     <Content Include="Scripts\date.js" />
     <Content Include="Scripts\specexpress.unobtrusive.js" />
