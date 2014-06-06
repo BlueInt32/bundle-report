@@ -20,14 +20,14 @@ namespace Collecte.Logic
 		public Mode Mode { get; set; }
 		public Action<string> LogDelegate { get; set; }
 
-		string _distantPath;
-		public string DistantPath
-		{
-			get
-			{
-				return _distantPath;
-			}
-		}
+		//string _distantPath;
+		//public string DistantPath
+		//{
+		//	get
+		//	{
+		//		return _distantPath;
+		//	}
+		//}
 
 		private static void SetMethodRequiresCWD()
 		{

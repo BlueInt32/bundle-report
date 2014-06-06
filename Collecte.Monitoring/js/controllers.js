@@ -3,16 +3,12 @@
 angular.module('bundleControllers')
 	.controller('mainCtrl', ['$scope', '$log', 'bundleService', function ($scope, $log, bundleService)
 	{
-		$scope.showLoader = true;
+		$scope.showLoaderTree = true;
+		//$scope.showLoaderFile = true;
 		
 		bundleService.getBundles().then(function (data)
 		{
 			$scope.weeks = data;
-			$scope.showLoader = false;
+			$scope.showLoaderTree = false;
 		});
-		$scope.setContent = function(content)
-		{
-			//console.log(content);
-			$scope.fileContent = content;
-		}
 	}]);

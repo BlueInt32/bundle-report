@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="canalplus_collecteModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="extractEmptyZips">
+          <Key>
+            <PropertyRef Name="Email" />
+          </Key>
+          <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="City" Type="varchar" MaxLength="50" />
+          <Property Name="Zip" Type="nvarchar" MaxLength="5" />
+        </EntityType>
+        <EntityType Name="insee">
+          <Key>
+            <PropertyRef Name="INSEE" />
+          </Key>
+          <Property Name="Commune" Type="varchar" MaxLength="50" />
+          <Property Name="Codepos" Type="varchar" MaxLength="50" />
+          <Property Name="Departement" Type="varchar" MaxLength="50" />
+          <Property Name="INSEE" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="canalplus_collecteModelStoreContainer">
+          <EntitySet Name="extractEmptyZips" EntityType="Self.extractEmptyZips" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="insee" EntityType="Self.insee" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="canalplus_collecteModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="canalplus_collecteEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="insee" EntityType="canalplus_collecteModel.insee" />
+          <EntitySet Name="extractEmptyZips" EntityType="canalplus_collecteModel.extractEmptyZips" />
+          </EntityContainer>
+        <EntityType Name="insee">
+          <Key>
+            <PropertyRef Name="INSEE1" />
+          </Key>
+          <Property Name="Commune" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Codepos" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Departement" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="INSEE1" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="extractEmptyZips">
+          <Key>
+            <PropertyRef Name="Email" />
+          </Key>
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Zip" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+        </EntityType>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="canalplus_collecteModelStoreContainer" CdmEntityContainer="canalplus_collecteEntities1">
+          <EntitySetMapping Name="insee">
+            <EntityTypeMapping TypeName="canalplus_collecteModel.insee">
+              <MappingFragment StoreEntitySet="insee">
+                <ScalarProperty Name="INSEE1" ColumnName="INSEE" />
+                <ScalarProperty Name="Departement" ColumnName="Departement" />
+                <ScalarProperty Name="Codepos" ColumnName="Codepos" />
+                <ScalarProperty Name="Commune" ColumnName="Commune" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="extractEmptyZips">
+            <EntityTypeMapping TypeName="canalplus_collecteModel.extractEmptyZips">
+              <MappingFragment StoreEntitySet="extractEmptyZips">
+                <ScalarProperty Name="Zip" ColumnName="Zip" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -51,11 +51,11 @@
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
@@ -91,12 +91,16 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="InstantGagnantDal.cs" />
+    <Compile Include="LoadConfigValue.cs" />
+    <Compile Include="Migrations\201406040817335_Test.cs" />
+    <Compile Include="Migrations\201406040817335_Test.Designer.cs">
+      <DependentUpon>201406040817335_Test.cs</DependentUpon>
+    </Compile>
     <Compile Include="QualifDal.cs" />
     <Compile Include="TradeDoublerProvider.cs" />
     <Compile Include="UserDal.cs" />
     <Compile Include="Configuration.cs" />
     <Compile Include="DataContext.cs" />
-    <Compile Include="DataInitializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -119,6 +123,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201406040817335_Test.resx">
+      <DependentUpon>201406040817335_Test.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

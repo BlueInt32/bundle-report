@@ -6,6 +6,11 @@ using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Text;
 using Collecte.DTO;
+using System.IO;
+using System.Configuration;
+using Tools;
+using System.Diagnostics;
+using System.Reflection;
 
 namespace Collecte.DAL
 {
@@ -13,7 +18,6 @@ namespace Collecte.DAL
 	{
 		public DbSet<User> Users { get; set; }
 
-//		public DbSet<ConnexionType> ConnexionTypes { get; set; }
 		public DbSet<AnswerChoice> AnswerChoices { get; set; }
 		public DbSet<TradeOccurence> TradeDoublerIndex { get; set; }
 		public DbSet<Bundle> Bundles { get; set; }
@@ -22,8 +26,9 @@ namespace Collecte.DAL
 
 		public DataContext()
 		{
-			this.Configuration.ProxyCreationEnabled = false;
-			this.Configuration.LazyLoadingEnabled = false;
+			Database.SetInitializer<DataContext>(null);
+			Configuration.ProxyCreationEnabled = false;
+			Configuration.LazyLoadingEnabled = false;
 		}
 	
 		static DataContext()
@@ -35,8 +40,7 @@ namespace Collecte.DAL
 
 		protected override void OnModelCreating(DbModelBuilder modelBuilder)
 		{
-			base.Configuration.ProxyCreationEnabled = false;
-			//base.Configuration.LazyLoadingEnabled = false;
+			//base.Configuration.ProxyCreationEnabled = false;
 		}
 
 		public override int SaveChanges()

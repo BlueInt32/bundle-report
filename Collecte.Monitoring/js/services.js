@@ -22,9 +22,9 @@ angular.module('myServices')
 							//var csvUrlReduced = bundleFile.Url/*.replace('.csv', '$csv')*/;
 							switch (bundleFile.Type)
 							{
-								case 0:bundleFile.Url = 'Files/csvin/' + bundleFile.FileName; bundleFile.icoType = 'home';break;
-								case 1:bundleFile.Url = 'Files/csvout/' + bundleFile.FileName; bundleFile.icoType = 'external';break;
-								case 2:bundleFile.Url = 'Files/xml/' + bundleFile.FileName; bundleFile.icoType = 'xml';break;
+								case 0: bundleFile.Url = 'Files/csvin/' + bundleFile.FileName; bundleFile.icoType = 'home'; break;
+								case 1: bundleFile.Url = 'Files/csvout/' + bundleFile.FileName; bundleFile.icoType = 'external'; break;
+								case 2: bundleFile.Url = 'Files/xml/' + bundleFile.FileName; bundleFile.icoType = 'xml'; break;
 							}
 							bundleFile.fileApiPath = encodeURIComponent(bundleFile.Url);
 							//console.log(bundleFile.Url);
@@ -39,6 +39,7 @@ angular.module('myServices')
 
 		var getBundleFileContent = function (path)
 		{
+			$rootScope.showLoaderFile = true;
 			var deferred = $q.defer();
 			$http.get('api/bundlefiles/' + path).success(function (data)
 			{
@@ -49,16 +50,11 @@ angular.module('myServices')
 
 		var setFileContentToDom = function (content)
 		{
-			console.log(content);
-			if (content.indexOf('<?xml') !== -1)
-			{
-				$rootScope.fileContent = content.substr(1, content.length - 2);
-				console.log($rootScope.fileContent);
-			}
-			else
-			{
-				$rootScope.fileContent = $sce.trustAsHtml(content.substr(1, content.length - 2));
-			}
+			content = content.substr(1, content.length - 2);
+			$rootScope.showLoaderFile = false;
+			$rootScope.fileContent = $sce.trustAsHtml(content);
+			
+			
 		}
 
 		// private functions

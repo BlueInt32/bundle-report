@@ -277,6 +277,7 @@ namespace Collecte.CanalServiceBase
 		public string Phone { get; set; }
 		public string Status { get; set; }
 		public string CommunicationType { get; set; }
+		[Obsolete]
 		public override void CreateMap()
 		{
 			Map(m => m.DateCreation).Index(0);

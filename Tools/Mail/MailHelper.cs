@@ -142,7 +142,7 @@ namespace Tools.Mail
 
 					Log.InfoFormat("MailHelper", "Sending mail with smtp={0}, port={1}, ssl={2}, user={3}, key={4}, sender={5}, subject={6}", smtp.Host, smtp.Port, smtp.EnableSsl, ConfigurationManager.AppSettings["SmtpUser"], ConfigurationManager.AppSettings["SmtpKey"], Sender, MailSubject);
 					mailMessage.BodyEncoding = Encoding.UTF8;
-					mailMessage.ReplyTo = ReplyTo;
+					mailMessage.ReplyToList.Add(ReplyTo);
 
 					AlternateView htmlView = AlternateView.CreateAlternateViewFromString(Content, new ContentType("text/html; charset=" + Encoding.UTF8.BodyName));
 					htmlView.TransferEncoding = TransferEncoding.SevenBit;

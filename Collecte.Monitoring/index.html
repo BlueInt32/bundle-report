@@ -7,7 +7,6 @@
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">-->
 	<link href="css/style.css" rel="stylesheet" />
 
-
 	<script src="js/lib/angular.js"></script>
 	<script src="js/app.js"></script>
 	<script src="js/controllers.js"></script>
@@ -22,11 +21,11 @@
 	<h1>Monitoring Service Base Canal Collecte</h1>
 	<div class="container">
 		<div class="treeContainer">
-			<div class="loader" ng-show="showLoader">
-				Bundles en cours de récupération... Veuillez patienter.
-				<img src="img/loader.gif" />
+			<div class="loader" ng-show="showLoaderTree">
+				<h4>Bundles en cours de récupération... Veuillez patienter.</h4>
+				<img class="loader" src="img/loader.gif" />
 			</div>
-			<div class="tree" ng-hide="showLoader">
+			<div class="tree" ng-hide="showLoaderTree">
 				<p><label>Filtrer</label><input type="text" ng-model="mainFilter" class="search" id="datepicker" /></p>
 				<ul>
 					<li class="weekElement" ng-repeat="week in weeks">
@@ -38,7 +37,14 @@
 				</ul>
 			</div>
 		</div>
-		<div class="fileContent" ng-bind-html="fileContent"></div>
+		<div class="fileContent">
+			<div ng-show="showLoaderFile">
+				<h4>Fichier en cours de récupération... Veuillez patienter.</h4>
+				<img class="loader" src="img/loader-file.gif" />
+			</div>
+			<div ng-hide="showLoaderFile" ng-bind-html="fileContent"></div>
+
+		</div>
 		<div class="clear"></div>
 	</div>
 </body>

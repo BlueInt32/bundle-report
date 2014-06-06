@@ -19,7 +19,11 @@ namespace Collecte.WebApp.Filters
 			"acxiom",
 			"twitter+canalsat",
 			"1000mercis+conquete",
-			"1000mercis+infinity"
+			"1000mercis+infinity",
+			"tdemail",
+			"tdreward",
+			"tddisplay",
+			"tdemailincentive"
 		};
 
 

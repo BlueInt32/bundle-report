@@ -21,6 +21,7 @@ namespace Collecte.WebApp.App_Code
 			AddressModel model = new AddressModel { IsValid = true, Message = "", HtmlId = "" };
 			List<string> badIds = new List<string>();
 			Regex validWords = new Regex(@"^(\w|[0-9]|\-| )+$");
+			Regex validCity = new Regex(@"^(\p{L}| |'|\-)+$");
 			if (string.IsNullOrWhiteSpace(postNumvoie))
 			{
 				model.IsValid = false; model.Message = "Le numéro de voie est obligatoire."; badIds.Add("numvoie");
@@ -55,7 +56,7 @@ namespace Collecte.WebApp.App_Code
 			{
 				model.IsValid = false; model.Message = "Le nom de votre ville est obligatoire."; badIds.Add("ville");
 			}
-			else if (!validWords.IsMatch(postVille))
+			else if (!validCity.IsMatch(postVille))
 			{
 
 				model.IsValid = false; model.Message = "Nom de ville non valide."; badIds.Add("ville");
@@ -63,7 +64,7 @@ namespace Collecte.WebApp.App_Code
 			model.City = postVille;
 
 
-			int zipcode;
+			int zipcode = 0;
 			if (string.IsNullOrWhiteSpace(postCp))
 			{
 				model.IsValid = false; model.Message = "Le code postal est obligatoire."; badIds.Add("cp");
@@ -72,7 +73,7 @@ namespace Collecte.WebApp.App_Code
 			{
 				model.IsValid = false; model.Message = "Code postal non valide."; badIds.Add("cp");
 			}
-
+			model.ZipCode = zipcode;
 			model.HtmlId = string.Join(",", badIds);
 			return model;
 		}

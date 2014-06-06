@@ -12,7 +12,7 @@ namespace App_Code.Mail
 	/// </summary>
 	public class MailHelperActionResult : ActionResult
 	{
-		private readonly string _emailTemplatePath;
+		//private readonly string _emailTemplatePath;
 		//private readonly string _pureFileName;
 		private readonly Encoding _fileEncoding;
 		MailHelper _mailHelperInstance;
