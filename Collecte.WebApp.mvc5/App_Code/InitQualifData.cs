@@ -13,7 +13,7 @@ namespace Collecte.WebApp.App_Code
 		{
 			// Set show types to application
 
-			QualifDal qDal = new QualifDal();
+			QualifDataService qDal = new QualifDataService();
 
 			Dictionary<string, AnswerToken> dicoQuestion1Answers = new Dictionary<string, AnswerToken>
 			{

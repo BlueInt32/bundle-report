@@ -14,7 +14,7 @@ using System.Reflection;
 
 namespace Collecte.DAL
 {
-	public class DataContext : DbContext
+	public class CollecteContext : DbContext
 	{
 		public DbSet<User> Users { get; set; }
 
@@ -24,28 +24,16 @@ namespace Collecte.DAL
 		public DbSet<BundleFile> BundleFiles { get; set; }
 		public DbSet<InstantGagnant> InstantsGagnants { get; set; }
 
-		public DataContext()
+		public CollecteContext()
 		{
-			Database.SetInitializer<DataContext>(null);
+			Database.SetInitializer<CollecteContext>(null);
 			Configuration.ProxyCreationEnabled = false;
 			Configuration.LazyLoadingEnabled = false;
 		}
-	
-		static DataContext()
-        {
-            var _ = typeof(System.Data.Entity.SqlServer.SqlProviderServices);
-			
-            //var __ = typeof(System.Data.Entity.SqlServerCompact.SqlCeProviderServices);
-        }
 
 		protected override void OnModelCreating(DbModelBuilder modelBuilder)
 		{
 			//base.Configuration.ProxyCreationEnabled = false;
-		}
-
-		public override int SaveChanges()
-		{
-			return base.SaveChanges();
 		}
 	}
 }

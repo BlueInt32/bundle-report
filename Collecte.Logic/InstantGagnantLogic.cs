@@ -10,10 +10,10 @@ namespace Collecte.Logic
 {
 	public class InstantGagnantLogic
 	{
-		InstantGagnantDal IgDal { get; set; }
+		InstantGagnantDataService IgDal { get; set; }
 		public InstantGagnantLogic()
 		{
-			IgDal = new InstantGagnantDal();
+			IgDal = new InstantGagnantDataService();
 		}
 		public OperationResult<InstantGagnant> GetCurrentInstantGagnant()
 		{

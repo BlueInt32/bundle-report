@@ -22,7 +22,7 @@ namespace Collecte.CanalServiceBase.Test
 			Now = DateTime.Now;
 			IgLogic = new InstantGagnantLogic();
 			CleanUp();
-			UserDal uDal = new UserDal();
+			UserDataService uDal = new UserDataService();
 			MainUser = uDal.GetUserByEmail("simon.budin@gmail.com");
 
 			List<InstantGagnant> list = new List<InstantGagnant>

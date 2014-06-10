@@ -36,7 +36,7 @@ namespace Collecte.WebApp.Areas.admin.Controllers
                 #endregion
 
                 //---
-                var uDal = new UserDal();
+                var uDal = new UserDataService();
                 var extractResult = uDal.ExtractUsersWithDateLapsTime(dd, df);
                 if (!extractResult.Result)
                     throw new Exception("Erreur d'extraction : " + extractResult.Message);
@@ -116,7 +116,7 @@ namespace Collecte.WebApp.Areas.admin.Controllers
         {
             var users = Session[ConfigurationManager.AppSettings["sessionId"] + "_users"] as List<User>;
 
-            var path = UserDal.CreateCsvFileExtractFromList(Server.MapPath("~/CsvFiles/"), users);
+            var path = UserDataService.CreateCsvFileExtractFromList(Server.MapPath("~/CsvFiles/"), users);
 
             return new CsvActionResult(path, Encoding.UTF8);
         }
@@ -125,7 +125,7 @@ namespace Collecte.WebApp.Areas.admin.Controllers
         {
             var users = Session[ConfigurationManager.AppSettings["sessionId"] + "_users"] as List<User>;
 
-            var path = UserDal.CreateCsvFileExtractFromList(Server.MapPath("~/CsvFiles/"), GetUsersWithChances(users));
+            var path = UserDataService.CreateCsvFileExtractFromList(Server.MapPath("~/CsvFiles/"), GetUsersWithChances(users));
 
             return new CsvActionResult(path, Encoding.UTF8);
         }

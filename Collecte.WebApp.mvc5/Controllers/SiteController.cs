@@ -22,9 +22,9 @@ namespace Collecte.WebApp.Controllers
 	{
 		public SiteController()
 		{
-			UserDal = new UserDal();
+			UserDal = new UserDataService();
 		}
-		UserDal UserDal { get; set; }
+		UserDataService UserDal { get; set; }
 
 
 		[AffiliationFilter]
@@ -179,7 +179,7 @@ namespace Collecte.WebApp.Controllers
 			ViewBag.NotifState = "ok";
 			// TODO compute results
 
-			QualifDal qDal = new QualifDal();
+			QualifDataService qDal = new QualifDataService();
 			User userFromDb = RetrieveUserFromDb(null);
 			int chancesSup = userFromDb.ChancesAmount  - 1;
 			string chancesStr = string.Format("{0} chance{1} supplémentaire{1}", chancesSup, chancesSup == 1 ? "" : "s");
@@ -438,7 +438,7 @@ namespace Collecte.WebApp.Controllers
 			// Retrieve user from db
 			User userFromDb = RetrieveUserFromDb(null);
 
-			QualifDal qDal = new QualifDal();
+			QualifDataService qDal = new QualifDataService();
 			OperationResult<AnswerChoice> updateResult = qDal.SetAnswer(userFromDb, questionNumber, (HttpContext.Items["ChosenAnswer"] as AnswerToken).Id);
 
 			if (!updateResult.Result)

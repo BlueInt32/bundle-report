@@ -29,7 +29,7 @@ namespace Collecte.Logic
 
 		public OperationResult<Bundle> CreateBundle(DateTime date)
 		{
-			BundleDal dal = new BundleDal();
+			BundleDataService dal = new BundleDataService();
 			OperationResult<Bundle> result = dal.GetBundleByDate(date);
 			Bundle b;
 			if (result.Result && result.ReturnObject != null)
@@ -47,7 +47,7 @@ namespace Collecte.Logic
 
 		public OperationResult<Bundle> SetBundleStatus(DateTime date, BundleStatus status)
 		{
-			BundleDal dal = new BundleDal();
+			BundleDataService dal = new BundleDataService();
 			OperationResult<Bundle> result = dal.GetBundleByDate(date);
 			if (result.ReturnObject == null)
 				throw new CollecteException("Bundle introuvable.");
@@ -61,7 +61,7 @@ namespace Collecte.Logic
 
 		public OperationResult<Bundle> GetBundleByDate(DateTime date)
 		{
-			BundleDal dal = new BundleDal();
+			BundleDataService dal = new BundleDataService();
 			OperationResult<Bundle> result = dal.GetBundleByDate(date);
 			return result;
 		}
@@ -74,7 +74,7 @@ namespace Collecte.Logic
 		/// <returns></returns>
 		public OperationResult<Bundle> SetBundleTotalSubs(DateTime date, int totalSubs)
 		{
-			BundleDal dal = new BundleDal();
+			BundleDataService dal = new BundleDataService();
 			OperationResult<Bundle> result = dal.GetBundleByDate(date);
 			if (result.ReturnObject == null)
 				throw new CollecteException("Bundle introuvable.");
@@ -94,7 +94,7 @@ namespace Collecte.Logic
 		/// <returns></returns>
 		public OperationResult<Bundle> SetBundleNbReturnsCanal(DateTime date, int nbRetoursCanal, int nbOk, int nbKo)
 		{
-			BundleDal dal = new BundleDal();
+			BundleDataService dal = new BundleDataService();
 			OperationResult<Bundle> result = dal.GetBundleByDate(date);
 			if (result.ReturnObject == null)
 				throw new CollecteException("Bundle introuvable.");
@@ -142,7 +142,7 @@ namespace Collecte.Logic
 			};
 
 
-			BundleFileDal bfDal = new BundleFileDal();
+			BundleFileDataService bfDal = new BundleFileDataService();
 			OperationResult<BundleFile> resultFileBundle = bfDal.Create(bFile, date);
 			//dal.Update(resultBundle.ReturnObject);
 			return resultFileBundle;
@@ -154,7 +154,7 @@ namespace Collecte.Logic
 		/// <returns></returns>
 		public List<Bundle> ListBundles()
 		{
-			BundleDal dal = new BundleDal();
+			BundleDataService dal = new BundleDataService();
 
 			OperationResult<List<Bundle>> listResult = dal.ListBundles();
 
@@ -179,12 +179,10 @@ namespace Collecte.Logic
 
 		public OperationResult<Bundle> DeleteBundles()
 		{
-			BundleDal dal = new BundleDal();
+			BundleDataService dal = new BundleDataService();
 			return dal.DeleteBundles();
 
 		}
-
-
 
 		public static int GetIso8601WeekOfYear(DateTime time)
 		{
@@ -197,6 +195,5 @@ namespace Collecte.Logic
 			// Return the week of our adjusted day
 			return CultureInfo.InvariantCulture.Calendar.GetWeekOfYear(time, CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday);
 		}
-
 	}
 }
