@@ -12,7 +12,7 @@ namespace CollecteBundles.Controllers
 	public class BundleFilesController : ApiController
 	{
 		[Route("api/bundlefiles/{*path}")]
-		public string Get(string path)
+		public object Get(string path)
 		{
 			string fileContent = "";
 			
@@ -24,7 +24,7 @@ namespace CollecteBundles.Controllers
 			{
 				fileContent = path.ReadFile().PrepareXml();
 			}
-			return fileContent;
+			return new { fileContent = fileContent};
 		}
 	}
 }

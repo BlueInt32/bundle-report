@@ -18,9 +18,10 @@ namespace Collecte.Monitoring
 				defaults: new { id = RouteParameter.Optional }
 			);
 
-			//var json = config.Formatters.JsonFormatter;
-			//json.SerializerSettings.PreserveReferencesHandling = Newtonsoft.Json.PreserveReferencesHandling.Objects;
-			//config.Formatters.Remove(config.Formatters.XmlFormatter);
+			var json = config.Formatters.JsonFormatter;
+			json.SerializerSettings.PreserveReferencesHandling = Newtonsoft.Json.PreserveReferencesHandling.Objects;
+			json.SerializerSettings.StringEscapeHandling = Newtonsoft.Json.StringEscapeHandling.EscapeHtml;
+			config.Formatters.Remove(config.Formatters.XmlFormatter);
         }
     }
 }

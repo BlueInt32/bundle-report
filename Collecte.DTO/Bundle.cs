@@ -21,16 +21,7 @@ namespace Collecte.DTO
 		public int? NbRetoursCanal { get; set; }
 		public int? NbOk { get; set; }
 		public int? NbKo { get; set; }
-
-		[StringLength(100)]
-		public string Info { get; set; }
-
-		[NotMapped]
-		public string Excerpt
-		{
-			get { return string.Concat(Date, " - ", NbInscriptions, " inscrits."); }
-		}
-
+		
 		public virtual List<BundleFile> BundleFiles { get; set; }
 	}
 }

@@ -50,9 +50,9 @@ angular.module('myServices')
 
 		var setFileContentToDom = function (content)
 		{
-			content = content.substr(1, content.length - 2);
+			content.fileContent = content.fileContent.substr(1, content.length - 2);
 			$rootScope.showLoaderFile = false;
-			$rootScope.fileContent = $sce.trustAsHtml(content);
+			$rootScope.fileContent = $sce.trustAsHtml(content.fileContent);
 			
 			
 		}
