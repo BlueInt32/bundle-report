@@ -16,7 +16,7 @@ namespace Tools
 		/// <param name="zipFileName">Absolute desired systeme final zip filepath</param>
 		/// <param name="compressionLevel">Compression level from 0 (no comp.) to 9 (best comp.)</param>
 		/// <returns></returns>
-		public OperationResult<NoType> CreateZip(List<string> filepaths, string zipFileName, int compressionLevel)
+		public StdResult<NoType> CreateZip(List<string> filepaths, string zipFileName, int compressionLevel)
 		{
 			try
 			{
@@ -64,12 +64,12 @@ namespace Tools
 
 					// Close is important to wrap things up and unlock the file.
 					s.Close();
-					return OperationResult<NoType>.OkResult;
+					return StdResult<NoType>.OkResult;
 				}
 			}
 			catch (Exception ex)
 			{
-				return OperationResult<NoType>.BadResult(ex.Message);
+				return StdResult<NoType>.BadResult(ex.Message);
 
 				// No need to rethrow the exception as for our purposes its handled.
 			}

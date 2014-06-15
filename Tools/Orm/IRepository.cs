@@ -7,12 +7,12 @@ namespace Tools.Orm
 {
 	public interface Crud<T, in TIdType> where T : class
 	{
-		OperationResult<T> Create(T inputObject);
+		StdResult<T> Create(T inputObject);
 
-		OperationResult<T> Retrieve(TIdType id);
+		StdResult<T> Get(TIdType id);
 
-		OperationResult<T> Update(T inputObject);
+		StdResult<T> Update(T inputObject);
 
-		OperationResult<T> Delete(TIdType id);
+		StdResult<T> Delete(TIdType id);
 	}
 }

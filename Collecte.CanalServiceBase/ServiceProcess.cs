@@ -20,7 +20,7 @@ namespace Collecte.CanalServiceBase
 	{
 		public List<User> RetrieveNewUsersSince(DateTime since)
 		{
-			using (DataContext context = new DataContext())
+			using (CollectContext context = new CollectContext())
 			{
 				var nouveauxInscrits = from u in context.Users
 									   where u.CreationDate > since
@@ -33,7 +33,7 @@ namespace Collecte.CanalServiceBase
 			}
 		}
 
-		public OperationResult<NoType> CanalPushFileFTP(string localPath)
+		public StdResult<NoType> CanalPushFileFTP(string localPath)
 		{ 
 			string distantDirectory = "/";
 
@@ -45,7 +45,7 @@ namespace Collecte.CanalServiceBase
 			          		LogDelegate = Program.log,
 							Mode = Mode.Sftp
 			          	};
-			OperationResult<NoType> ftpResult = ftp.PushFile(localPath, distantDirectory);
+			StdResult<NoType> ftpResult = ftp.PushFile(localPath, distantDirectory);
 			if (ftpResult.Result)
 			{
 				Mailer mailer = new Mailer();

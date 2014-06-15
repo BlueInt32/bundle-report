@@ -14,7 +14,7 @@ namespace ImageResizer
 	public class GDIHelpers
 	{
 
-		static public OperationResult<NoType> ResizeImageConstrained(string SourceFilePath, string DestinationFilePath, int width, int size)
+		static public StdResult<NoType> ResizeImageConstrained(string SourceFilePath, string DestinationFilePath, int width, int size)
 		{
 			try
 			{
@@ -73,11 +73,11 @@ namespace ImageResizer
 					//parameters.Param = new EncoderParameter{ 
 					SourceImage.Save(DestinationFilePath, format);
 				}
-				return OperationResult<NoType>.OkResult;
+				return StdResult<NoType>.OkResult;
 			}
 			catch (Exception e)
 			{
-				return OperationResult<NoType>.BadResultFormat("Une exception s'est produite :{0}", e.Message);
+				return StdResult<NoType>.BadResultFormat("Une exception s'est produite :{0}", e.Message);
 			}
 		}
 

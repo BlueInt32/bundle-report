@@ -121,9 +121,6 @@
     <Content Include="img\loader-file.gif" />
     <Content Include="js\app.js" />
     <Content Include="bundle.partial.html" />
-    <Content Include="css\datepicker.css" />
-    <Content Include="css\style.css" />
-    <Content Include="css\tree.min.css" />
     <Content Include="external\bootstrap-2.3.2\.gitignore" />
     <Content Include="external\bootstrap-2.3.2\bower.json" />
     <Content Include="external\bootstrap-2.3.2\composer.json" />
@@ -200,7 +197,6 @@
   <ItemGroup>
     <Compile Include="App_Code\BasicAuthenticationIdentity.cs" />
     <Compile Include="App_Code\FilePreprocess.cs" />
-    <Content Include="App_Code\RSAClass.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\BundleFilesController.cs" />
     <Compile Include="Controllers\BundlesController.cs" />
@@ -217,8 +213,6 @@
     <Content Include="Files\csvin\FC_RAP_IN_CIBLE_20140512_1.csv" />
     <Content Include="Files\csvin\FC_RAP_IN_CIBLE_20140523_1.csv" />
     <Content Include="Files\csvout\FC_RAP_OUT_CIBLE_20140511_0.csv" />
-    <Content Include="Files\FC_RAP_IN_CIBLE_20140511_1.csv" />
-    <Content Include="Files\FC_RAP_OUT_CIBLE_20140511_0.csv" />
     <Content Include="external\bootstrap-2.3.2\.travis.yml" />
     <Content Include="external\bootstrap-2.3.2\CHANGELOG.md" />
     <Content Include="external\bootstrap-2.3.2\CONTRIBUTING.md" />
@@ -268,16 +262,11 @@
     <Content Include="external\bootstrap-2.3.2\Makefile" />
     <Content Include="external\bootstrap-2.3.2\README.md" />
     <Content Include="css\bootstrap-tree.less" />
-    <Content Include="css\style.css.map" />
     <Content Include="css\style.less" />
-    <Content Include="css\tree.min.css.old" />
-    <Content Include="css\tree.min.css.older" />
     <Content Include="img\ExtractCanal_CuisinePlus %281%29.xls" />
     <Content Include="img\ExtractCanal_CuisinePlus.xls" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Collecte.DTO\Collecte.DTO.csproj">
       <Project>{b4849283-9529-4399-82e8-63f2d4b42b9d}</Project>

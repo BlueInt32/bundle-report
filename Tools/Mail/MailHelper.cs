@@ -114,7 +114,7 @@ namespace Tools.Mail
 		/// - Send emails to each recipients.
 		/// </summary>
 		/// <returns></returns>
-		public OperationResult<MailHelper> Send()
+		public StdResult<MailHelper> Send()
 		{
 			try
 			{
@@ -161,12 +161,12 @@ namespace Tools.Mail
 					smtp.Send(mailMessage);
 				}
 
-				return OperationResult<MailHelper>.OkResultInstance(this);
+				return StdResult<MailHelper>.OkResultInstance(this);
 			}
 			catch (Exception e)
 			{
 				Log.Error("MailHelper", e.Message + e.StackTrace);
-				return OperationResult<MailHelper>.BadResult(e.Message);
+				return StdResult<MailHelper>.BadResult(e.Message);
 			}
 		}
 

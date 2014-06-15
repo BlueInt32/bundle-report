@@ -110,7 +110,7 @@ namespace Collecte.CanalServiceBase
 				if (bResult.Result)
 				{
 					BundleLogic.SetBundleStatus(ScannedDate, BundleStatus.CsvOutReceived);
-					OperationResult<List<FromCanalUser>> parseResult = ParseFile(fullPath);
+					StdResult<List<FromCanalUser>> parseResult = ParseFile(fullPath);
 					if (parseResult.Result)
 					{
 
@@ -125,7 +125,7 @@ namespace Collecte.CanalServiceBase
 		}
 
 
-		public OperationResult<List<FromCanalUser>> ParseFile(string filePath)
+		public StdResult<List<FromCanalUser>> ParseFile(string filePath)
 		{
 			try
 			{
@@ -149,7 +149,7 @@ namespace Collecte.CanalServiceBase
 
 					Program.log(String.Format("Csv reader detected {0} entries", fromCanalCsvList.Count));
 
-					UserDal uDal = new UserDal();
+					UserDataService uDal = new UserDataService();
 
 					List<UserItem> subListBase = uDal.GetAllUserItems();
 					Program.log(String.Format("Base has {0} entries", subListBase.Count));
@@ -179,7 +179,7 @@ namespace Collecte.CanalServiceBase
 						});
 					}
 
-					int sequenceNumber = TradeDoublerProvider.GetTradeDoublerSequenceNumber() + 1;
+					int sequenceNumber = TradeDoublerDataService.GetTradeDoublerSequenceNumber() + 1;
 
 					TradeDoublerContainer tdc = new TradeDoublerContainer
 					{
@@ -239,11 +239,11 @@ namespace Collecte.CanalServiceBase
 						};
 						Program.log("Initialisation envoi ftp to Trade. Host:" + ftp.Host + ", Login:"+ftp.Login+", Mode:"+ftp.Mode+", pwd:"+ftp.Pwd);
 
-						OperationResult<NoType> ftpResult = ftp.PushFile(filePathTradedoublerXml, ConfigurationManager.AppSettings["TradeDoublerFtpDistantPath"]);
+						StdResult<NoType> ftpResult = ftp.PushFile(filePathTradedoublerXml, ConfigurationManager.AppSettings["TradeDoublerFtpDistantPath"]);
 						if (ftpResult.Result)
 						{
 							Program.log("File sent to TradeDoubler !");
-							TradeDoublerProvider.SetTradeDoublerSequenceNumber(sequenceNumber);
+							TradeDoublerDataService.SetTradeDoublerSequenceNumber(sequenceNumber);
 							BundleLogic.SetBundleStatus(ScannedDate, BundleStatus.XmlSentToTrade);
 							
 							Mailer mailer = new Mailer();
@@ -254,7 +254,7 @@ namespace Collecte.CanalServiceBase
 						else
 							Program.log("Erreur envoi fichier TradeDoubler !" + ftpResult.Message);
 					}
-					return OperationResult<List<FromCanalUser>>.OkResultInstance(fromCanalCsvList);
+					return StdResult<List<FromCanalUser>>.OkResultInstance(fromCanalCsvList);
 				}
 			}
 			catch (Exception e)

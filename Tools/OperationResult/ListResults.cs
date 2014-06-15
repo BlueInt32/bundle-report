@@ -5,15 +5,15 @@ using System.Text;
 
 namespace Tools
 {
-	public class ListResults<T> : List<OperationResult<T>> where T : class
+	public class ListResults<T> : List<StdResult<T>> where T : class
 	{
-		public OperationResult<T> MainResult
+		public StdResult<T> MainResult
 		{
 			get
 			{
-				OperationResult<T> mainResult = OperationResult<T>.OkResult;
+				StdResult<T> mainResult = StdResult<T>.OkResult;
 				mainResult.Message = "";
-				foreach (OperationResult<T> operationResult in this)
+				foreach (StdResult<T> operationResult in this)
 				{
 					mainResult.Result &= operationResult.Result;
 					if (operationResult.Message != "Ok" && !string.IsNullOrWhiteSpace(operationResult.Message))

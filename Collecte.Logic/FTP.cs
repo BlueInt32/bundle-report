@@ -50,12 +50,12 @@ namespace Collecte.Logic
 			}
 		}
 
-		public OperationResult<NoType> PushFile(string localFilePath, string distantDirectory)
+		public StdResult<NoType> PushFile(string localFilePath, string distantDirectory)
 		{
 			return Mode == Mode.Sftp ? PushFileSFTP(localFilePath, distantDirectory) : PushFileFTP(localFilePath, distantDirectory);
 		}
 
-		private OperationResult<NoType> PushFileSFTP(string localFilePath, string distantDirectory)
+		private StdResult<NoType> PushFileSFTP(string localFilePath, string distantDirectory)
 		{
 			if (!distantDirectory.StartsWith("/"))
 				distantDirectory = string.Concat("/", distantDirectory);
@@ -90,7 +90,7 @@ namespace Collecte.Logic
 					}
 				}
 				LogDelegate(string.Format("[FTP] File Sent successfully."));
-				return OperationResult<NoType>.OkResult;
+				return StdResult<NoType>.OkResult;
 
 			}
 			catch (Exception e)
@@ -109,7 +109,7 @@ namespace Collecte.Logic
 					mailer.SendMail(emailConf, "[Canal Collecte] Erreur FTP!", exception.Message + "<br/>" + e.StackTrace, null, ConfigurationManager.AppSettings["NotificationEmail_CC"]);
 					
 				}
-				return OperationResult<NoType>.BadResultFormat("[FTP] Exception envoi: {0} /// {1}", e.Message);
+				return StdResult<NoType>.BadResultFormat("[FTP] Exception envoi: {0} /// {1}", e.Message);
 			}
 		}
 
@@ -119,7 +119,7 @@ namespace Collecte.Logic
 		}
 
 
-		private OperationResult<NoType> PushFileFTP(string localFilePath, string distantDirectory)
+		private StdResult<NoType> PushFileFTP(string localFilePath, string distantDirectory)
 		{
 			if (!distantDirectory.StartsWith("/"))
 				distantDirectory = string.Concat("/", distantDirectory);
@@ -157,7 +157,7 @@ namespace Collecte.Logic
 				//Console.WriteLine("Upload File Complete, status {0}", response.StatusDescription);
 
 				response.Close();
-				return OperationResult<NoType>.OkResult;
+				return StdResult<NoType>.OkResult;
 
 			}
 			catch (Exception e)
@@ -173,7 +173,7 @@ namespace Collecte.Logic
 					string emailConf = ConfigurationManager.AppSettings["NotificationEmail"];
 					mailer.SendMail(emailConf, "[Canal Collecte] Erreur FTP!", e.Message + " " + e.StackTrace, null, ConfigurationManager.AppSettings["NotificationEmail_CC"]);
 				}
-				return OperationResult<NoType>.BadResultFormat("[FTP] Exception envoi: {0} /// {1}", we.Message, we.Status);
+				return StdResult<NoType>.BadResultFormat("[FTP] Exception envoi: {0} /// {1}", we.Message, we.Status);
 			}
 		}
 	}

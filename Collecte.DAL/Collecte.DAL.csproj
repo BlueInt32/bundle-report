@@ -109,12 +109,12 @@
     <Compile Include="DataServices\QualifDataService.cs" />
     <Compile Include="DataServices\TradeDoublerDataService.cs" />
     <Compile Include="DataServices\UserDataService.cs" />
-    <Compile Include="Migrations\201406071152383_Init.cs" />
-    <Compile Include="Migrations\201406071152383_Init.Designer.cs">
-      <DependentUpon>201406071152383_Init.cs</DependentUpon>
+    <Compile Include="CollecteContext.cs" />
+    <Compile Include="Migrations\201406122035084_Init.cs" />
+    <Compile Include="Migrations\201406122035084_Init.Designer.cs">
+      <DependentUpon>201406122035084_Init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="DataContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -156,8 +156,8 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201406071152383_Init.resx">
-      <DependentUpon>201406071152383_Init.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201406122035084_Init.resx">
+      <DependentUpon>201406122035084_Init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

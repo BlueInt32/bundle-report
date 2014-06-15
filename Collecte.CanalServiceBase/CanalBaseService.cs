@@ -124,7 +124,7 @@ namespace Collecte.CanalServiceBase
 				ServiceProcess service = new ServiceProcess(); Program.log("Retrieving users since " + BundleLogic.GetPreviousDayOrSo0h().ToString("dd/MM/yyyy"));
 				List<User> listNewUserDay = service.RetrieveNewUsersSince(BundleLogic.GetPreviousDayOrSo0h()); Program.log("User List : " + listNewUserDay.Count);
 				bundleLogic.SetBundleTotalSubs(Today0h, listNewUserDay.Count);
-				UserDal uDal = new UserDal();
+				UserDataService uDal = new UserDataService();
 				string csvInPath = ConfigurationManager.AppSettings["localCsvFilesDirectory"];
 				string localfilePath = uDal.CreateCsvContentForCanal(csvInPath, listNewUserDay, 1);
 				if (File.Exists(localfilePath))

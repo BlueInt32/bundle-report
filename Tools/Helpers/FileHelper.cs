@@ -64,7 +64,7 @@ namespace Tools
 			}
 		}
 
-		public static OperationResult<NoType> CopyFile(string from, string to, bool deleteSource = false)
+		public static StdResult<NoType> CopyFile(string from, string to, bool deleteSource = false)
 		{
 			try
 			{
@@ -74,12 +74,12 @@ namespace Tools
 			}
 			catch (Exception e)
 			{
-				return OperationResult<NoType>.BadResult(e.Message);
+				return StdResult<NoType>.BadResult(e.Message);
 			}
-			return OperationResult<NoType>.OkResult;
+			return StdResult<NoType>.OkResult;
 
 		}
-		public static OperationResult<NoType> MoveFile(string from, string to, bool overwriteIfExists = false)
+		public static StdResult<NoType> MoveFile(string from, string to, bool overwriteIfExists = false)
 		{
 			try
 			{
@@ -89,30 +89,30 @@ namespace Tools
 			}
 			catch (Exception e)
 			{
-				return OperationResult<NoType>.BadResult(e.Message);
+				return StdResult<NoType>.BadResult(e.Message);
 			}
-			return OperationResult<NoType>.OkResult;
+			return StdResult<NoType>.OkResult;
 		}
 
 
 
 
-		public static OperationResult<NoType> DeleteFile(string filePath)
+		public static StdResult<NoType> DeleteFile(string filePath)
 		{
 			if (!File.Exists(filePath))
-				return OperationResult<NoType>.BadResult("Fichiez inexistant : " + filePath);
+				return StdResult<NoType>.BadResult("Fichiez inexistant : " + filePath);
 			File.Delete(filePath);
 			
 
-			return OperationResult<NoType>.OkResult;
+			return StdResult<NoType>.OkResult;
 
 		}
-		public static OperationResult<NoType> Exists(string filePath)
+		public static StdResult<NoType> Exists(string filePath)
 		{
-			return File.Exists(filePath) ? OperationResult<NoType>.OkResult : OperationResult<NoType>.BadResult("fichier inexistant");
+			return File.Exists(filePath) ? StdResult<NoType>.OkResult : StdResult<NoType>.BadResult("fichier inexistant");
 		}
 
-		public static OperationResult<NoType> SaveFile(string filePath, string content)
+		public static StdResult<NoType> SaveFile(string filePath, string content)
 		{
 			try
 			{
@@ -120,11 +120,11 @@ namespace Tools
 				{
 					sw.Write(content);
 				}
-				return OperationResult<NoType>.OkResult;
+				return StdResult<NoType>.OkResult;
 			}
 			catch (Exception ex)
 			{
-				return OperationResult<NoType>.BadResult(ex.Message);
+				return StdResult<NoType>.BadResult(ex.Message);
 			}
 		}
 

@@ -15,7 +15,7 @@ namespace Tools
 {
 	public class ImageHelper
 	{
-		public OperationResult<NoType> CreateImageFileFromB64(string imageName, string b64Image)
+		public StdResult<NoType> CreateImageFileFromB64(string imageName, string b64Image)
 		{
 			try
 			{
@@ -24,11 +24,11 @@ namespace Tools
 			}
 			catch (FormatException)
 			{
-				return OperationResult<NoType>.BadResult("Erreur : données B64 mal formées.");
+				return StdResult<NoType>.BadResult("Erreur : données B64 mal formées.");
 			}
 		}
 
-		private OperationResult<NoType> CreateImageFile(string imageName, byte[] byteArrayImage)
+		private StdResult<NoType> CreateImageFile(string imageName, byte[] byteArrayImage)
 		{
 			ImageConverter ic = new ImageConverter();
 			Image img;
@@ -38,7 +38,7 @@ namespace Tools
 			}
 			catch
 			{
-				return OperationResult<NoType>.BadResult("Erreur : Conversion B64 -> Image a echoué.");
+				return StdResult<NoType>.BadResult("Erreur : Conversion B64 -> Image a echoué.");
 			}
 
 			string imageServerDirectory = HttpContext.Current.Server.MapPath("~/Content/VideoThumbs");
@@ -52,9 +52,9 @@ namespace Tools
 			}
 			catch
 			{
-				return OperationResult<NoType>.BadResult("Erreur : Sauvegarde du fichier image a échoué.");
+				return StdResult<NoType>.BadResult("Erreur : Sauvegarde du fichier image a échoué.");
 			}
-			return OperationResult<NoType>.OkResult;
+			return StdResult<NoType>.OkResult;
 		}
 		
 		/// <summary>
@@ -65,11 +65,11 @@ namespace Tools
 		/// <param name="imageName">Nom de l'image, sans extension</param>
 		/// <param name="sizeRequired">Taille requise de l'image</param>
 		/// <returns></returns>
-		public OperationResult<NoType> SaveImageFromPostedFile(HttpPostedFileBase file, string fileFullDesiredPath, Size? sizeRequired, List<string> extensionsOk)
+		public StdResult<NoType> SaveImageFromPostedFile(HttpPostedFileBase file, string fileFullDesiredPath, Size? sizeRequired, List<string> extensionsOk)
 		{
 			if (file == null)
-				return OperationResult<NoType>.BadResult("Image obligatoire.");
-			OperationResult<NoType> ScanExtensionResult = ScanImageExtension(file, extensionsOk);
+				return StdResult<NoType>.BadResult("Image obligatoire.");
+			StdResult<NoType> ScanExtensionResult = ScanImageExtension(file, extensionsOk);
 			if (!ScanExtensionResult.Result)
 			{
 				return ScanExtensionResult;
@@ -81,10 +81,10 @@ namespace Tools
 			}
 			catch
 			{
-				return OperationResult<NoType>.BadResult("Format d'image inconnu");
+				return StdResult<NoType>.BadResult("Format d'image inconnu");
 			}
 			if (sizeRequired != null && !(imgFile.Size == sizeRequired))
-				return OperationResult<NoType>.BadResult(string.Format("La taille de l'image n'est pas correcte ({0}x{1})", sizeRequired.Value.Width, sizeRequired.Value.Height));
+				return StdResult<NoType>.BadResult(string.Format("La taille de l'image n'est pas correcte ({0}x{1})", sizeRequired.Value.Width, sizeRequired.Value.Height));
 
 			string savePath = string.Empty;
 			try
@@ -93,13 +93,13 @@ namespace Tools
 			}
 			catch
 			{
-				return OperationResult<NoType>.BadResult(string.Format("Erreur à l'écriture du fichier {0}", savePath));
+				return StdResult<NoType>.BadResult(string.Format("Erreur à l'écriture du fichier {0}", savePath));
 			}
 			finally
 			{
 				imgFile.Dispose();
 			}
-			OperationResult<NoType> res = OperationResult<NoType>.OkResult;
+			StdResult<NoType> res = StdResult<NoType>.OkResult;
 			return res;
 		}
 
@@ -108,13 +108,13 @@ namespace Tools
 		/// </summary>
 		/// <param name="extensionsOk">Extensions acceptées sans le "." devant (sinon ça marche pas)</param>
 		/// <returns></returns>
-		public OperationResult<NoType> ScanImageExtension(HttpPostedFileBase file, List<string> extensionsOk)
+		public StdResult<NoType> ScanImageExtension(HttpPostedFileBase file, List<string> extensionsOk)
 		{
 			string ext = file.FileName.Substring(file.FileName.LastIndexOf(".")).Substring(1);
 			List<string> okExtLower = extensionsOk.Select(okExt => (okExt.StartsWith(".") ? okExt.Substring(1) : okExt).ToLower()).ToList();
 			return okExtLower.Contains(ext)
-					? OperationResult<NoType>.OkResult
-					: OperationResult<NoType>.BadResultFormat("Extension d'image non reconnue (acceptée(s) : {0}).", string.Join("|", extensionsOk.ToArray()));
+					? StdResult<NoType>.OkResult
+					: StdResult<NoType>.BadResultFormat("Extension d'image non reconnue (acceptée(s) : {0}).", string.Join("|", extensionsOk.ToArray()));
 		}
 
 		public static Size GetImageDimension(string imageUrl)
@@ -126,9 +126,9 @@ namespace Tools
 				return img.Size;
 			}
 		}
-		public static OperationResult<NoType> Resize(string source, string destination, int width, int height)
+		public static StdResult<NoType> Resize(string source, string destination, int width, int height)
 		{
-			OperationResult<NoType> res = ImageResizer.GDIHelpers.ResizeImageConstrained(source, destination, width, height);
+			StdResult<NoType> res = ImageResizer.GDIHelpers.ResizeImageConstrained(source, destination, width, height);
 			return res;
 		}
 

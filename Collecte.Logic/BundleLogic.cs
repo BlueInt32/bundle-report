@@ -27,10 +27,10 @@ namespace Collecte.Logic
 			return new DateTime(now.Year, now.Month, now.Day);
 		}
 
-		public OperationResult<Bundle> CreateBundle(DateTime date)
+		public StdResult<Bundle> CreateBundle(DateTime date)
 		{
 			BundleDataService dal = new BundleDataService();
-			OperationResult<Bundle> result = dal.GetBundleByDate(date);
+			StdResult<Bundle> result = dal.Get(date);
 			Bundle b;
 			if (result.Result && result.ReturnObject != null)
 				 b = result.ReturnObject;
@@ -45,10 +45,10 @@ namespace Collecte.Logic
 			return result;
 		}
 
-		public OperationResult<Bundle> SetBundleStatus(DateTime date, BundleStatus status)
+		public StdResult<Bundle> SetBundleStatus(DateTime date, BundleStatus status)
 		{
 			BundleDataService dal = new BundleDataService();
-			OperationResult<Bundle> result = dal.GetBundleByDate(date);
+			StdResult<Bundle> result = dal.Get(date);
 			if (result.ReturnObject == null)
 				throw new CollecteException("Bundle introuvable.");
 
@@ -59,10 +59,10 @@ namespace Collecte.Logic
 			return result;
 		}
 
-		public OperationResult<Bundle> GetBundleByDate(DateTime date)
+		public StdResult<Bundle> GetBundleByDate(DateTime date)
 		{
 			BundleDataService dal = new BundleDataService();
-			OperationResult<Bundle> result = dal.GetBundleByDate(date);
+			StdResult<Bundle> result = dal.Get(date);
 			return result;
 		}
 
@@ -72,10 +72,10 @@ namespace Collecte.Logic
 		/// <param name="date"></param>
 		/// <param name="totalSubs"></param>
 		/// <returns></returns>
-		public OperationResult<Bundle> SetBundleTotalSubs(DateTime date, int totalSubs)
+		public StdResult<Bundle> SetBundleTotalSubs(DateTime date, int totalSubs)
 		{
 			BundleDataService dal = new BundleDataService();
-			OperationResult<Bundle> result = dal.GetBundleByDate(date);
+			StdResult<Bundle> result = dal.Get(date);
 			if (result.ReturnObject == null)
 				throw new CollecteException("Bundle introuvable.");
 
@@ -92,10 +92,10 @@ namespace Collecte.Logic
 		/// <param name="date"></param>
 		/// <param name="nb"></param>
 		/// <returns></returns>
-		public OperationResult<Bundle> SetBundleNbReturnsCanal(DateTime date, int nbRetoursCanal, int nbOk, int nbKo)
+		public StdResult<Bundle> SetBundleNbReturnsCanal(DateTime date, int nbRetoursCanal, int nbOk, int nbKo)
 		{
 			BundleDataService dal = new BundleDataService();
-			OperationResult<Bundle> result = dal.GetBundleByDate(date);
+			StdResult<Bundle> result = dal.Get(date);
 			if (result.ReturnObject == null)
 				throw new CollecteException("Bundle introuvable.");
 
@@ -115,7 +115,7 @@ namespace Collecte.Logic
 		/// <param name="filePath"></param>
 		/// <param name="type"></param>
 		/// <returns></returns>
-		public OperationResult<BundleFile> AttachFileToBundle(DateTime date, string filePath, BundleFileType type)
+		public StdResult<BundleFile> AttachFileToBundle(DateTime date, string filePath, BundleFileType type)
 		{
 			if(!File.Exists(filePath))
 				throw new CollecteException("Le fichier indiqué n'existe pas.");
@@ -143,7 +143,7 @@ namespace Collecte.Logic
 
 
 			BundleFileDataService bfDal = new BundleFileDataService();
-			OperationResult<BundleFile> resultFileBundle = bfDal.Create(bFile, date);
+			StdResult<BundleFile> resultFileBundle = bfDal.Create(bFile, date);
 			//dal.Update(resultBundle.ReturnObject);
 			return resultFileBundle;
 		}
@@ -156,7 +156,7 @@ namespace Collecte.Logic
 		{
 			BundleDataService dal = new BundleDataService();
 
-			OperationResult<List<Bundle>> listResult = dal.ListBundles();
+			StdResult<List<Bundle>> listResult = dal.ListBundles();
 
 			return listResult.ReturnObject;
 
@@ -177,7 +177,7 @@ namespace Collecte.Logic
 			return dico;
 		}
 
-		public OperationResult<Bundle> DeleteBundles()
+		public StdResult<Bundle> DeleteBundles()
 		{
 			BundleDataService dal = new BundleDataService();
 			return dal.DeleteBundles();

@@ -88,7 +88,7 @@ namespace Collecte.WebApp.Controllers
 				};
 				newUser.InitStepChances();
 
-				OperationResult<User> saveNewUserResult = UserDal.Create(newUser);
+				StdResult<User> saveNewUserResult = UserDal.Create(newUser);
 				if (!saveNewUserResult.Result)
 					throw new CollecteException(saveNewUserResult.Message);
 				if (saveNewUserResult.ReturnObject.Id == Guid.Empty)
@@ -101,7 +101,7 @@ namespace Collecte.WebApp.Controllers
 
 
 				// Play 'instant gagnant'
-				OperationResult<InstantGagnant> currentIgResult = (new InstantGagnantLogic()).PlayInstantGagnant(newUser);
+				StdResult<InstantGagnant> currentIgResult = (new InstantGagnantLogic()).PlayInstantGagnant(newUser);
 				if (currentIgResult.Result)
 				{
 					InstantGagnant ig = currentIgResult.ReturnObject;
@@ -243,7 +243,7 @@ namespace Collecte.WebApp.Controllers
 				Session["TextResult"] = ViewBag.TextResult;
 
 				userFromDb.HeroicScore = totalScore;
-				OperationResult<User> updateResult = UserDal.Update(userFromDb);
+				StdResult<User> updateResult = UserDal.Update(userFromDb);
 			}
 			else
 			{
@@ -307,13 +307,13 @@ namespace Collecte.WebApp.Controllers
 					userFromDb.FriendEmail1 = model.Email1;
 					userFromDb.FriendEmail2 = model.Email2;
 					userFromDb.FriendEmail3 = model.Email3;
-					OperationResult<User> updateResult = UserDal.Update(userFromDb);
+					StdResult<User> updateResult = UserDal.Update(userFromDb);
 					if (!updateResult.Result)
 						throw new CollecteException(updateResult.Message);
 
 
 					MailHelper mailManager = CreateFriendsEmailInstance(userFromDb);
-					OperationResult<MailHelper> sendResult = mailManager.Send();
+					StdResult<MailHelper> sendResult = mailManager.Send();
 					if (!sendResult.Result)
 					{
 						ModelState.AddModelError("Email1", "Echec d'envoi de l'email. Veuillez rééssayer ultérieurement.");
@@ -381,7 +381,7 @@ namespace Collecte.WebApp.Controllers
 			userFromDb.Zipcode = model.ZipCode;
 			userFromDb.Address = string.Concat(model.NumVoie, ", ", model.TypeVoie, " ", model.NomVoie);
 			userFromDb.SetStepChance(1, true);
-			OperationResult<User> updateResult = UserDal.Update(userFromDb);
+			StdResult<User> updateResult = UserDal.Update(userFromDb);
 			if (!updateResult.Result)
 			{
 				return Json(new { result = false, message = updateResult.Message });
@@ -403,7 +403,7 @@ namespace Collecte.WebApp.Controllers
 			userFromDb.Phone = model.Phone; 
 			userFromDb.SetStepChance(2, true);
 
-			OperationResult<User> updateResult = UserDal.Update(userFromDb);
+			StdResult<User> updateResult = UserDal.Update(userFromDb);
 			if (!updateResult.Result)
 			{
 				return Json(new { result = false, message = updateResult.Message });
@@ -439,7 +439,7 @@ namespace Collecte.WebApp.Controllers
 			User userFromDb = RetrieveUserFromDb(null);
 
 			QualifDataService qDal = new QualifDataService();
-			OperationResult<AnswerChoice> updateResult = qDal.SetAnswer(userFromDb, questionNumber, (HttpContext.Items["ChosenAnswer"] as AnswerToken).Id);
+			StdResult<AnswerChoice> updateResult = qDal.SetAnswer(userFromDb, questionNumber, (HttpContext.Items["ChosenAnswer"] as AnswerToken).Id);
 
 			if (!updateResult.Result)
 				throw new CollecteException(updateResult.Message);
@@ -458,7 +458,7 @@ namespace Collecte.WebApp.Controllers
 			if(!id.HasValue && Session["UserId"] == null)
 				throw new CollecteException("Session expirée.");
 			Guid idUser = id.HasValue ? id.Value : Guid.Parse(Session["UserId"].ToString());
-			OperationResult<User> retrieveUserResult = UserDal.Retrieve(idUser);
+			StdResult<User> retrieveUserResult = UserDal.Get(idUser);
 			if (!retrieveUserResult.Result)
 				throw new CollecteException(string.Format("id:{0} error : {1}", Session["UserId"], retrieveUserResult.Message));
 			return retrieveUserResult.ReturnObject;

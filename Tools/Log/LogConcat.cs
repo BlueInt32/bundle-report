@@ -67,29 +67,29 @@ namespace Tools.LogTools
 		/// </summary>
 		/// <param name="input"></param>
 		/// <returns></returns>
-		public OperationResult<LogConcat> AddLogFileContent(string input)
+		public StdResult<LogConcat> AddLogFileContent(string input)
 		{
 			LogFilesContents.Add(input);
 			ProcessFile(input, NbFilesAdded);
 			NbFilesAdded++;
-			return OperationResult<LogConcat>.OkResult;
+			return StdResult<LogConcat>.OkResult;
 		}
 
-		public OperationResult<LogConcat> ProcessFiltering()
+		public StdResult<LogConcat> ProcessFiltering()
 		{
 			if (FilterPredicates.Count == 0)
 			{
 				LogLinesProcessed = LogLinesFull;
-				return OperationResult<LogConcat>.BadResult("No Filter exists");
+				return StdResult<LogConcat>.BadResult("No Filter exists");
 			}
 			if (LogLinesFull == null || LogLinesFull.Count == 0)
-				return OperationResult<LogConcat>.OkResult;
+				return StdResult<LogConcat>.OkResult;
 			List<LogLine> ResultList = (from logLine in LogLinesFull
 			                            let i = FilterPredicates.Count(predicate => predicate(logLine))
 			                            where i == FilterPredicates.Count
 			                            select logLine).ToList();
 			LogLinesProcessed = ResultList;
-			return OperationResult<LogConcat>.OkResult;
+			return StdResult<LogConcat>.OkResult;
 		}
 
 		public string Output()

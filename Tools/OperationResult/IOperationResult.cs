@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Tools
 {
-	public interface IOperationResult<T>
+	public interface IStdResult<T>
 	{
 		bool Result { get; set; }
 		string Message { get; set; }

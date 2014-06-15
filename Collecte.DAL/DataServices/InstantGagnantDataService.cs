@@ -9,9 +9,9 @@ namespace Collecte.DAL
 {
 	public class InstantGagnantDataService
 	{
-		public OperationResult<InstantGagnant> GetCurrentInstantGagnant()
+		public StdResult<InstantGagnant> GetCurrentInstantGagnant()
 		{
-			using (CollecteContext context = new CollecteContext())
+			using (CollectContext context = new CollectContext())
 			{
 				DateTime now = DateTime.Now;
 				var query = from ig in context.InstantsGagnants
@@ -22,28 +22,28 @@ namespace Collecte.DAL
 				if (query.Any<InstantGagnant>())
 				{
 					InstantGagnant ig = query.First<InstantGagnant>();
-					return OperationResult<InstantGagnant>.OkResultInstance(ig);
+					return StdResult<InstantGagnant>.OkResultInstance(ig);
 				}
 				else
-					return OperationResult<InstantGagnant>.BadResult("Pas d'instant gagnant disponible");
+					return StdResult<InstantGagnant>.BadResult("Pas d'instant gagnant disponible");
 
 			}
 		}
 
-		public OperationResult<InstantGagnant> AddInstantGagnant(InstantGagnant instance)
+		public StdResult<InstantGagnant> AddInstantGagnant(InstantGagnant instance)
 		{
-			using (CollecteContext context = new CollecteContext())
+			using (CollectContext context = new CollectContext())
 			{
 				context.InstantsGagnants.Add(instance);
 				context.SaveChanges();
 
-				return OperationResult<InstantGagnant>.OkResultInstance(instance);
+				return StdResult<InstantGagnant>.OkResultInstance(instance);
 			}
 		}
 
-		public OperationResult<InstantGagnant> DeleteInstantsGagnant()
+		public StdResult<InstantGagnant> DeleteInstantsGagnant()
 		{
-			using (CollecteContext context = new CollecteContext())
+			using (CollectContext context = new CollectContext())
 			{
 				foreach (User user in context.Users)
 				{
@@ -56,13 +56,13 @@ namespace Collecte.DAL
 				}
 				context.SaveChanges();
 
-				return OperationResult<InstantGagnant>.OkResult;
+				return StdResult<InstantGagnant>.OkResult;
 			}
 		}
 
-		public OperationResult<InstantGagnant> WinInstantGagnant(User MainUser)
+		public StdResult<InstantGagnant> WinInstantGagnant(User MainUser)
 		{
-			using (CollecteContext context = new CollecteContext())
+			using (CollectContext context = new CollectContext())
 			{
 				DateTime now = DateTime.Now;
 				var query = from ig in context.InstantsGagnants
@@ -79,10 +79,10 @@ namespace Collecte.DAL
 					ig.WonDate = DateTime.Now;
 					MainUser.InstantsGagnantWon.Add(ig);
 					context.SaveChanges();
-					return OperationResult<InstantGagnant>.OkResultInstance(ig);
+					return StdResult<InstantGagnant>.OkResultInstance(ig);
 				}
 				else
-					return OperationResult<InstantGagnant>.BadResult("Pas d'instant gagnant disponible");
+					return StdResult<InstantGagnant>.BadResult("Pas d'instant gagnant disponible");
 			}
 		}
 	}

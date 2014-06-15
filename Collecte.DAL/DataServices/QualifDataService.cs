@@ -12,12 +12,12 @@ namespace Collecte.DAL
 	/// </summary>
 	public class QualifDataService
 	{
-		public OperationResult<AnswerChoice> SetAnswer(User u, int questionNumber, int answerChosen)
+		public StdResult<AnswerChoice> SetAnswer(User u, int questionNumber, int answerChosen)
 		{
-			using (CollecteContext context = new CollecteContext())
+			using (CollectContext context = new CollectContext())
 			{
 				if(!context.Users.Any(user => user.Id == u.Id))
-					return OperationResult<AnswerChoice>.BadResult("User introuvable en base.");
+					return StdResult<AnswerChoice>.BadResult("User introuvable en base.");
 
 				var query = context.AnswerChoices.Where(answerChoice => answerChoice.User.Id == u.Id && answerChoice.QuestionNumber == questionNumber);
 				bool alreadyAnswered = query.Any();
@@ -42,21 +42,21 @@ namespace Collecte.DAL
 				}
 
 				context.SaveChanges();
-				return OperationResult<AnswerChoice>.OkResultInstance(ac);
+				return StdResult<AnswerChoice>.OkResultInstance(ac);
 			}
 		}
 
-		public OperationResult<List<AnswerChoice>> GetUsersAnswers(User u)
+		public StdResult<List<AnswerChoice>> GetUsersAnswers(User u)
 		{
-			using (CollecteContext context = new CollecteContext())
+			using (CollectContext context = new CollectContext())
 			{
 				if (!context.Users.Any(user => user.Id == u.Id))
-					return OperationResult<List<AnswerChoice>>.BadResult("User introuvable en base.");
+					return StdResult<List<AnswerChoice>>.BadResult("User introuvable en base.");
 
 				var query = context.AnswerChoices.Where(answerChoice => answerChoice.User.Id == u.Id);
 				bool alreadyAnswered = query.Any();
 
-				return OperationResult<List<AnswerChoice>>.OkResultInstance(query.ToList());
+				return StdResult<List<AnswerChoice>>.OkResultInstance(query.ToList());
 			}
 		}
 	}

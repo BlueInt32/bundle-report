@@ -12,7 +12,7 @@ namespace Collecte.Logic
 	public class Mailer
 	{
 		public Action<string> LogDelegate { get; set; }
-		public OperationResult<NoType> SendMail(string mailTo, string mailSubject, string mailContent, Attachment attachedFile, string ccs)
+		public StdResult<NoType> SendMail(string mailTo, string mailSubject, string mailContent, Attachment attachedFile, string ccs)
 		{
 			try
 			{
@@ -35,12 +35,12 @@ namespace Collecte.Logic
 				//mh.SetContentDirect(text);
 
 				mh.Send();
-				return OperationResult<NoType>.OkResult;
+				return StdResult<NoType>.OkResult;
 			}
 			catch (Exception e)
 			{
 				LogDelegate(string.Format("Exception while sending mail to {0}. E = {1} [{2}]", mailTo, e.Message, e.StackTrace));
-				return OperationResult<NoType>.BadResult(e.Message);
+				return StdResult<NoType>.BadResult(e.Message);
 			}
 
 		}

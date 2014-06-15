@@ -17,34 +17,34 @@ namespace Collecte.DAL
 	{
 		#region Implementation of IRepository<User,in string>
 
-		public OperationResult<User> Create(User inputObject)
+		public StdResult<User> Create(User inputObject)
 		{
-			using (CollecteContext context = new CollecteContext())
+			using (CollectContext context = new CollectContext())
 			{
 				context.Users.Add(inputObject);
 				IEnumerable<DbEntityValidationResult> errors = context.GetValidationErrors();
 				if (errors.Count() > 0)
-					return OperationResult<User>.BadResultWithList("Erreur(s) de validation pour la création, voir ErrorList", errors.FormatValidationErrorList());
+					return StdResult<User>.BadResultWithList("Erreur(s) de validation pour la création, voir ErrorList", errors.FormatValidationErrorList());
 
 				int nbSaved = context.SaveChanges();
-				return nbSaved != 1 ? OperationResult<User>.BadResult("User non créé", inputObject) : OperationResult<User>.OkResultInstance(inputObject);
+				return nbSaved != 1 ? StdResult<User>.BadResult("User non créé", inputObject) : StdResult<User>.OkResultInstance(inputObject);
 			}
 		}
 
-		public OperationResult<User> Retrieve(Guid id)
+		public StdResult<User> Get(Guid id)
 		{
-			using (CollecteContext context = new CollecteContext())
+			using (CollectContext context = new CollectContext())
 			{
 				User UserFromDb = context.Users.Include("AnswerChoices").Include("InstantsGagnantWon").Where(u => u.Id == id).FirstOrDefault();
 				if (UserFromDb == null)
-					return OperationResult<User>.BadResult("User introuvable");
-				return OperationResult<User>.OkResultInstance(UserFromDb);
+					return StdResult<User>.BadResult("User introuvable");
+				return StdResult<User>.OkResultInstance(UserFromDb);
 			}
 		}
 
-		public OperationResult<User> Update(User inputObject)
+		public StdResult<User> Update(User inputObject)
 		{
-			using (CollecteContext context = new CollecteContext())
+			using (CollectContext context = new CollectContext())
 			{
 					context.Users.Attach(inputObject);
 					var entry = context.Entry(inputObject);
@@ -52,32 +52,32 @@ namespace Collecte.DAL
 
 					IEnumerable<DbEntityValidationResult> errors = context.GetValidationErrors();
 					if (errors.Count() > 0)
-						return OperationResult<User>.BadResultWithList("Erreur(s) de validation pour la création, voir ErrorList", errors.FormatValidationErrorList());
+						return StdResult<User>.BadResultWithList("Erreur(s) de validation pour la création, voir ErrorList", errors.FormatValidationErrorList());
 				
 					context.SaveChanges();
-					return OperationResult<User>.OkResultInstance(inputObject);
+					return StdResult<User>.OkResultInstance(inputObject);
 			}
 		}
 
-		public OperationResult<User> Delete(Guid id)
+		public StdResult<User> Delete(Guid id)
 		{
-			using (CollecteContext context = new CollecteContext())
+			using (CollectContext context = new CollectContext())
 			{
 				User UserFromDb = context.Users.Where(u => u.Id == id).FirstOrDefault();
 				if (UserFromDb == null)
-					return OperationResult<User>.BadResult("User introuvable");
+					return StdResult<User>.BadResult("User introuvable");
 				context.Users.Remove(UserFromDb);
 				if (context.SaveChanges() != 1)
-					return OperationResult<User>.BadResult("User non supprimé", UserFromDb);
+					return StdResult<User>.BadResult("User non supprimé", UserFromDb);
 				else
-					return OperationResult<User>.OkResult;
+					return StdResult<User>.OkResult;
 			}
 		}
 		#endregion
 
 		public User GetUserByEmail(string email)
 		{
-			using (CollecteContext context = new CollecteContext())
+			using (CollectContext context = new CollectContext())
 			{
 				User userFromDb = context.Users.Include("InstantsGagnantWon").Where(u => u.Email == email).FirstOrDefault();
 				return userFromDb;
@@ -86,7 +86,7 @@ namespace Collecte.DAL
 
 		public List<User> GetAllUsers()
 		{
-			using (CollecteContext context = new CollecteContext())
+			using (CollectContext context = new CollectContext())
 			{
 				var userFromDb = context.Users.ToList();
 				return userFromDb;
@@ -95,7 +95,7 @@ namespace Collecte.DAL
 
 		public List<UserItem> GetAllUserItems()
 		{
-			using (CollecteContext context = new CollecteContext())
+			using (CollectContext context = new CollectContext())
 			{
 
 				var userFromDb = (from u in context.Users select new UserItem { Email = u.Email.ToLower(), Id = u.Id }).ToList();
@@ -104,18 +104,18 @@ namespace Collecte.DAL
 			}
 		}
 
-		public OperationResult<List<User>> ExtractUsers()
+		public StdResult<List<User>> ExtractUsers()
 		{
-			using (CollecteContext context = new CollecteContext())
+			using (CollectContext context = new CollectContext())
 			{
 				try
 				{
 					List<User> participationsFromDb = context.Users.Include("ShowType").Include("ConnexionType").OrderByDescending(u => u.CreationDate).ToList();
-					return OperationResult<List<User>>.OkResultInstance(participationsFromDb);
+					return StdResult<List<User>>.OkResultInstance(participationsFromDb);
 				}
 				catch (Exception e)
 				{
-					return OperationResult<List<User>>.BadResult("Echec de la récupération des utilisateurs : " + e.Message);
+					return StdResult<List<User>>.BadResult("Echec de la récupération des utilisateurs : " + e.Message);
 				}
 			}
 		}
@@ -126,18 +126,18 @@ namespace Collecte.DAL
         /// <param name="debut"></param>
         /// <param name="fin"></param>
         /// <returns></returns>
-        public OperationResult<List<User>> ExtractUsersWithDateLapsTime(DateTime debut, DateTime fin)
+        public StdResult<List<User>> ExtractUsersWithDateLapsTime(DateTime debut, DateTime fin)
         {
-            using (var context = new CollecteContext())
+            using (var context = new CollectContext())
             {
                 try
                 {
                     List<User> participationsFromDb = context.Users.Where(u=> u.CreationDate>= debut && u.CreationDate<=fin).OrderByDescending(u => u.CreationDate).ToList();
-                    return OperationResult<List<User>>.OkResultInstance(participationsFromDb);
+                    return StdResult<List<User>>.OkResultInstance(participationsFromDb);
                 }
                 catch (Exception e)
                 {
-                    return OperationResult<List<User>>.BadResult("Echec de la récupération des utilisateurs : " + e.Message);
+                    return StdResult<List<User>>.BadResult("Echec de la récupération des utilisateurs : " + e.Message);
                 }
             }
         }

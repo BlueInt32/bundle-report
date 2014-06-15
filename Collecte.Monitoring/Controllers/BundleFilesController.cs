@@ -11,6 +11,7 @@ namespace CollecteBundles.Controllers
 {
 	public class BundleFilesController : ApiController
 	{
+		[Route("api/bundlefiles/{*path}")]
 		public string Get(string path)
 		{
 			string fileContent = "";

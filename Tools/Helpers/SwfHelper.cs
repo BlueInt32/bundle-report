@@ -8,14 +8,14 @@ namespace Tools
 {
 	public class SwfHelper
 	{
-		public OperationResult<NoType> SaveSwfFromPostedFile(HttpPostedFileBase file, string fileFullDesiredPath)
+		public StdResult<NoType> SaveSwfFromPostedFile(HttpPostedFileBase file, string fileFullDesiredPath)
 		{
 			if (file == null)
-				return OperationResult<NoType>.BadResult("Image obligatoire.");
+				return StdResult<NoType>.BadResult("Image obligatoire.");
 			string ext = file.FileName.Substring(file.FileName.LastIndexOf(".")).ToLower().Substring(1);
 			if (ext.ToLower() != "swf")
 			{
-				return OperationResult<NoType>.BadResult("Extension non reconnue (utiliser des fichiers swf)");
+				return StdResult<NoType>.BadResult("Extension non reconnue (utiliser des fichiers swf)");
 			}
 
 			string savePath = string.Empty;
@@ -25,9 +25,9 @@ namespace Tools
 			}
 			catch
 			{
-				return OperationResult<NoType>.BadResultFormat("Erreur à l'écriture du fichier {0}", savePath);
+				return StdResult<NoType>.BadResultFormat("Erreur à l'écriture du fichier {0}", savePath);
 			}
-			OperationResult<NoType> res = OperationResult<NoType>.OkResult;
+			StdResult<NoType> res = StdResult<NoType>.OkResult;
 			return res;
 		}
 

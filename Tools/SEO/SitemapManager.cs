@@ -28,12 +28,12 @@ namespace Tools.SEO
 		/// </summary>
 		/// <param name="item"></param>
 		/// <returns></returns>
-		public OperationResult<SitemapManager> AddItem(SitemapItem item)
+		public StdResult<SitemapManager> AddItem(SitemapItem item)
 		{
 			if (!item.Url.IsUrl())
-				return OperationResult<SitemapManager>.BadResult(string.Format("Bad Format Url '{0}'", item.Url));
+				return StdResult<SitemapManager>.BadResult(string.Format("Bad Format Url '{0}'", item.Url));
 			DynamicItems.Add(item);
-			return OperationResult<SitemapManager>.OkResultInstance(this);
+			return StdResult<SitemapManager>.OkResultInstance(this);
 		}
 
 		/// <summary>
@@ -41,7 +41,7 @@ namespace Tools.SEO
 		/// </summary>
 		/// <param name="item"></param>
 		/// <returns></returns>
-		public OperationResult<SitemapManager> AddItem(string url, DateTime? LastModification)
+		public StdResult<SitemapManager> AddItem(string url, DateTime? LastModification)
 		{
 			return AddItem(new SitemapItem { Url = url, LastModification = LastModification });
 		}

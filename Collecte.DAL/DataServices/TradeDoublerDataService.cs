@@ -9,7 +9,7 @@ namespace Collecte.DAL
 	{
 		public static int GetTradeDoublerSequenceNumber()
 		{
-			using (CollecteContext context = new CollecteContext())
+			using (CollectContext context = new CollectContext())
 			{
 				var sequenceNumber = (from seq in context.TradeDoublerIndex
 									 where seq.Id == 1
@@ -19,7 +19,7 @@ namespace Collecte.DAL
 		}
 		public static void SetTradeDoublerSequenceNumber(int value)
 		{
-			using (CollecteContext context = new CollecteContext())
+			using (CollectContext context = new CollectContext())
 			{
 				var sequenceNumber = (from seq in context.TradeDoublerIndex
 									  where seq.Id == 1

@@ -10,7 +10,7 @@ namespace Tools
 {
 	public class Bitly
 	{
-		public static OperationResult<string> ShortenUrl(string inputUrl)
+		public static StdResult<string> ShortenUrl(string inputUrl)
 		{
 			try
 			{
@@ -26,11 +26,11 @@ namespace Tools
 				StreamReader Reader = new StreamReader(stream);
 
 				string shortUrl = Reader.ReadLine();
-				return OperationResult<string>.OkResultInstance(shortUrl);
+				return StdResult<string>.OkResultInstance(shortUrl);
 			}
 			catch (Exception e)
 			{
-				return OperationResult<string>.BadResult("BitLy Shorten exception for "+inputUrl+" : " + e.Message);
+				return StdResult<string>.BadResult("BitLy Shorten exception for "+inputUrl+" : " + e.Message);
 			}
 		}
 	}

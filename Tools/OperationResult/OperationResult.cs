@@ -9,9 +9,9 @@ using System.Linq;
 
 namespace Tools
 {
-	public class OperationResult<T> : IOperationResult<T> where T : class
+	public class StdResult<T> : IStdResult<T> where T : class
 	{
-		public OperationResult()
+		public StdResult()
 		{
 		}
 		public T ReturnObject { get; set; }
@@ -23,40 +23,40 @@ namespace Tools
 		public List<string> ErrorList { get; set; }
 
 		#region Statics
-		public static OperationResult<T> OkResult
+		public static StdResult<T> OkResult
 		{
-			get { return new OperationResult<T> { Result = true, Message = "Ok" }; }
+			get { return new StdResult<T> { Result = true, Message = "Ok" }; }
 		}
-		public static OperationResult<T> OkResultInstance(T instance)
+		public static StdResult<T> OkResultInstance(T instance)
 		{
-			return new OperationResult<T> { Result = true, Message = "Ok", ReturnObject = instance };
+			return new StdResult<T> { Result = true, Message = "Ok", ReturnObject = instance };
 		}
 
-		public static OperationResult<T> BadResult(string message)
+		public static StdResult<T> BadResult(string message)
 		{
 			
-			return new OperationResult<T> { Result = false, Message = message };
+			return new StdResult<T> { Result = false, Message = message };
 		}
 
-		public static OperationResult<T> BadResultWithList(string message, List<string> errorList)
+		public static StdResult<T> BadResultWithList(string message, List<string> errorList)
 		{
-			return new OperationResult<T> { Result = false, Message = message, ErrorList = errorList };
+			return new StdResult<T> { Result = false, Message = message, ErrorList = errorList };
 		}
 
-		public static OperationResult<T> BadResult(string message, T badInstance)
+		public static StdResult<T> BadResult(string message, T badInstance)
 		{
-			return new OperationResult<T> { Result = false, Message = message, ReturnObject = badInstance };
+			return new StdResult<T> { Result = false, Message = message, ReturnObject = badInstance };
 		}
 
-		public static OperationResult<T> BadResultFormat(string message, params object[] args)
+		public static StdResult<T> BadResultFormat(string message, params object[] args)
 		{
-			return new OperationResult<T> { Result = false, Message = string.Format(message, args) };
+			return new StdResult<T> { Result = false, Message = string.Format(message, args) };
 		}
 		#endregion
 
-		public OperationResult<T> LogicalAnd(bool result, string message)
+		public StdResult<T> LogicalAnd(bool result, string message)
 		{
-			OperationResult<T> newResult = new OperationResult<T>
+			StdResult<T> newResult = new StdResult<T>
 			{
 				Result = Result & result,
 			};

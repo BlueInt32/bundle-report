@@ -15,24 +15,24 @@ namespace Collecte.Logic
 		{
 			IgDal = new InstantGagnantDataService();
 		}
-		public OperationResult<InstantGagnant> GetCurrentInstantGagnant()
+		public StdResult<InstantGagnant> GetCurrentInstantGagnant()
 		{
 			return IgDal.GetCurrentInstantGagnant();
 		}
 
-		public OperationResult<InstantGagnant> AddInstantGagnant(InstantGagnant instance)
+		public StdResult<InstantGagnant> AddInstantGagnant(InstantGagnant instance)
 		{
 
 			return IgDal.AddInstantGagnant(instance);
 		}
 
-		public OperationResult<InstantGagnant> DeleteInstantsGagnant()
+		public StdResult<InstantGagnant> DeleteInstantsGagnant()
 		{
 			return IgDal.DeleteInstantsGagnant();
 		}
 
 
-		public OperationResult<InstantGagnant> PlayInstantGagnant(User MainUser)
+		public StdResult<InstantGagnant> PlayInstantGagnant(User MainUser)
 		{
 			return IgDal.WinInstantGagnant(MainUser);
 		}

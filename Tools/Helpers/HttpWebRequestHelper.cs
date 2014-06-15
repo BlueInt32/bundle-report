@@ -9,10 +9,10 @@ namespace Tools
 {
 	public class HttpWebRequestHelper
 	{
-		public static OperationResult<string> MakeRequest(string url)
+		public static StdResult<string> MakeRequest(string url)
 		{
 			if (string.IsNullOrWhiteSpace(url))
-				return OperationResult<string>.BadResult("L'url ne peut pas etre vide");
+				return StdResult<string>.BadResult("L'url ne peut pas etre vide");
 
 			HttpWebRequest wr = (HttpWebRequest)WebRequest.Create(url);
 
@@ -22,7 +22,7 @@ namespace Tools
 			StreamReader streamReader = new StreamReader(resp.GetResponseStream());
 			string response = streamReader.ReadToEnd();
 
-			return OperationResult<string>.OkResultInstance(response);
+			return StdResult<string>.OkResultInstance(response);
 		}
 	}
 }

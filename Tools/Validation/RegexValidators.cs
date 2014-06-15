@@ -41,43 +41,43 @@ namespace Tools.String
 			/// <summary>
 		/// Liste des OperationResults accumulés par l'instance courante de Validator
 		/// </summary>
-		private List<OperationResult<NoType>> Results { get; set; }
+		private List<StdResult<NoType>> Results { get; set; }
 
 		public RegexValidators()
 		{
-			Results = new List<OperationResult<NoType>>();
+			Results = new List<StdResult<NoType>>();
 		}
 
 		/// <summary>
 		/// Retourne un OperationResult résumant tous les strings validés par l'instance courante de Validator.
 		/// </summary>
-		public OperationResult<NoType> InstanceResult
+		public StdResult<NoType> InstanceResult
 		{
 			get
 			{
 				bool resultBool = true;
 				StringBuilder resultString = new StringBuilder();
-				foreach (OperationResult<NoType> operationResult in Results)
+				foreach (StdResult<NoType> operationResult in Results)
 				{
 					resultBool = resultBool & operationResult.Result;
 					resultString.AppendLine(operationResult.Message);
 				}
 
-				return new OperationResult<NoType> { Result = resultBool, Message = resultString.ToString() };
+				return new StdResult<NoType> { Result = resultBool, Message = resultString.ToString() };
 			}
 		}
 
-		private OperationResult<NoType> TooLongResult(string identificateur, int sizeMax)
+		private StdResult<NoType> TooLongResult(string identificateur, int sizeMax)
 		{
-			return OperationResult<NoType>.BadResult(string.Format("{0} trop long (max {1})", identificateur, sizeMax));
+			return StdResult<NoType>.BadResult(string.Format("{0} trop long (max {1})", identificateur, sizeMax));
 		}
 
-		public OperationResult<NoType> GenericValidation(string input, RegexTemplate regexTemplate, string uiIdentification)
+		public StdResult<NoType> GenericValidation(string input, RegexTemplate regexTemplate, string uiIdentification)
 		{
 			Regex regGeneric = new Regex(RegexDictionary[regexTemplate]);
-			OperationResult<NoType> res = regGeneric.IsMatch(input)
-									? OperationResult<NoType>.OkResult
-									: OperationResult<NoType>.BadResult(string.Format("{1} n'est pas valide.", input, uiIdentification));
+			StdResult<NoType> res = regGeneric.IsMatch(input)
+									? StdResult<NoType>.OkResult
+									: StdResult<NoType>.BadResult(string.Format("{1} n'est pas valide.", input, uiIdentification));
 			Results.Add(res);
 			return res;
 		}
@@ -88,12 +88,12 @@ namespace Tools.String
 		/// <param name="email">Email à valider</param>
 		/// <param name="identification">[Optionnel] Permet d'identifier le champ à valider pour une liste de résultats.</param>
 		/// <returns></returns>
-		public OperationResult<NoType> ValidateMail(string email, string identification = "Email")
+		public StdResult<NoType> ValidateMail(string email, string identification = "Email")
 		{
 			Regex regEmail = new Regex(RegexDictionary[RegexTemplate.Mail]);
-			OperationResult<NoType> res = regEmail.IsMatch(email)
-									? OperationResult<NoType>.OkResult
-									: OperationResult<NoType>.BadResultFormat("Email '{0}' mal formé.", email);
+			StdResult<NoType> res = regEmail.IsMatch(email)
+									? StdResult<NoType>.OkResult
+									: StdResult<NoType>.BadResultFormat("Email '{0}' mal formé.", email);
 			Results.Add(res);
 			return res;
 		}
@@ -104,13 +104,13 @@ namespace Tools.String
 		/// <param name="nomPrenom">Nom, prenom, pseudo...</param>
 		/// <param name="identification">[Optionnel] Permet d'identifier le champ à valider pour une liste de résultats (Propriété 'Results')</param>
 		/// <returns></returns>
-		public OperationResult<NoType> ValidateNomPrenomPseudo(string nomPrenom, string identification = "Nom")
+		public StdResult<NoType> ValidateNomPrenomPseudo(string nomPrenom, string identification = "Nom")
 		{
 			Regex regNomPrenom = new Regex(RegexDictionary[RegexTemplate.NomPrenomPseudoOuSimilaire]);
 
-			OperationResult<NoType> res = regNomPrenom.IsMatch(nomPrenom)
-									? OperationResult<NoType>.OkResult
-									: OperationResult<NoType>.BadResult("ValidateNomPrenomPseudo");
+			StdResult<NoType> res = regNomPrenom.IsMatch(nomPrenom)
+									? StdResult<NoType>.OkResult
+									: StdResult<NoType>.BadResult("ValidateNomPrenomPseudo");
 
 			Results.Add(res);
 			return res;
@@ -122,27 +122,27 @@ namespace Tools.String
 		/// <param name="input">Numéro de téléphone à Valider.</param>
 		/// <param name="identification">[Optionnel] Permet d'identifier le champ à valider pour une liste de résultats (Propriété 'Results').</param>
 		/// <returns></returns>
-		public OperationResult<NoType> ValidateTelephone(string input, string identification = "Téléphone")
+		public StdResult<NoType> ValidateTelephone(string input, string identification = "Téléphone")
 		{
 			string trimInput = input.Trim();
 			Regex r = new Regex("Telephone");
 
-			OperationResult<NoType> res = r.IsMatch(trimInput)
-									? OperationResult<NoType>.OkResult
-									: OperationResult<NoType>.BadResult("ValidateTelephone");
+			StdResult<NoType> res = r.IsMatch(trimInput)
+									? StdResult<NoType>.OkResult
+									: StdResult<NoType>.BadResult("ValidateTelephone");
 
 			Results.Add(res);
 			return res;
 		}
 
-		public OperationResult<NoType> ValidatePhraseLibelle(string input, string identification)
+		public StdResult<NoType> ValidatePhraseLibelle(string input, string identification)
 		{
 			string trimInput = input.Trim();
 			Regex r = new Regex(RegexDictionary[RegexTemplate.TitragePhrase]);
 
-			OperationResult<NoType> res = r.IsMatch(trimInput)
-									? OperationResult<NoType>.OkResult
-									: OperationResult<NoType>.BadResult(string.Format("Le format {0} n'est pas valide", identification));
+			StdResult<NoType> res = r.IsMatch(trimInput)
+									? StdResult<NoType>.OkResult
+									: StdResult<NoType>.BadResult(string.Format("Le format {0} n'est pas valide", identification));
 
 			Results.Add(res);
 			return res;
@@ -154,20 +154,20 @@ namespace Tools.String
 		/// <param name="input">Valide une date (sous forme d'un string d'entrée)</param>
 		/// <param name="identification">[Optionnel] Permet d'identifier le champ à valider pour une liste de résultats (Propriété 'Results').</param>
 		/// <returns></returns>
-		public OperationResult<NoType> ValidateDate(string input, string identification = "Date")
+		public StdResult<NoType> ValidateDate(string input, string identification = "Date")
 		{
 			DateTime scannedDateTime;
-			OperationResult<NoType> res = DateTime.TryParse(input, out scannedDateTime)
-									? OperationResult<NoType>.OkResult
-									: OperationResult<NoType>.BadResult("ValidateDate");
+			StdResult<NoType> res = DateTime.TryParse(input, out scannedDateTime)
+									? StdResult<NoType>.OkResult
+									: StdResult<NoType>.BadResult("ValidateDate");
 
 			Results.Add(res);
 			return res;
 		}
 
-		public OperationResult<NoType> ValidateSizeMax(string input, int sizeMax, string identification = "SizeMax")
+		public StdResult<NoType> ValidateSizeMax(string input, int sizeMax, string identification = "SizeMax")
 		{
-			OperationResult<NoType> res = input.Length > sizeMax ? TooLongResult(identification, sizeMax) : OperationResult<NoType>.OkResult;
+			StdResult<NoType> res = input.Length > sizeMax ? TooLongResult(identification, sizeMax) : StdResult<NoType>.OkResult;
 			Results.Add(res);
 			return res;
 		}
