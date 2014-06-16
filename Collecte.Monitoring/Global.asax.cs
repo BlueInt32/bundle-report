@@ -17,8 +17,6 @@ namespace Collecte.Monitoring
         {
             GlobalConfiguration.Configure(WebApiConfig.Register);
 			GlobalConfiguration.Configuration.Filters.Add(new MonitoringAuthenticationFilter());
-
-
         }
 		static public string AssemblyDirectory
 		{

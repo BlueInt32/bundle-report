@@ -1,6 +1,6 @@
 ﻿//'use strict';
 
 angular.module('myServices', []);
-angular.module('bundleControllers', []);
-angular.module('myDirectives', []);
-angular.module('app', ['myServices', 'bundleControllers', 'myDirectives']);
+angular.module('monitoringController', []);
+angular.module('monitoringDirectives', []);
+angular.module('app', ['myServices', 'monitoringController', 'monitoringDirectives']);

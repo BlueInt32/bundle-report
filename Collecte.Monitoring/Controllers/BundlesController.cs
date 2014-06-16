@@ -14,14 +14,10 @@ namespace CollecteBundles.Controllers
 {
     public class BundlesController : ApiController
     {
-		BundleLogic BundleLogic = new BundleLogic();
-
 		public IEnumerable<KeyValuePair<int, List<Bundle>>> GetAllBundles()
 		{
-			var result = BundleLogic.GroupBundles();
-			var arrayEnumerable = from entry in result select entry;
-			return arrayEnumerable;
+			var result = (new BundleLogic()).GroupBundlesByWeeks();
+			return result;
 		}
-
     }
 }

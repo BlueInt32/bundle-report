@@ -1,16 +1,6 @@
 ﻿//'use strict';
 
-angular.module('myDirectives', ['bundleControllers'])
-	.directive('bundle', [ function ()
-	{
-		return {
-			restrict: 'E',
-			templateUrl: 'bundle.partial.html',
-			scope: {
-				bundle: '=which'
-			}			
-		};
-	}])
+angular.module('monitoringDirectives', ['monitoringController'])
 	.directive('previewlink', ['bundleService', function (bundleService)
 	{
 		return {
@@ -22,7 +12,6 @@ angular.module('myDirectives', ['bundleControllers'])
 			{
 				element.bind('click', function($event)
 				{
-					//console.log($event);
 					bundleService.getBundleFileContent(scope.file.fileApiPath).then(function (data)
 					{
 						bundleService.setFileContentToDom(data);

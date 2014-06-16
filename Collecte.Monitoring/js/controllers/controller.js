@@ -1,10 +1,9 @@
 ﻿//'use strict';
 
-angular.module('bundleControllers')
+angular.module('monitoringController')
 	.controller('mainCtrl', ['$scope', '$log', 'bundleService', function ($scope, $log, bundleService)
 	{
 		$scope.showLoaderTree = true;
-		//$scope.showLoaderFile = true;
 		
 		bundleService.getBundles().then(function (data)
 		{

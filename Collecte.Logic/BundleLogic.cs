@@ -162,19 +162,20 @@ namespace Collecte.Logic
 
 		}
 
-		public Dictionary<int, List<Bundle>> GroupBundles()
+		public List<KeyValuePair<int, List<Bundle>>> GroupBundlesByWeeks()
 		{
-			List<Bundle> list = ListBundles();
+			var bundleListResult = (new BundleDataService()).ListBundles();
+			if(! bundleListResult.Result)
+				return null;
+			var list = bundleListResult.ReturnObject;
 
-			Dictionary<int, List<Bundle>> dico = new Dictionary<int, List<Bundle>>();
+			var resultList = new List<KeyValuePair<int, List<Bundle>>>();
+			list.GroupBy(b => GetIso8601WeekOfYear(b.Date))
+				.ToList()
+				.ForEach(iGrouping => 
+					resultList.Add(new KeyValuePair<int, List<Bundle>>(iGrouping.Key, iGrouping.ToList())));
 
-			var groups = list.GroupBy(b => GetIso8601WeekOfYear(b.Date));
-
-			foreach (IGrouping<int, Bundle> item in groups)
-			{
-				dico.Add(item.Key, item.ToList());
-			}
-			return dico;
+			return resultList;
 		}
 
 		public StdResult<Bundle> DeleteBundles()

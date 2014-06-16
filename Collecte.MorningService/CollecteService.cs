@@ -76,7 +76,7 @@ namespace Collecte.MorningService
 					List<User> listNewUserDay = mp.RetrieveNewUsers();
 				
 				Program.Log("User List : " + listNewUserDay.Count);
-				UserDal uDal = new UserDal();
+				UserDataService uDal = new UserDataService();
 
 				string path = ConfigurationManager.AppSettings["localCsvFilesDirectory"];
 				string csvfilePath = uDal.CreateCsvFileFtpFromList(path, listNewUserDay, "CSat");

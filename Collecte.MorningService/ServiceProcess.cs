@@ -21,7 +21,7 @@ namespace Collecte.MorningService
 	{
 		public List<User> RetrieveNewUsers()
 		{
-			using (DataContext context = new DataContext())
+			using (CollectContext context = new CollectContext())
 			{
 				try
 				{
@@ -58,7 +58,7 @@ namespace Collecte.MorningService
 							LogDelegate = Program.Log
 						};
 
-			OperationResult<NoType> ftpResult = ftp.PushFile(localPath, distantDirectory);
+			StdResult<NoType> ftpResult = ftp.PushFile(localPath, distantDirectory);
 
 			if (ftpResult.Result)
 			{
