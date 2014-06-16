@@ -8,6 +8,7 @@ angular.module('myServices')
 			var deferred = $q.defer();
 			$http.get('api/bundles').success(function (data)
 			{
+				console.log(data);
 				for (var i = 0, l = data.length; i < l; i++)
 				{
 					var week = data[i];

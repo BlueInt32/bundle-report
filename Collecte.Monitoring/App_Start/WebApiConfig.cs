@@ -18,14 +18,12 @@ namespace Collecte.Monitoring
 				routeTemplate: "api/{controller}/{id}",
 				defaults: new { id = RouteParameter.Optional }
 			);
-
-			var json = config.Formatters.JsonFormatter;
-			json.SerializerSettings.PreserveReferencesHandling = Newtonsoft.Json.PreserveReferencesHandling.Objects;
-			//json.SerializerSettings.StringEscapeHandling = Newtonsoft.Json.StringEscapeHandling.EscapeHtml;
-
+			
+#if DEBUG
+			config.Formatters.JsonFormatter.SerializerSettings.Formatting = Newtonsoft.Json.Formatting.Indented; 
+#endif
 			#endregion
 
-			config.Formatters.Remove(config.Formatters.XmlFormatter);
         }
     }
 }

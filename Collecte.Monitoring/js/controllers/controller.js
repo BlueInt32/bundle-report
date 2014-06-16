@@ -7,6 +7,7 @@ angular.module('monitoringController')
 		
 		bundleService.getBundles().then(function (data)
 		{
+			
 			$scope.weeks = data;
 			$scope.showLoaderTree = false;
 		});

@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 
 namespace Collecte.DTO
@@ -18,6 +20,9 @@ namespace Collecte.DTO
 		public DateTime CreationDate { get; set; }
 
 		public int BundleId { get; set; }
+
+		[JsonIgnore]
+		[IgnoreDataMember]
 		public virtual Bundle Bundle { get; set; }
 	}
 }
