@@ -1,24 +1,22 @@
 ﻿//'use strict';
 
-angular.module('monitoringDirectives', ['monitoringController'])
-	.directive('previewlink', ['bundleService', function (bundleService)
-	{
-		return {
-			restrict: 'E',
-			scope: {
-				file: "="
-			},
-			link: function (scope, element, attrs)
+monitoringApp.directive('previewlink', ['bundleService', function (bundleService)
+{
+	return {
+		restrict: 'E',
+		scope: {
+			file: "="
+		},
+		link: function (scope, element, attrs)
+		{
+			element.bind('click', function($event)
 			{
-				element.bind('click', function($event)
+				bundleService.getBundleFileContent(scope.file.fileApiPath).then(function (data)
 				{
-					bundleService.getBundleFileContent(scope.file.fileApiPath).then(function (data)
-					{
-						bundleService.setFileContentToDom(data);
-					});
+					bundleService.setFileContentToDom(data);
 				});
-			},
-			template: '<a class="fileLink {{file.icoType}}" href="#">{{file.FileName}}</a> | <a href="{{file.Url}}" target="_blank"><img src="img/save.png"/></a>'
-		};
-	}])
-;
+			});
+		},
+		template: '<a class="fileLink {{file.icoType}}" href="#">{{file.FileName}}</a> | <a href="{{file.Url}}" target="_blank"><img src="img/save.png"/></a>'
+	};
+}]);

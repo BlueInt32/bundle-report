@@ -1,7 +1,6 @@
 ﻿//'use strict';
 
-angular.module('monitoringDirectives', ['monitoringController'])
-	.directive('bundle', [ function ()
+monitoringApp.directive('bundle', [function ()
 	{
 		return {
 			restrict: 'E',

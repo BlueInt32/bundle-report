@@ -15,7 +15,6 @@ namespace CollecteBundles.Controllers
 		public object Get(string path)
 		{
 			string fileContent = "";
-			
 			if(path.EndsWith(".csv"))
 			{
 				fileContent = path.ReadFile().PrepareCsv();

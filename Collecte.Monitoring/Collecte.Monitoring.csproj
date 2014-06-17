@@ -211,8 +211,6 @@
   <ItemGroup>
     <Content Include="packages.config" />
     <Content Include="Files\csvin\FC_RAP_IN_CIBLE_20140511_1.csv" />
-    <Content Include="Files\csvin\FC_RAP_IN_CIBLE_20140512_1.csv" />
-    <Content Include="Files\csvin\FC_RAP_IN_CIBLE_20140523_1.csv" />
     <Content Include="Files\csvout\FC_RAP_OUT_CIBLE_20140511_0.csv" />
     <Content Include="external\bootstrap-2.3.2\.travis.yml" />
     <Content Include="external\bootstrap-2.3.2\CHANGELOG.md" />

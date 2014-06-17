@@ -1,6 +1,5 @@
 ﻿//'use strict';
-angular.module('myServices')
-	.service('bundleService', ['$rootScope', '$http', '$q', '$sce', function ($rootScope, $http, $q, $sce)
+monitoringApp.service('bundleService', ['$rootScope', '$http', '$q', function ($rootScope, $http, $q)
 	{
 		// public functions
 		var getBundles = function ()
@@ -9,7 +8,7 @@ angular.module('myServices')
 			$http.defaults.headers.common.Accept = 'application/json';
 			$http.get('api/bundles').success(function (data)
 			{
-				console.log(data);
+				//console.log(data);
 				for (var i = 0, l = data.length; i < l; i++)
 				{
 					var week = data[i];
@@ -19,10 +18,9 @@ angular.module('myServices')
 
 						for (var k = 0, n = bundle.BundleFiles.length; k < n; k++)
 						{
-							console.log(bundleFile);
+							//console.log(bundleFile);
 							var bundleFile = bundle.BundleFiles[k];
 							bundleFile.CreationDate = moment(bundleFile.CreationDate).format("HH:mm:ss");
-							//var csvUrlReduced = bundleFile.Url/*.replace('.csv', '$csv')*/;
 							switch (bundleFile.Type)
 							{
 								case 0: bundleFile.Url = 'Files/csvin/' + bundleFile.FileName; bundleFile.icoType = 'home'; break;
@@ -53,11 +51,8 @@ angular.module('myServices')
 
 		var setFileContentToDom = function (content)
 		{
-			content.fileContent = content.fileContent.substr(1, content.length - 2);
 			$rootScope.showLoaderFile = false;
 			$rootScope.fileContent = $sce.trustAsHtml(content.fileContent);
-			
-			
 		}
 
 		// private functions
@@ -87,7 +82,7 @@ angular.module('myServices')
 					bundle.displayStatus = 'CSV OUT Scanné';
 					break;
 				case 5: // BundleStatus.XmlCreated
-					bundle.displayClass = 'badge badge-success';
+					bundle.displayClass = 'badge badge-warning';
 					bundle.displayStatus = 'XML créé';
 					break;
 				case 6: // BundleStatus.XmlSentToTrade
