@@ -110,10 +110,6 @@
     <Compile Include="DataServices\TradeDoublerDataService.cs" />
     <Compile Include="DataServices\UserDataService.cs" />
     <Compile Include="CollecteContext.cs" />
-    <Compile Include="Migrations\201406152154253_Init.cs" />
-    <Compile Include="Migrations\201406152154253_Init.Designer.cs">
-      <DependentUpon>201406152154253_Init.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -154,11 +150,6 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201406152154253_Init.resx">
-      <DependentUpon>201406152154253_Init.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

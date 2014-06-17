@@ -6,6 +6,7 @@ angular.module('myServices')
 		var getBundles = function ()
 		{
 			var deferred = $q.defer();
+			$http.defaults.headers.common.Accept = 'application/json';
 			$http.get('api/bundles').success(function (data)
 			{
 				console.log(data);
@@ -18,6 +19,7 @@ angular.module('myServices')
 
 						for (var k = 0, n = bundle.BundleFiles.length; k < n; k++)
 						{
+							console.log(bundleFile);
 							var bundleFile = bundle.BundleFiles[k];
 							bundleFile.CreationDate = moment(bundleFile.CreationDate).format("HH:mm:ss");
 							//var csvUrlReduced = bundleFile.Url/*.replace('.csv', '$csv')*/;
